@@ -35,7 +35,48 @@
 </template>
 
 <script setup lang="ts">
-import { footerNav, socialLinks, footerSection } from '@/data/footer'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+const footerSection = {
+  brandDescription: t('footer.brandDescription'),
+}
+
+const footerNav = [
+  {
+    heading: t('footer.navigation.heading'),
+    links: [
+      { label: t('footer.navigation.home'), href: '#hero' },
+      { label: t('footer.navigation.features'), href: '#features' },
+      { label: t('footer.navigation.platforms'), href: '#platforms' },
+      { label: t('footer.navigation.premium'), href: '#premium' },
+      { label: t('footer.navigation.roadmap'), href: '#roadmap' },
+    ],
+  },
+  {
+    heading: t('footer.platforms.heading'),
+    links: [
+      { label: t('footer.platforms.web'), href: '#' },
+      { label: t('footer.platforms.windows'), href: '#' },
+      { label: t('footer.platforms.android'), href: '#' },
+    ],
+  },
+  {
+    heading: t('footer.legal.heading'),
+    links: [
+      { label: t('footer.legal.privacy'), href: '#' },
+      { label: t('footer.legal.terms'), href: '#' },
+      { label: t('footer.legal.cookies'), href: '#' },
+    ],
+  },
+]
+
+const socialLinks = [
+  { label: t('footer.social.twitter'), href: '#' },
+  { label: t('footer.social.github'), href: '#' },
+  { label: t('footer.social.discord'), href: '#' },
+]
 
 const year = new Date().getFullYear()
 </script>

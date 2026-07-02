@@ -40,9 +40,20 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { useScrollReveal } from '@/composables/useScrollReveal'
-import { hero } from '@/data/hero'
 import { onMounted, onUnmounted } from 'vue'
+
+const { t } = useI18n()
+
+const hero = {
+  headline: t('hero.headline'),
+  subtitle: t('hero.subtitle'),
+  ctaPrimary: t('hero.ctaPrimary'),
+  ctaSecondary: t('hero.ctaSecondary'),
+  emailPlaceholder: t('hero.emailPlaceholder'),
+  submitBtn: t('hero.submitBtn'),
+}
 
 const { el: heroReveal } = useScrollReveal()
 const { el: visualReveal } = useScrollReveal()

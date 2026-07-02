@@ -34,10 +34,20 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useScrollReveal } from '@/composables/useScrollReveal'
-import { newsletter } from '@/data/newsletter'
 
+const { t } = useI18n()
 const { el: cardRef } = useScrollReveal()
+
+const newsletter = {
+  title: t('newsletter.title'),
+  description: t('newsletter.description'),
+  placeholder: t('newsletter.placeholder'),
+  submitLabel: t('newsletter.submitLabel'),
+  submittedLabel: t('newsletter.submittedLabel'),
+  successMessage: t('newsletter.successMessage'),
+}
 
 const email = ref('')
 const error = ref('')

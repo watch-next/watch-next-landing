@@ -41,6 +41,7 @@ const iconSrc = computed(() => {
   return new URL(`../assets/icons/${name}.svg`, import.meta.url).href
 })
 
+console.log('FeatureCard props:', props.icon)
 onMounted(() => {
   if (props.staggerIndex !== undefined && cardRef.value) {
     (cardRef.value as HTMLElement).style.animationDelay = `${props.staggerIndex * 80}ms`

@@ -1,6 +1,38 @@
 import { createApp } from 'vue'
+import { createI18n } from 'vue-i18n'
 import App from './App.vue'
 import './style/global.scss'
 
+// Import locale files
+import en from './locales/en.json'
+import ptBR from './locales/pt-BR.json'
+import es from './locales/es.json'
+
+// Detect browser language
+function getBrowserLanguage(): string {
+  // Check localStorage first
+  const savedLang = localStorage.getItem('watchnext-locale')
+  if (savedLang && ['en', 'pt-BR', 'es'].includes(savedLang)) {
+    return savedLang
+  }
+  // Fall back to browser language
+  const browserLang = navigator.language
+  if (browserLang.startsWith('pt')) return 'pt-BR'
+  if (browserLang.startsWith('es')) return 'es'
+  return 'en'
+}
+
+const i18n = createI18n({
+  legacy: false,
+  locale: getBrowserLanguage(),
+  fallbackLocale: 'en',
+  messages: {
+    en,
+    'pt-BR': ptBR,
+    es,
+  },
+})
+
 const app = createApp(App)
+app.use(i18n)
 app.mount('#app')
