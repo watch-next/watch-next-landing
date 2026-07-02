@@ -12,15 +12,31 @@
     </div>
     <h3 class="platform-card__name">{{ name }}</h3>
     <p class="platform-card__description">{{ description }}</p>
-    <button class="platform-card__btn btn-hover" :class="`platform-card__btn--${id}`">
+    <a
+      v-if="downloadUrl"
+      :href="downloadUrl"
+      class="platform-card__btn btn-hover"
+      :class="`platform-card__btn--${id}`"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       {{ buttonLabel }}
+    </a>
+    <button
+      v-else
+      class="platform-card__btn btn-hover"
+      :class="`platform-card__btn--${id}`"
+      disabled
+    >
+      Coming Soon
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useScrollReveal } from '@/composables/useScrollReveal'
+import { loadDownloadConfig } from '@/services/downloads'
 
 const props = defineProps<{
   id: string
@@ -30,8 +46,13 @@ const props = defineProps<{
 }>()
 
 const { el: cardRef } = useScrollReveal()
+const downloadUrl = ref<string | null>(null)
 
-onMounted(() => {
+onMounted(async () => {
+  const config = await loadDownloadConfig()
+  const platformKey = props.id.toLowerCase() as keyof typeof config
+  downloadUrl.value = config[platformKey] || null
+
   if (props.staggerIndex !== undefined && cardRef.value) {
     (cardRef.value as HTMLElement).style.animationDelay = `${props.staggerIndex * 80}ms`
   }
@@ -45,6 +66,7 @@ const buttonLabel = computed(() => {
     web: 'Open in Browser',
     windows: 'Download for Windows',
     android: 'Get it on Google Play',
+    macos: 'Download for macOS',
   }
   return map[props.id] || 'Download'
 })

@@ -11,14 +11,29 @@
           <a href="#premium" class="hero__cta hero__cta--secondary btn-hover-smooth">{{ hero.ctaSecondary }}</a>
         </div>
         <div class="hero__signup">
-          <input
-            type="email"
-            class="hero__email"
-            :placeholder="hero.emailPlaceholder"
-            aria-label="Email address"
-          />
-          <button class="hero__submit">{{ hero.submitBtn }}</button>
+          <form class="hero__waitlist-form" @submit.prevent="handleAndroidSubmit">
+            <input
+              v-model="androidEmail"
+              type="email"
+              class="hero__email"
+              :class="{ 'hero__email--error': androidError }"
+              :placeholder="hero.emailPlaceholder"
+              aria-label="Email address for Android waitlist"
+              :disabled="androidSubmitted || isSubmittingAndroid"
+            />
+            <button
+              type="submit"
+              class="hero__submit"
+              :disabled="androidSubmitted || isSubmittingAndroid"
+            >
+              {{ androidSubmitted ? hero.submittedLabel : hero.submitBtn }}
+            </button>
+          </form>
+          <span v-if="androidError" class="hero__error" role="alert">{{ androidError }}</span>
+          <span v-if="androidSubmitted" class="hero__success" role="status">{{ hero.successMessage }}</span>
         </div>
+
+        
       </div>
       <div ref="visualReveal" class="hero__visual reveal-right">
         <picture>
@@ -42,7 +57,8 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { useScrollReveal } from '@/composables/useScrollReveal'
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
+import { joinWaitlist } from '@/services/waitlist'
 
 const { t } = useI18n()
 
@@ -53,10 +69,76 @@ const hero = {
   ctaSecondary: t('hero.ctaSecondary'),
   emailPlaceholder: t('hero.emailPlaceholder'),
   submitBtn: t('hero.submitBtn'),
+  submittedLabel: t('hero.submittedLabel'),
+  successMessage: t('hero.successMessage'),
 }
 
 const { el: heroReveal } = useScrollReveal()
 const { el: visualReveal } = useScrollReveal()
+
+// Waitlist form state
+const androidEmail = ref('')
+const iosEmail = ref('')
+const androidSubmitted = ref(false)
+const iosSubmitted = ref(false)
+const androidError = ref('')
+const iosError = ref('')
+const isSubmittingAndroid = ref(false)
+const isSubmittingIos = ref(false)
+
+async function handleAndroidSubmit() {
+  androidError.value = ''
+  if (!androidEmail.value.trim()) {
+    androidError.value = 'Email is required'
+    return
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(androidEmail.value)) {
+    androidError.value = 'Please enter a valid email address'
+    return
+  }
+
+  isSubmittingAndroid.value = true
+  const result = await joinWaitlist(androidEmail.value, 'android')
+
+  if (result.success) {
+    androidSubmitted.value = true
+    androidEmail.value = ''
+  } else if (result.duplicate) {
+    androidError.value = result.error || "You're already on the Android waitlist"
+  } else {
+    androidError.value = result.error || 'Failed to join waitlist. Please try again later.'
+  }
+
+  isSubmittingAndroid.value = false
+}
+
+async function handleIosSubmit() {
+  iosError.value = ''
+  if (!iosEmail.value.trim()) {
+    iosError.value = 'Email is required'
+    return
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(iosEmail.value)) {
+    iosError.value = 'Please enter a valid email address'
+    return
+  }
+
+  isSubmittingIos.value = true
+  const result = await joinWaitlist(iosEmail.value, 'ios')
+
+  if (result.success) {
+    iosSubmitted.value = true
+    iosEmail.value = ''
+  } else if (result.duplicate) {
+    iosError.value = result.error || "You're already on the iOS waitlist"
+  } else {
+    iosError.value = result.error || 'Failed to join waitlist. Please try again later.'
+  }
+
+  isSubmittingIos.value = false
+}
 
 // Mouse parallax effect for hero visual
 onMounted(() => {

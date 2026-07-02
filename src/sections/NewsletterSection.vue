@@ -36,6 +36,7 @@
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useScrollReveal } from '@/composables/useScrollReveal'
+import { subscribeToNewsletter } from '@/services/newsletter'
 
 const { t } = useI18n()
 const { el: cardRef } = useScrollReveal()
@@ -52,24 +53,32 @@ const newsletter = {
 const email = ref('')
 const error = ref('')
 const submitted = ref(false)
+const isSubmitting = ref(false)
 
-function validate(email: string): string {
-  const trimmed = email.trim()
-  if (!trimmed) return 'Email is required'
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  if (!emailRegex.test(trimmed)) return 'Please enter a valid email address'
-  return ''
-}
-
-function handleSubmit() {
+async function handleSubmit() {
   error.value = ''
-  const validationError = validate(email.value)
-  if (validationError) {
-    error.value = validationError
+  const trimmed = email.value.trim()
+  if (!trimmed) {
+    error.value = 'Email is required'
     return
   }
-  submitted.value = true
-  email.value = ''
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(trimmed)) {
+    error.value = 'Please enter a valid email address'
+    return
+  }
+
+  isSubmitting.value = true
+  const result = await subscribeToNewsletter(trimmed)
+
+  if (result.success) {
+    submitted.value = true
+    email.value = ''
+  } else {
+    error.value = result.error || 'Failed to subscribe. Please try again later.'
+  }
+
+  isSubmitting.value = false
 }
 </script>
 
