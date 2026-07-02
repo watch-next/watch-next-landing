@@ -1,0 +1,197 @@
+// ════════════════════════════════════════════════════════════════════════════
+//   BUTTON COMPONENT STYLES
+//   Standardized button variants and utilities
+// ════════════════════════════════════════════════════════════════════════════
+
+@use 'tokens' as *;
+
+// ────────────────────────────────────────────────────────────────────────────
+//   BASE BUTTON STYLES
+// ────────────────────────────────────────────────────────────────────────────
+@mixin btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  padding: $padding-md;
+  font-family: $font-primary;
+  font-size: $text-sm;
+  font-weight: $weight-medium;
+  line-height: $leading-normal;
+  text-decoration: none;
+  border: none;
+  border-radius: $radius-button;
+  cursor: pointer;
+  transition: $transition-button;
+  will-change: transform, box-shadow;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  @include reduced-motion {
+    transition: none;
+    transform: none;
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   PRIMARY BUTTON
+// ────────────────────────────────────────────────────────────────────────────
+@mixin btn-primary {
+  @include btn-base;
+  color: $color-text;
+  background: $gradient-btn-primary;
+  box-shadow: $shadow-button;
+
+  &:hover {
+    background: $gradient-btn-primary-hover;
+    transform: translateY(-2px);
+    box-shadow: $shadow-button-hover;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   SECONDARY BUTTON
+// ────────────────────────────────────────────────────────────────────────────
+@mixin btn-secondary {
+  @include btn-base;
+  color: $color-text;
+  background: $gradient-surface;
+  border: 1px solid $color-border;
+  box-shadow: $shadow-sm;
+
+  &:hover {
+    background: $gradient-surface-hover;
+    border-color: $color-border-hover;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-text-muted;
+    outline-offset: 2px;
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   GHOST BUTTON
+// ────────────────────────────────────────────────────────────────────────────
+@mixin btn-ghost {
+  @include btn-base;
+  color: $color-text-secondary;
+  background: transparent;
+
+  &:hover {
+    color: $color-text;
+    background: $color-glass;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-text-muted;
+    outline-offset: 2px;
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   BUTTON SIZES
+// ────────────────────────────────────────────────────────────────────────────
+@mixin btn-sm {
+  padding: $space-2 $space-3;
+  font-size: $text-xs;
+  border-radius: $radius-sm;
+}
+
+@mixin btn-lg {
+  padding: $space-4 $space-6;
+  font-size: $text-base;
+  border-radius: $radius-button-lg;
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   BUTTON VARIANTS
+// ────────────────────────────────────────────────────────────────────────────
+@mixin btn-success {
+  background: linear-gradient(90deg, $color-success, darken($color-success, 10%));
+  color: $color-background;
+
+  &:hover {
+    box-shadow: 0 4px 16px $shadow-success-glow;
+  }
+}
+
+@mixin btn-error {
+  background: linear-gradient(90deg, $color-error, darken($color-error, 10%));
+  color: $color-text;
+
+  &:hover {
+    box-shadow: 0 4px 16px $shadow-error-glow;
+  }
+}
+
+@mixin btn-glow {
+  @include glow-pulse-soft(3s);
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   BUTTON GROUP
+// ────────────────────────────────────────────────────────────────────────────
+@mixin btn-group {
+  display: inline-flex;
+  gap: $space-2;
+  flex-wrap: wrap;
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   CSS CLASS EXPORTS
+// ────────────────────────────────────────────────────────────────────────────
+.btn {
+  @include btn-base;
+}
+
+.btn-primary {
+  @include btn-primary;
+}
+
+.btn-secondary {
+  @include btn-secondary;
+}
+
+.btn-ghost {
+  @include btn-ghost;
+}
+
+.btn-sm {
+  @include btn-sm;
+}
+
+.btn-lg {
+  @include btn-lg;
+}
+
+.btn-success {
+  @include btn-success;
+}
+
+.btn-error {
+  @include btn-error;
+}
+
+.btn-glow {
+  @include btn-glow;
+}
+
+.btn-group {
+  @include btn-group;
+}

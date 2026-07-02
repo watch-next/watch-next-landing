@@ -1,0 +1,92 @@
+// ════════════════════════════════════════════════════════════════════════════
+//   COLOR TOKENS
+//   Watch Next Brand Colors and Semantic Palettes
+// ════════════════════════════════════════════════════════════════════════════
+
+// ────────────────────────────────────────────────────────────────────────────
+//   BRAND COLORS (Official)
+// ────────────────────────────────────────────────────────────────────────────
+$brand-bg:          #02031A;
+$brand-surface:     #02031A;
+$brand-primary:     #3E8BFF;
+$brand-accent:      #7255FF;
+$brand-text:        #FFFFFF;
+$brand-text-sec:    #B3B3B3;
+$brand-error:       #CF6679;
+$brand-highlight:   #FFC857;
+
+// ────────────────────────────────────────────────────────────────────────────
+//   BACKGROUND & SURFACE PALETTE
+// ────────────────────────────────────────────────────────────────────────────
+$color-background:       #02031A;
+$color-surface:          #0B0D2D;
+$color-surface-light:    #131640;
+$color-surface-hover:    #1A1F55;
+$color-surface-active:   #22285A;
+
+// Glass/Overlay effects
+$color-glass:            rgba(255, 255, 255, 0.04);
+$color-glass-hover:      rgba(255, 255, 255, 0.06);
+$color-overlay-dark:     rgba(2, 3, 26, 0.8);
+$color-overlay-darker:   rgba(2, 3, 26, 0.95);
+
+// ────────────────────────────────────────────────────────────────────────────
+//   PRIMARY & ACCENT STATES
+// ────────────────────────────────────────────────────────────────────────────
+// Primary (Blue)
+$color-primary:          #3E8BFF;
+$color-primary-hover:    #5A9CFF;
+$color-primary-active:   #2B73E6;
+$color-primary-light:    rgba(62, 139, 255, 0.15);
+$color-primary-glow:     rgba(62, 139, 255, 0.35);
+
+// Accent (Purple)
+$color-accent:           #7255FF;
+$color-accent-hover:     #886FFF;
+$color-accent-active:    #5F45E0;
+$color-accent-light:     rgba(114, 85, 255, 0.15);
+$color-accent-glow:      rgba(114, 85, 255, 0.30);
+
+// ────────────────────────────────────────────────────────────────────────────
+//   TEXT COLORS
+// ────────────────────────────────────────────────────────────────────────────
+$color-text:             #FFFFFF;
+$color-text-secondary:   #B3B3B3;
+$color-text-muted:       #8A8FA8;
+$color-text-disabled:    #5A5F7A;
+
+// ────────────────────────────────────────────────────────────────────────────
+//   BORDERS & DIVIDERS
+// ────────────────────────────────────────────────────────────────────────────
+$color-border:           rgba(255, 255, 255, 0.08);
+$color-border-hover:     rgba(255, 255, 255, 0.15);
+$color-divider:          rgba(255, 255, 255, 0.05);
+
+// ────────────────────────────────────────────────────────────────────────────
+//   SEMANTIC COLORS
+// ────────────────────────────────────────────────────────────────────────────
+$color-success:          #4ADE80;
+$color-success-glow:     rgba(74, 222, 128, 0.35);
+$color-warning:          #FACC15;
+$color-warning-glow:     rgba(250, 204, 21, 0.30);
+$color-error:            #CF6679;
+$color-error-glow:       rgba(207, 102, 121, 0.30);
+$color-info:             #3E8BFF;
+$color-info-glow:        rgba(62, 139, 255, 0.30);
+
+// ────────────────────────────────────────────────────────────────────────────
+//   GRAYSCALE FALLBACKS
+// ────────────────────────────────────────────────────────────────────────────
+$color-gray-100:         #E0E0E0;
+$color-gray-200:         #B0B0B0;
+$color-gray-300:         #808080;
+$color-gray-400:         #555555;
+$color-gray-500:         #333333;
+
+// ────────────────────────────────────────────────────────────────────────────
+//   ALIASES (for backwards compatibility)
+// ────────────────────────────────────────────────────────────────────────────
+$color-black:        $color-background;
+$color-dark:         $color-surface;
+$color-elevated:     $color-surface-light;
+$color-white:        $color-text;

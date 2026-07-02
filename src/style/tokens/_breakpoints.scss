@@ -1,0 +1,80 @@
+// ════════════════════════════════════════════════════════════════════════════
+//   BREAKPOINT TOKENS
+//   Responsive design breakpoints
+// ════════════════════════════════════════════════════════════════════════════
+
+// ────────────────────────────────────────────────────────────────────────────
+//   BREAKPOINT VALUES
+// ────────────────────────────────────────────────────────────────────────────
+$bp-xs:   375px;   // Extra small phones
+$bp-sm:   640px;   // Small phones (landscape)
+$bp-md:   768px;   // Tablets
+$bp-lg:   1024px;  // Small laptops
+$bp-xl:   1280px;  // Desktops
+$bp-2xl:  1536px;  // Large desktops
+
+// ────────────────────────────────────────────────────────────────────────────
+//   CONTAINER MAX WIDTHS
+// ────────────────────────────────────────────────────────────────────────────
+$container-sm:   $bp-sm;
+$container-md:   $bp-md;
+$container-lg:   $bp-lg;
+$container-xl:   $bp-xl;
+$container-2xl:  $bp-2xl;
+
+// ────────────────────────────────────────────────────────────────────────────
+//   RESPONSIVE HELPERS (Mixin-based)
+// ────────────────────────────────────────────────────────────────────────────
+
+// Mobile-first media query mixin
+@mixin mq-up($breakpoint) {
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+// Desktop-first media query mixin
+@mixin mq-down($breakpoint) {
+  @media (max-width: ($breakpoint - 1)) {
+    @content;
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   PREDEFINED BREAKPOINT MIXINS
+// ────────────────────────────────────────────────────────────────────────────
+@mixin sm { @media (min-width: $bp-sm) { @content; } }
+@mixin md { @media (min-width: $bp-md) { @content; } }
+@mixin lg { @media (min-width: $bp-lg) { @content; } }
+@mixin xl { @media (min-width: $bp-xl) { @content; } }
+@mixin bp-2xl { @media (min-width: $bp-2xl) { @content; } }
+
+// Max-width variants
+@mixin sm-down { @media (max-width: ($bp-sm - 1)) { @content; } }
+@mixin md-down { @media (max-width: ($bp-md - 1)) { @content; } }
+@mixin lg-down { @media (max-width: ($bp-lg - 1)) { @content; } }
+@mixin xl-down { @media (max-width: ($bp-xl - 1)) { @content; } }
+
+// ────────────────────────────────────────────────────────────────────────────
+//   ORIENTATION & DEVICE MIXINS
+// ────────────────────────────────────────────────────────────────────────────
+@mixin portrait { @media (orientation: portrait) { @content; } }
+@mixin landscape { @media (orientation: landscape) { @content; } }
+
+@mixin touch {
+  @media (hover: none) and (pointer: coarse) {
+    @content;
+  }
+}
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+@mixin dark-mode {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
