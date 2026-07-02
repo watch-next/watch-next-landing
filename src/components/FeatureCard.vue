@@ -41,7 +41,7 @@ const iconSrc = computed(() => {
   return new URL(`../assets/icons/${name}.svg`, import.meta.url).href
 })
 
-console.log('FeatureCard props:', props.icon)
+
 onMounted(() => {
   if (props.staggerIndex !== undefined && cardRef.value) {
     (cardRef.value as HTMLElement).style.animationDelay = `${props.staggerIndex * 80}ms`
@@ -52,53 +52,55 @@ onMounted(() => {
 <style scoped lang="scss">
 @use '@/style/variables' as *;
 
-.feature-card.card-hover {
-  display: flex;
-  flex-direction: column;
-  gap: $space-3;
-  padding: $space-6;
-  background: $gradient-surface;
-  border: 1px solid $color-border;
-  border-radius: $radius-lg;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-              border-color 0.3s ease;
-  transform-style: preserve-3d;
-  will-change: transform, box-shadow;
-  position: relative;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    background: linear-gradient(135deg, rgba($color-primary, 0.3), rgba($color-accent, 0.2));
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    z-index: -1;
-    filter: blur(8px);
-  }
-
-  &:hover {
-    transform: perspective(1000px) translateZ(20px) translateY(-8px);
-    box-shadow:
-      0 20px 40px rgba(0, 0, 0, 0.4),
-      0 8px 24px rgba(62, 139, 255, 0.15),
-      0 0 20px rgba($color-primary, 0.1);
-    border-color: transparent;
+.feature-card {
+  &.card-hover {
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+    padding: $space-6;
+    background: $gradient-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s ease;
+    transform-style: preserve-3d;
+    will-change: transform, box-shadow;
+    position: relative;
 
     &::before {
-      opacity: 1;
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba($color-primary, 0.3), rgba($color-accent, 0.2));
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: -1;
+      filter: blur(8px);
     }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: border-color 0.3s ease;
-    transform: none;
 
     &:hover {
+      transform: perspective(1000px) translateZ(20px) translateY(-8px);
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 8px 24px rgba(62, 139, 255, 0.15),
+        0 0 20px rgba($color-primary, 0.1);
+      border-color: transparent;
+
+      &::before {
+        opacity: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: border-color 0.3s ease;
       transform: none;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+
+      &:hover {
+        transform: none;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      }
     }
   }
 

@@ -35,17 +35,17 @@ const features = [
   {
     title: t('features.items.discovery.title'),
     description: t('features.items.discovery.description'),
-    icon: 'spark',
+    icon: 'discover',
   },
   {
     title: t('features.items.tracking.title'),
     description: t('features.items.tracking.description'),
-    icon: 'check',
+    icon: 'track',
   },
   {
     title: t('features.items.social.title'),
     description: t('features.items.social.description'),
-    icon: 'users',
+    icon: 'social',
   },
   {
     title: t('features.items.calendar.title'),
@@ -55,12 +55,12 @@ const features = [
   {
     title: t('features.items.ratings.title'),
     description: t('features.items.ratings.description'),
-    icon: 'star',
+    icon: 'rating',
   },
   {
     title: t('features.items.offline.title'),
     description: t('features.items.offline.description'),
-    icon: 'cloud-off',
+    icon: 'offline',
   },
 ]
 
