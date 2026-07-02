@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import { useScrollReveal } from '@/composables/useScrollReveal'
 
 const props = defineProps<{
@@ -30,7 +30,7 @@ const { el: itemRef } = useScrollReveal()
 
 onMounted(() => {
   if (props.staggerIndex !== undefined && itemRef.value) {
-    itemRef.value.style.animationDelay = `${props.staggerIndex * 100}ms`
+    (itemRef.value as HTMLElement).style.animationDelay = `${props.staggerIndex * 100}ms`
   }
 })
 </script>
@@ -43,12 +43,15 @@ onMounted(() => {
   gap: $space-6;
   padding: $space-4;
   border-radius: $radius-lg;
-  transition: transform $transition-base, box-shadow $transition-base;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform, box-shadow;
 
   &:hover {
-    transform: translateX(8px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    transform: perspective(1000px) translateX(8px);
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.3),
+      0 0 16px rgba($color-primary, 0.1);
   }
 
   @media (prefers-reduced-motion: reduce) {

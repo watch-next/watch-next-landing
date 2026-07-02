@@ -1,6 +1,7 @@
 <template>
   <section id="hero" class="hero">
-    <div class="hero__bg"></div>
+    <div class="hero__bg gradient-flow-bg"></div>
+    <div class="hero__glow glow-behind"></div>
     <div class="container hero__inner">
       <div ref="heroReveal" class="hero__content reveal">
         <h1 class="hero__headline" v-html="hero.headline.replace('\n', '<br />')"></h1>
@@ -41,9 +42,42 @@
 <script setup lang="ts">
 import { useScrollReveal } from '@/composables/useScrollReveal'
 import { hero } from '@/data/hero'
+import { onMounted, onUnmounted } from 'vue'
 
 const { el: heroReveal } = useScrollReveal()
 const { el: visualReveal } = useScrollReveal()
+
+// Mouse parallax effect for hero visual
+onMounted(() => {
+  const heroSection = document.querySelector('.hero') as HTMLElement
+  const heroImage = document.querySelector('.hero__image') as HTMLElement
+
+  if (!heroSection || !heroImage) return
+
+  const handleMouseMove = (e: globalThis.MouseEvent) => {
+    const rect = heroSection.getBoundingClientRect()
+    const x = (e.clientX - rect.left) / rect.width - 0.5
+    const y = (e.clientY - rect.top) / rect.height - 0.5
+
+    // Subtle parallax movement (max 10px)
+    const strength = 10
+    heroImage.style.setProperty('--parallax-x', `${x * strength}px`)
+    heroImage.style.setProperty('--parallax-y', `${y * strength}px`)
+  }
+
+  const handleMouseLeave = () => {
+    heroImage.style.setProperty('--parallax-x', '0px')
+    heroImage.style.setProperty('--parallax-y', '0px')
+  }
+
+  heroSection.addEventListener('mousemove', handleMouseMove as EventListener)
+  heroSection.addEventListener('mouseleave', handleMouseLeave as EventListener)
+
+  onUnmounted(() => {
+    heroSection.removeEventListener('mousemove', handleMouseMove as EventListener)
+    heroSection.removeEventListener('mouseleave', handleMouseLeave as EventListener)
+  })
+})
 </script>
 
 <style scoped lang="scss">
@@ -61,6 +95,23 @@ const { el: visualReveal } = useScrollReveal()
                 radial-gradient(ellipse 60% 50% at 80% 100%, rgba($color-accent, 0.08) 0%, transparent 50%),
                 $color-background;
     z-index: $z-base;
+  }
+
+  &__glow {
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba($color-primary, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: $z-base;
+    pointer-events: none;
+
+    @media (max-width: 1023px) {
+      display: none;
+    }
   }
 
   &__inner {
@@ -192,6 +243,14 @@ const { el: visualReveal } = useScrollReveal()
     max-width: 560px;
     height: auto;
     border-radius: $radius-lg;
+    transform: translate(var(--parallax-x, 0), var(--parallax-y, 0));
+    transition: transform 100ms ease-out;
+    will-change: transform;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+      transform: none;
+    }
   }
 
   @media (max-width: 1023px) {

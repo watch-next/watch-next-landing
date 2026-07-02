@@ -376,3 +376,205 @@ $z-tooltip:   500;
     transform: none !important;
   }
 }
+
+// ────────────────────────────────────────────────────────────────────────────
+//   ADVANCED ANIMATIONS
+//   New animations for hero, cards, and navigation
+// ────────────────────────────────────────────────────────────────────────────
+
+// Hero gradient animation
+@keyframes gradientFlow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@mixin gradient-flow($duration: 15s) {
+  background-size: 200% 200%;
+  animation: gradientFlow $duration ease-in-out infinite;
+}
+
+// Glow behind elements
+@keyframes glowBehind {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+@mixin glow-behind($color: $color-primary, $duration: 4s) {
+  animation: glowBehind $duration ease-in-out infinite;
+  box-shadow: 0 0 60px rgba($color, 0.3), 0 0 120px rgba($color, 0.15);
+}
+
+// Border glow effect
+@keyframes borderGlow {
+  0%, 100% {
+    border-color: rgba($color-primary, 0.3);
+    box-shadow: 0 0 8px rgba($color-primary, 0.2);
+  }
+  50% {
+    border-color: rgba($color-primary, 0.6);
+    box-shadow: 0 0 20px rgba($color-primary, 0.4);
+  }
+}
+
+@mixin border-glow($duration: 3s) {
+  animation: borderGlow $duration ease-in-out infinite;
+}
+
+// 3D card lift effect
+@keyframes cardLift {
+  0%, 100% {
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0);
+  }
+  25% {
+    transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) translateY(-4px);
+  }
+  75% {
+    transform: perspective(1000px) rotateX(-2deg) rotateY(2deg) translateY(-4px);
+  }
+}
+
+@mixin card-3d-hover {
+  transition: transform $transition-slow, box-shadow $transition-slow;
+  transform-style: preserve-3d;
+
+  &:hover {
+    transform: perspective(1000px) translateZ(20px) translateY(-8px);
+    box-shadow: $shadow-card-hover, 0 20px 60px rgba(62, 139, 255, 0.15);
+  }
+}
+
+// Parallax movement
+@mixin parallax($strength: 10px) {
+  transform: translate(var(--parallax-x, 0), var(--parallax-y, 0));
+  transition: transform 100ms ease-out;
+}
+
+// Sticky header scroll animation
+@keyframes headerSlide {
+  from {
+    transform: translateY(-100%);
+    background: transparent;
+  }
+  to {
+    transform: translateY(0);
+    background: rgba(2, 3, 26, 0.95);
+    backdrop-filter: blur(20px);
+  }
+}
+
+@mixin header-scroll {
+  &[data-scrolled="true"] {
+    background: rgba(2, 3, 26, 0.95);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  }
+}
+
+// Reveal animations
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes revealLeft {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes revealRight {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@mixin reveal-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity $transition-slower, transform $transition-slower;
+
+  &.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@mixin reveal-left {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity $transition-slower, transform $transition-slower;
+
+  &.revealed {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@mixin reveal-right {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity $transition-slower, transform $transition-slower;
+
+  &.revealed {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Active state indicator animation
+@keyframes indicatorGrow {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@mixin indicator-active {
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: $gradient-btn-primary;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform $transition-base;
+  }
+
+  &.active::after {
+    transform: scaleX(1);
+    animation: indicatorGrow $transition-base ease-out;
+  }
+}

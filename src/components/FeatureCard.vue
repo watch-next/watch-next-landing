@@ -43,7 +43,7 @@ const iconSrc = computed(() => {
 
 onMounted(() => {
   if (props.staggerIndex !== undefined && cardRef.value) {
-    cardRef.value.style.animationDelay = `${props.staggerIndex * 80}ms`
+    (cardRef.value as HTMLElement).style.animationDelay = `${props.staggerIndex * 80}ms`
   }
 })
 </script>
@@ -59,20 +59,45 @@ onMounted(() => {
   background: $gradient-surface;
   border: 1px solid $color-border;
   border-radius: $radius-lg;
-  transition: all $transition-base;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s ease;
+  transform-style: preserve-3d;
   will-change: transform, box-shadow;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba($color-primary, 0.3), rgba($color-accent, 0.2));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+    filter: blur(8px);
+  }
 
   &:hover {
-    border-color: $color-border-hover;
-    background: $gradient-card-hover;
-    transform: translateY(-6px);
-    box-shadow: $shadow-card-hover;
+    transform: perspective(1000px) translateZ(20px) translateY(-8px);
+    box-shadow:
+      0 20px 40px rgba(0, 0, 0, 0.4),
+      0 8px 24px rgba(62, 139, 255, 0.15),
+      0 0 20px rgba($color-primary, 0.1);
+    border-color: transparent;
+
+    &::before {
+      opacity: 1;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    transition: none;
+    transition: border-color 0.3s ease;
+    transform: none;
+
     &:hover {
       transform: none;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     }
   }
 
