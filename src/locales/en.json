@@ -1,0 +1,134 @@
+{
+  "navigation": {
+    "home": "Home",
+    "features": "Features",
+    "platforms": "Platforms",
+    "premium": "Premium",
+    "roadmap": "Roadmap",
+    "login": "Login"
+  },
+  "hero": {
+    "headline": "Watch Together.\nAnywhere, Anytime.",
+    "subtitle": "Discover, track, and share your favorite movies and series with friends. Your next binge is just a click away.",
+    "ctaPrimary": "Get Started Free",
+    "ctaSecondary": "See Plans",
+    "emailPlaceholder": "Enter your email",
+    "submitBtn": "Join Now"
+  },
+  "features": {
+    "title": "Everything You Need",
+    "subtitle": "From discovery to tracking, WatchNext has you covered across all your favorite platforms.",
+    "items": {
+      "discovery": {
+        "title": "Smart Discovery",
+        "description": "Get personalized recommendations powered by your watch history and preferences."
+      },
+      "tracking": {
+        "title": "Unified Tracking",
+        "description": "Keep tabs on everything you watch across Netflix, Prime, Hulu, and more."
+      },
+      "social": {
+        "title": "Social Watchlist",
+        "description": "Create and share watchlists with friends. Never lose track of what to watch next."
+      },
+      "calendar": {
+        "title": "Release Calendar",
+        "description": "Stay up to date with upcoming releases, new seasons, and premiere dates."
+      },
+      "ratings": {
+        "title": "Smart Ratings",
+        "description": "See combined scores from IMDb, Rotten Tomatoes, and Metacritic in one place."
+      },
+      "offline": {
+        "title": "Offline Mode",
+        "description": "Browse your library and plan your watchlist even without an internet connection."
+      }
+    }
+  },
+  "platforms": {
+    "title": "Available Everywhere",
+    "subtitle": "WatchNext comes to all your devices. Start on one, continue on another."
+  },
+  "premium": {
+    "title": "Go Premium",
+    "subtitle": "Unlock exclusive features and enhance your viewing experience.",
+    "features": {
+      "adFree": "Ad-free experience",
+      "analytics": "Advanced analytics",
+      "support": "Priority support",
+      "earlyAccess": "Early access to new features"
+    },
+    "cta": "Upgrade Now"
+  },
+  "roadmap": {
+    "title": "What's Coming Next",
+    "subtitle": "Here's what we're building. Follow along as we bring WatchNext to every platform.",
+    "quarters": {
+      "q1_2026": {
+        "title": "Core Platform Launch",
+        "description": "Initial release with web app, basic tracking, and cross-platform watchlist sync."
+      },
+      "q2_2026": {
+        "title": "Social Features",
+        "description": "Friend lists, shared watchlists, activity feeds, and comment threads."
+      },
+      "q3_2026": {
+        "title": "Mobile Apps",
+        "description": "Native Android app with offline mode, widgets, and push notifications."
+      },
+      "q4_2026": {
+        "title": "Recommendation Engine",
+        "description": "AI-powered suggestions based on watch history, genre preferences, and social trends."
+      },
+      "q1_2027": {
+        "title": "Windows Desktop App",
+        "description": "Native Windows client with system tray, PIP mode, and keyboard shortcuts."
+      },
+      "q2_2027": {
+        "title": "API & Integrations",
+        "description": "Public API for third-party developers and integrations with Plex, Jellyfin, and Kodi."
+      }
+    },
+    "status": {
+      "completed": "Completed",
+      "inProgress": "In Progress",
+      "planned": "Planned"
+    }
+  },
+  "newsletter": {
+    "title": "Stay in the Loop",
+    "description": "Get the latest features, platform updates, and curated recommendations delivered to your inbox.",
+    "placeholder": "Enter your email address",
+    "submitLabel": "Subscribe",
+    "successMessage": "Thanks for subscribing!",
+    "submittedLabel": "Subscribed"
+  },
+  "footer": {
+    "brandDescription": "Discover, track, and share your favorite movies and series. Your next binge starts here.",
+    "navigation": {
+      "heading": "Navigation",
+      "home": "Home",
+      "features": "Features",
+      "platforms": "Platforms",
+      "premium": "Premium",
+      "roadmap": "Roadmap"
+    },
+    "platforms": {
+      "heading": "Platforms",
+      "web": "Web App",
+      "windows": "Windows",
+      "android": "Android"
+    },
+    "legal": {
+      "heading": "Legal",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Policy"
+    },
+    "social": {
+      "twitter": "Twitter",
+      "github": "GitHub",
+      "discord": "Discord"
+    }
+  }
+}

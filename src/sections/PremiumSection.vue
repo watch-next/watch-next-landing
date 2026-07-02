@@ -16,7 +16,21 @@
 </template>
 
 <script setup lang="ts">
-import { premiumSection } from '@/data/premium'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+const premiumSection = {
+  title: t('premium.title'),
+  subtitle: t('premium.subtitle'),
+  features: [
+    t('premium.features.adFree'),
+    t('premium.features.analytics'),
+    t('premium.features.support'),
+    t('premium.features.earlyAccess'),
+  ],
+  cta: t('premium.cta'),
+}
 </script>
 
 <style scoped lang="scss">

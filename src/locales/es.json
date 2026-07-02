@@ -1,0 +1,134 @@
+{
+  "navigation": {
+    "home": "Inicio",
+    "features": "Características",
+    "platforms": "Plataformas",
+    "premium": "Premium",
+    "roadmap": "Hoja de Ruta",
+    "login": "Iniciar Sesión"
+  },
+  "hero": {
+    "headline": "Mira Junto.\nEn Cualquier Lugar, en Cualquier Momento.",
+    "subtitle": "Descubre, sigue y comparte tus películas y series favoritas con amigos. Tu próxima maratón está a solo un clic de distancia.",
+    "ctaPrimary": "Comienza Gratis",
+    "ctaSecondary": "Ver Planes",
+    "emailPlaceholder": "Ingresa tu correo",
+    "submitBtn": "Únete Ahora"
+  },
+  "features": {
+    "title": "Todo Lo Que Necesitas",
+    "subtitle": "Desde el descubrimiento hasta el seguimiento, WatchNext te cubre en todas tus plataformas favoritas.",
+    "items": {
+      "discovery": {
+        "title": "Descubrimiento Inteligente",
+        "description": "Obtén recomendaciones personalizadas basadas en tu historial y preferencias de visualización."
+      },
+      "tracking": {
+        "title": "Seguimiento Unificado",
+        "description": "Mantén un registro de todo lo que ves en Netflix, Prime, Hulu y más."
+      },
+      "social": {
+        "title": "Lista Social",
+        "description": "Crea y comparte listas de reproducción con amigos. Nunca pierdas de vista qué ver después."
+      },
+      "calendar": {
+        "title": "Calendario de Estrenos",
+        "description": "Mantente al día con los próximos estrenos, nuevas temporadas y fechas de estreno."
+      },
+      "ratings": {
+        "title": "Calificaciones Inteligentes",
+        "description": "Ve puntuaciones combinadas de IMDb, Rotten Tomatoes y Metacritic en un solo lugar."
+      },
+      "offline": {
+        "title": "Modo Sin Conexión",
+        "description": "Navega por tu biblioteca y planifica tu lista incluso sin conexión a internet."
+      }
+    }
+  },
+  "platforms": {
+    "title": "Disponible en Todas Partes",
+    "subtitle": "WatchNext llega a todos tus dispositivos. Comienza en uno, continúa en otro."
+  },
+  "premium": {
+    "title": "Hazte Premium",
+    "subtitle": "Desbloquea funciones exclusivas y mejora tu experiencia de visualización.",
+    "features": {
+      "adFree": "Experiencia sin anuncios",
+      "analytics": "Análisis avanzados",
+      "support": "Soporte prioritario",
+      "earlyAccess": "Acceso anticipado a nuevas funciones"
+    },
+    "cta": "Actualizar Ahora"
+  },
+  "roadmap": {
+    "title": "Lo Que Viene Próximamente",
+    "subtitle": "Esto es lo que estamos construyendo. Sigue el proceso mientras llevamos WatchNext a todas las plataformas.",
+    "quarters": {
+      "q1_2026": {
+        "title": "Lanzamiento de la Plataforma Principal",
+        "description": "Lanzamiento inicial con aplicación web, seguimiento básico y sincronización de listas entre plataformas."
+      },
+      "q2_2026": {
+        "title": "Funciones Sociales",
+        "description": "Listas de amigos, listas compartidas, feeds de actividad y hilos de comentarios."
+      },
+      "q3_2026": {
+        "title": "Aplicaciones Móviles",
+        "description": "Aplicación nativa de Android con modo sin conexión, widgets y notificaciones push."
+      },
+      "q4_2026": {
+        "title": "Motor de Recomendaciones",
+        "description": "Sugerencias impulsadas por IA basadas en historial de visualización, preferencias de género y tendencias sociales."
+      },
+      "q1_2027": {
+        "title": "Aplicación de Escritorio Windows",
+        "description": "Cliente nativo de Windows con bandeja del sistema, modo PiP y atajos de teclado."
+      },
+      "q2_2027": {
+        "title": "API e Integraciones",
+        "description": "API pública para desarrolladores e integraciones con Plex, Jellyfin y Kodi."
+      }
+    },
+    "status": {
+      "completed": "Completado",
+      "inProgress": "En Progreso",
+      "planned": "Planificado"
+    }
+  },
+  "newsletter": {
+    "title": "Mantente Informado",
+    "description": "Recibe las últimas funciones, actualizaciones de la plataforma y recomendaciones curadas en tu bandeja de entrada.",
+    "placeholder": "Ingresa tu dirección de correo",
+    "submitLabel": "Suscribirse",
+    "successMessage": "¡Gracias por suscribirte!",
+    "submittedLabel": "Suscrito"
+  },
+  "footer": {
+    "brandDescription": "Descubre, sigue y comparte tus películas y series favoritas. Tu próxima maratón comienza aquí.",
+    "navigation": {
+      "heading": "Navegación",
+      "home": "Inicio",
+      "features": "Características",
+      "platforms": "Plataformas",
+      "premium": "Premium",
+      "roadmap": "Hoja de Ruta"
+    },
+    "platforms": {
+      "heading": "Plataformas",
+      "web": "Aplicación Web",
+      "windows": "Windows",
+      "android": "Android"
+    },
+    "legal": {
+      "heading": "Legal",
+      "privacy": "Política de Privacidad",
+      "terms": "Términos de Servicio",
+      "cookies": "Política de Cookies"
+    },
+    "social": {
+      "twitter": "Twitter",
+      "github": "GitHub",
+      "discord": "Discord"
+    }
+  }
+}

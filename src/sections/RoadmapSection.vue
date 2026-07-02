@@ -21,11 +21,44 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import TimelineItem from '@/components/TimelineItem.vue'
-import { roadmap, roadmapSection } from '@/data/roadmap'
 import { useScrollReveal } from '@/composables/useScrollReveal'
 
+const { t } = useI18n()
 const { el: sectionRef } = useScrollReveal()
+
+const roadmapSection = {
+  title: t('roadmap.title'),
+  subtitle: t('roadmap.subtitle'),
+}
+
+const roadmap = [
+  {
+    quarter: t('roadmap.quarters.q1_2026.title'),
+    title: t('roadmap.quarters.q1_2026.title'),
+    description: t('roadmap.quarters.q1_2026.description'),
+    status: t('roadmap.status.inProgress'),
+  },
+  {
+    quarter: t('roadmap.quarters.q2_2026.title'),
+    title: t('roadmap.quarters.q2_2026.title'),
+    description: t('roadmap.quarters.q2_2026.description'),
+    status: t('roadmap.status.planned'),
+  },
+  {
+    quarter: t('roadmap.quarters.q3_2026.title'),
+    title: t('roadmap.quarters.q3_2026.title'),
+    description: t('roadmap.quarters.q3_2026.description'),
+    status: t('roadmap.status.planned'),
+  },
+  {
+    quarter: t('roadmap.quarters.q4_2026.title'),
+    title: t('roadmap.quarters.q4_2026.title'),
+    description: t('roadmap.quarters.q4_2026.description'),
+    status: t('roadmap.status.planned'),
+  },
+]
 </script>
 
 <style scoped lang="scss">

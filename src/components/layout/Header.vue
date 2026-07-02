@@ -8,11 +8,22 @@
 
       <nav class="header__nav" :class="{ 'header__nav--open': menuOpen }" role="navigation" aria-label="Main navigation" id="main-nav">
         <ul class="header__nav-list">
-          <li v-for="link in navLinks" :key="link.label" class="header__nav-item">
+          <li v-for="link in navLinks" :key="link.href" class="header__nav-item">
             <a :href="link.href" class="header__nav-link link-hover" @click="closeMenu">{{ link.label }}</a>
           </li>
         </ul>
-        <button class="header__login-btn">Login</button>
+        <button class="header__login-btn">{{ t('navigation.login') }}</button>
+
+        <div class="header__lang-switcher">
+          <button class="header__lang-btn" @click="toggleLangMenu" aria-label="Select language">
+            {{ languages.find(l => l.code === currentLang)?.label }}
+          </button>
+          <ul v-if="showLangMenu" class="header__lang-dropdown">
+            <li v-for="lang in languages" :key="lang.code">
+              <button @click="selectLang(lang.code)">{{ lang.label }}</button>
+            </li>
+          </ul>
+        </div>
       </nav>
 
       <button class="header__menu-toggle" aria-label="Toggle menu" :aria-expanded="menuOpen" aria-controls="main-nav" @click="toggleMenu">
@@ -28,10 +39,29 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { navLinks } from '@/data/navigation'
+import { useI18n } from 'vue-i18n'
+
+const { t, locale } = useI18n()
 
 const menuOpen = ref(false)
 const scrolled = ref(false)
+const showLangMenu = ref(false)
+
+const navLinks = [
+  { label: t('navigation.home'), href: '#hero' },
+  { label: t('navigation.features'), href: '#features' },
+  { label: t('navigation.platforms'), href: '#platforms' },
+  { label: t('navigation.premium'), href: '#premium' },
+  { label: t('navigation.roadmap'), href: '#roadmap' },
+]
+
+const languages = [
+  { code: 'en', label: 'English' },
+  { code: 'pt-BR', label: 'Português' },
+  { code: 'es', label: 'Español' },
+]
+
+const currentLang = ref(locale.value)
 
 function toggleMenu() {
   menuOpen.value = !menuOpen.value
@@ -41,18 +71,37 @@ function closeMenu() {
   menuOpen.value = false
 }
 
-// Scroll detection for header animation
+function toggleLangMenu() {
+  showLangMenu.value = !showLangMenu.value
+}
+
+function selectLang(code: string) {
+  locale.value = code
+  currentLang.value = code
+  showLangMenu.value = false
+  localStorage.setItem('watchnext-locale', code)
+}
+
 onMounted(() => {
-  const handleScroll = () => {
-    scrolled.value = window.scrollY > 10
+  const savedLang = localStorage.getItem('watchnext-locale')
+  if (savedLang && ['en', 'pt-BR', 'es'].includes(savedLang)) {
+    locale.value = savedLang
+    currentLang.value = savedLang
   }
+})
 
+// Scroll detection for header animation
+const handleScroll = () => {
+  scrolled.value = window.scrollY > 10
+}
+
+onMounted(() => {
   window.addEventListener('scroll', handleScroll, { passive: true })
-  handleScroll() // Check initial state
+  handleScroll()
+})
 
-  onUnmounted(() => {
-    window.removeEventListener('scroll', handleScroll)
-  })
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
 })
 </script>
 

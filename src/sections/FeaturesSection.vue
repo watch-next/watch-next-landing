@@ -20,9 +20,49 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import FeatureCard from '@/components/FeatureCard.vue'
-import { features, featuresSection } from '@/data/features'
 import { useScrollReveal } from '@/composables/useScrollReveal'
+
+const { t } = useI18n()
+
+const featuresSection = {
+  title: t('features.title'),
+  subtitle: t('features.subtitle'),
+}
+
+const features = [
+  {
+    title: t('features.items.discovery.title'),
+    description: t('features.items.discovery.description'),
+    icon: 'spark',
+  },
+  {
+    title: t('features.items.tracking.title'),
+    description: t('features.items.tracking.description'),
+    icon: 'check',
+  },
+  {
+    title: t('features.items.social.title'),
+    description: t('features.items.social.description'),
+    icon: 'users',
+  },
+  {
+    title: t('features.items.calendar.title'),
+    description: t('features.items.calendar.description'),
+    icon: 'calendar',
+  },
+  {
+    title: t('features.items.ratings.title'),
+    description: t('features.items.ratings.description'),
+    icon: 'star',
+  },
+  {
+    title: t('features.items.offline.title'),
+    description: t('features.items.offline.description'),
+    icon: 'cloud-off',
+  },
+]
 
 const { el: sectionRef } = useScrollReveal()
 </script>

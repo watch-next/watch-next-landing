@@ -1,0 +1,134 @@
+{
+  "navigation": {
+    "home": "Início",
+    "features": "Recursos",
+    "platforms": "Plataformas",
+    "premium": "Premium",
+    "roadmap": "Roadmap",
+    "login": "Entrar"
+  },
+  "hero": {
+    "headline": "Assista Juntos.\nEm Qualquer Lugar, a Qualquer Hora.",
+    "subtitle": "Descubra, acompanhe e compartilhe seus filmes e séries favoritos com amigos. Sua próxima maratona está a apenas um clique de distância.",
+    "ctaPrimary": "Comece Gratuitamente",
+    "ctaSecondary": "Ver Planos",
+    "emailPlaceholder": "Digite seu e-mail",
+    "submitBtn": "Participar Agora"
+  },
+  "features": {
+    "title": "Tudo o Que Você Precisa",
+    "subtitle": "Da descoberta ao acompanhamento, o WatchNext cobre todos os seus streaming favoritos.",
+    "items": {
+      "discovery": {
+        "title": "Descoberta Inteligente",
+        "description": "Receba recomendações personalizadas baseadas no seu histórico e preferências de visualização."
+      },
+      "tracking": {
+        "title": "Acompanhamento Unificado",
+        "description": "Mantenha o controle de tudo o que você assiste no Netflix, Prime, Hulu e muito mais."
+      },
+      "social": {
+        "title": "Lista Social",
+        "description": "Crie e compartilhe listas de reprodução com amigos. Nunca mais perca o que assistir a seguir."
+      },
+      "calendar": {
+        "title": "Calendário de Lançamentos",
+        "description": "Mantenha-se atualizado sobre lançamentos, novas temporadas e datas de estreia."
+      },
+      "ratings": {
+        "title": "Avaliações Inteligentes",
+        "description": "Veja pontuações combinadas do IMDb, Rotten Tomatoes e Metacritic em um só lugar."
+      },
+      "offline": {
+        "title": "Modo Offline",
+        "description": "Navegue pela sua biblioteca e planeje sua lista mesmo sem conexão com a internet."
+      }
+    }
+  },
+  "platforms": {
+    "title": "Disponível em Todos os Lugares",
+    "subtitle": "O WatchNext chega a todos os seus dispositivos. Comece em um, continue em outro."
+  },
+  "premium": {
+    "title": "Seja Premium",
+    "subtitle": "Desbloqueie recursos exclusivos e melhore sua experiência de visualização.",
+    "features": {
+      "adFree": "Experiência sem anúncios",
+      "analytics": "Análises avançadas",
+      "support": "Suporte prioritário",
+      "earlyAccess": "Acesso antecipado a novos recursos"
+    },
+    "cta": "Fazer Upgrade Agora"
+  },
+  "roadmap": {
+    "title": "O Que Vem Por Aí",
+    "subtitle": "Veja o que estamos construindo. Acompanhe enquanto levamos o WatchNext para todas as plataformas.",
+    "quarters": {
+      "q1_2026": {
+        "title": "Lançamento da Plataforma Principal",
+        "description": "Lançamento inicial com aplicativo web, acompanhamento básico e sincronização de lista entre plataformas."
+      },
+      "q2_2026": {
+        "title": "Recursos Sociais",
+        "description": "Listas de amigos, listas compartilhadas, feeds de atividade e threads de comentários."
+      },
+      "q3_2026": {
+        "title": "Aplicativos Mobile",
+        "description": "Aplicativo Android nativo com modo offline, widgets e notificações push."
+      },
+      "q4_2026": {
+        "title": "Engine de Recomendação",
+        "description": "Sugestões alimentadas por IA baseadas no histórico de visualização, preferências de gênero e tendências sociais."
+      },
+      "q1_2027": {
+        "title": "Aplicativo Desktop Windows",
+        "description": "Cliente nativo Windows com bandeja do sistema, modo PiP e atalhos de teclado."
+      },
+      "q2_2027": {
+        "title": "API e Integrações",
+        "description": "API pública para desenvolvedores e integrações com Plex, Jellyfin e Kodi."
+      }
+    },
+    "status": {
+      "completed": "Concluído",
+      "inProgress": "Em Progresso",
+      "planned": "Planejado"
+    }
+  },
+  "newsletter": {
+    "title": "Fique Por Dentro",
+    "description": "Receba as últimas novidades, atualizações da plataforma e recomendações curadas na sua caixa de entrada.",
+    "placeholder": "Digite seu endereço de e-mail",
+    "submitLabel": "Inscrever-se",
+    "successMessage": "Obrigado por se inscrever!",
+    "submittedLabel": "Inscrito"
+  },
+  "footer": {
+    "brandDescription": "Descubra, acompanhe e compartilhe seus filmes e séries favoritos. Sua próxima maratona começa aqui.",
+    "navigation": {
+      "heading": "Navegação",
+      "home": "Início",
+      "features": "Recursos",
+      "platforms": "Plataformas",
+      "premium": "Premium",
+      "roadmap": "Roadmap"
+    },
+    "platforms": {
+      "heading": "Plataformas",
+      "web": "Aplicativo Web",
+      "windows": "Windows",
+      "android": "Android"
+    },
+    "legal": {
+      "heading": "Jurídico",
+      "privacy": "Política de Privacidade",
+      "terms": "Termos de Serviço",
+      "cookies": "Política de Cookies"
+    },
+    "social": {
+      "twitter": "Twitter",
+      "github": "GitHub",
+      "discord": "Discord"
+    }
+  }
+}
