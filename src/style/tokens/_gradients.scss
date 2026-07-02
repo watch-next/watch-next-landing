@@ -1,0 +1,40 @@
+// ════════════════════════════════════════════════════════════════════════════
+//   GRADIENT TOKENS
+//   Reusable gradient definitions based on brand colors
+// ════════════════════════════════════════════════════════════════════════════
+
+@use 'colors' as *;
+
+// ────────────────────────────────────────────────────────────────────────────
+//   BUTTON GRADIENTS
+// ────────────────────────────────────────────────────────────────────────────
+$gradient-btn-primary: linear-gradient(90deg, #3E8BFF, #7255FF);
+$gradient-btn-primary-hover: linear-gradient(90deg, #5A9CFF, #886FFF);
+$gradient-btn-accent: linear-gradient(90deg, #7255FF, #3E8BFF);
+$gradient-btn-secondary: linear-gradient(135deg, $color-surface, $color-surface-light);
+
+// ────────────────────────────────────────────────────────────────────────────
+//   CARD & SURFACE GRADIENTS
+// ────────────────────────────────────────────────────────────────────────────
+$gradient-card: linear-gradient(135deg, rgba(62, 139, 255, 0.08), rgba(114, 85, 255, 0.05));
+$gradient-card-hover: linear-gradient(135deg, rgba(62, 139, 255, 0.12), rgba(114, 85, 255, 0.08));
+$gradient-surface: linear-gradient(135deg, $color-surface 0%, $color-surface-light 100%);
+$gradient-surface-hover: linear-gradient(135deg, $color-surface-hover 0%, $color-surface-active 100%);
+
+// ────────────────────────────────────────────────────────────────────────────
+//   SECTION GRADIENTS
+// ────────────────────────────────────────────────────────────────────────────
+$gradient-section: linear-gradient(180deg, rgba(62, 139, 255, 0.08), rgba(114, 85, 255, 0.05));
+$gradient-hero: linear-gradient(135deg, #3E8BFF 0%, #7255FF 100%);
+
+// ────────────────────────────────────────────────────────────────────────────
+//   GLASS & OVERLAY GRADIENTS
+// ────────────────────────────────────────────────────────────────────────────
+$gradient-glass: linear-gradient(135deg, rgba($color-glass, 0.8), rgba($color-glass, 0.4));
+$gradient-glass-hover: linear-gradient(135deg, rgba($color-glass-hover, 0.9), rgba($color-glass-hover, 0.5));
+
+// ────────────────────────────────────────────────────────────────────────────
+//   DECORATIVE GRADIENTS
+// ────────────────────────────────────────────────────────────────────────────
+$gradient-border: linear-gradient(135deg, rgba($color-primary, 0.3), rgba($color-accent, 0.2));
+$gradient-glow: linear-gradient(180deg, rgba($color-primary, 0.2), transparent);

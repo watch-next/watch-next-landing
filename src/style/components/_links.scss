@@ -1,0 +1,275 @@
+// ════════════════════════════════════════════════════════════════════════════
+//   LINK STYLES
+//   Standardized link variants and utilities
+// ════════════════════════════════════════════════════════════════════════════
+
+@use 'tokens' as *;
+
+// ────────────────────────────────────────────────────────────────────────────
+//   BASE LINK STYLES
+// ────────────────────────────────────────────────────────────────────────────
+@mixin link-base {
+  color: $color-text;
+  text-decoration: none;
+  transition: color $duration-fast $ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    color: $color-primary;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+
+  @include reduced-motion {
+    transition: none;
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   TEXT LINK (Inline)
+// ────────────────────────────────────────────────────────────────────────────
+@mixin link-text {
+  @include link-base;
+  color: $color-primary;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+
+  &:hover {
+    color: $color-primary-hover;
+    text-decoration-color: $color-primary-hover;
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   NAVIGATION LINK
+// ────────────────────────────────────────────────────────────────────────────
+@mixin link-nav {
+  @include link-base;
+  position: relative;
+  color: $color-text-secondary;
+  font-size: $text-sm;
+  font-weight: $weight-medium;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: $gradient-btn-primary;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform $duration-base $ease-out;
+  }
+
+  &:hover {
+    color: $color-text;
+
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+
+  &.active {
+    color: $color-text;
+
+    &::after {
+      transform: scaleX(1);
+      animation: indicatorGrow $duration-base $ease-out;
+    }
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   BUTTON LINK (CTA style)
+// ────────────────────────────────────────────────────────────────────────────
+@mixin link-cta {
+  @include btn-primary;
+  display: inline-flex;
+}
+
+@mixin link-cta-secondary {
+  @include btn-secondary;
+  display: inline-flex;
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   FOOTER LINK
+// ────────────────────────────────────────────────────────────────────────────
+@mixin link-footer {
+  @include link-base;
+  color: $color-text-muted;
+  font-size: $text-sm;
+
+  &:hover {
+    color: $color-text;
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   CARD LINK (Clickable card)
+// ────────────────────────────────────────────────────────────────────────────
+@mixin link-card {
+  @include link-base;
+  color: inherit;
+  text-decoration: none;
+  display: block;
+
+  &:hover {
+    .card-title {
+      color: $color-primary;
+    }
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   ICON LINK
+// ────────────────────────────────────────────────────────────────────────────
+@mixin link-icon {
+  @include link-base;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-text-muted;
+
+  &:hover {
+    color: $color-primary;
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   HELPER LINK
+// ────────────────────────────────────────────────────────────────────────────
+@mixin link-helper {
+  @include link-base;
+  color: $color-text-secondary;
+  font-size: $text-sm;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+
+  &:hover {
+    color: $color-text;
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   UNDERLINE ANIMATION
+// ────────────────────────────────────────────────────────────────────────────
+@mixin link-animated-underline {
+  @include link-base;
+  position: relative;
+  color: $color-primary;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform $duration-base $ease-out;
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   EXTERNAL LINK (With icon spacer)
+// ────────────────────────────────────────────────────────────────────────────
+@mixin link-external {
+  @include link-text;
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   LINK GROUP
+// ────────────────────────────────────────────────────────────────────────────
+@mixin link-group {
+  display: flex;
+  gap: $space-4;
+  flex-wrap: wrap;
+}
+
+@mixin link-group-vertical {
+  @include link-group;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+@keyframes indicatorGrow {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   CSS CLASS EXPORTS
+// ────────────────────────────────────────────────────────────────────────────
+.link {
+  @include link-base;
+}
+
+.link-text {
+  @include link-text;
+}
+
+.link-nav {
+  @include link-nav;
+}
+
+.link-cta {
+  @include link-cta;
+}
+
+.link-cta-secondary {
+  @include link-cta-secondary;
+}
+
+.link-footer {
+  @include link-footer;
+}
+
+.link-card {
+  @include link-card;
+}
+
+.link-icon {
+  @include link-icon;
+}
+
+.link-helper {
+  @include link-helper;
+}
+
+.link-animated-underline {
+  @include link-animated-underline;
+}
+
+.link-external {
+  @include link-external;
+}
+
+.link-group {
+  @include link-group;
+}
+
+.link-group-vertical {
+  @include link-group-vertical;
+}

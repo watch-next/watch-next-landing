@@ -1,0 +1,117 @@
+// ════════════════════════════════════════════════════════════════════════════
+//   TYPOGRAPHY TOKENS
+//   Font families, sizes, weights, and spacing
+// ════════════════════════════════════════════════════════════════════════════
+
+// ────────────────────────────────────────────────────────────────────────────
+//   FONT FAMILIES
+// ────────────────────────────────────────────────────────────────────────────
+$font-primary: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+$font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+// ────────────────────────────────────────────────────────────────────────────
+//   FONT SIZES (in rem)
+// ────────────────────────────────────────────────────────────────────────────
+$text-xs:    0.75rem;   // 12px
+$text-sm:    0.875rem;  // 14px
+$text-base:  1rem;      // 16px
+$text-lg:    1.125rem;  // 18px
+$text-xl:    1.25rem;   // 20px
+$text-2xl:   1.5rem;    // 24px
+$text-3xl:   1.875rem;  // 30px
+$text-4xl:   2.25rem;   // 36px
+$text-5xl:   3rem;      // 48px
+$text-6xl:   3.75rem;   // 60px
+
+// ────────────────────────────────────────────────────────────────────────────
+//   FONT WEIGHTS
+// ────────────────────────────────────────────────────────────────────────────
+$weight-normal:    400;
+$weight-medium:    500;
+$weight-semibold:  600;
+$weight-bold:      700;
+$weight-extrabold: 800;
+
+// ────────────────────────────────────────────────────────────────────────────
+//   LINE HEIGHTS
+// ────────────────────────────────────────────────────────────────────────────
+$leading-tight:    1.1;
+$leading-snug:     1.25;
+$leading-normal:   1.5;
+$leading-relaxed:  1.625;
+$leading-loose:    1.75;
+
+// ────────────────────────────────────────────────────────────────────────────
+//   LETTER SPACING
+// ────────────────────────────────────────────────────────────────────────────
+$tracking-tighter: -0.03em;
+$tracking-tight:   -0.02em;
+$tracking-normal:   0;
+$tracking-wide:     0.02em;
+$tracking-wider:    0.04em;
+$tracking-widest:   0.08em;
+// ────────────────────────────────────────────────────────────────────────────
+//   TYPOGRAPHY STYLES (Reusable mixins)
+// ────────────────────────────────────────────────────────────────────────────
+
+// Heading styles
+@mixin heading-xl {
+  font-size: $text-6xl;
+  font-weight: $weight-bold;
+  line-height: $leading-tight;
+  letter-spacing: $tracking-tight;
+}
+
+@mixin heading-lg {
+  font-size: $text-4xl;
+  font-weight: $weight-bold;
+  line-height: $leading-tight;
+  letter-spacing: $tracking-tight;
+}
+
+@mixin heading-md {
+  font-size: $text-3xl;
+  font-weight: $weight-bold;
+  line-height: $leading-snug;
+}
+
+@mixin heading-sm {
+  font-size: $text-2xl;
+  font-weight: $weight-bold;
+  line-height: $leading-snug;
+}
+
+// Body styles
+@mixin body-lg {
+  font-size: $text-lg;
+  line-height: $leading-relaxed;
+}
+
+@mixin body-base {
+  font-size: $text-base;
+  line-height: $leading-normal;
+}
+
+@mixin body-sm {
+  font-size: $text-sm;
+  line-height: $leading-normal;
+}
+
+@mixin body-xs {
+  font-size: $text-xs;
+  line-height: $leading-normal;
+}
+
+// Utility styles
+@mixin label {
+  font-size: $text-sm;
+  font-weight: $weight-medium;
+  letter-spacing: $tracking-wide;
+  text-transform: uppercase;
+}
+
+@mixin caption {
+  font-size: $text-xs;
+  line-height: $leading-relaxed;
+  color: $color-text-muted;
+}

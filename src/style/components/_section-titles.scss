@@ -1,0 +1,198 @@
+// ════════════════════════════════════════════════════════════════════════════
+//   SECTION TITLE STYLES
+//   Standardized section headings and subtitles
+// ════════════════════════════════════════════════════════════════════════════
+
+@use 'tokens' as *;
+
+// ────────────────────────────────────────────────────────────────────────────
+//   SECTION BASE STYLES
+// ────────────────────────────────────────────────────────────────────────────
+@mixin section-base {
+  padding-block: $section-padding-y;
+
+  @include lg {
+    padding-block: $section-padding-y-lg;
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   SECTION TITLE (H2)
+// ────────────────────────────────────────────────────────────────────────────
+@mixin section-title {
+  font-size: $text-3xl;
+  font-weight: $weight-bold;
+  line-height: $leading-tight;
+  color: $color-text;
+  margin-bottom: $space-4;
+
+  @include md {
+    font-size: $text-4xl;
+  }
+
+  @include lg {
+    font-size: $text-5xl;
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   SECTION TITLE WITH GRADIENT
+// ────────────────────────────────────────────────────────────────────────────
+@mixin section-title-gradient {
+  @include section-title;
+  background: $gradient-hero;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   SECTION TITLE CENTERED
+// ────────────────────────────────────────────────────────────────────────────
+@mixin section-title-centered {
+  @include section-title;
+  text-align: center;
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   SECTION SUBTITLE
+// ────────────────────────────────────────────────────────────────────────────
+@mixin section-subtitle {
+  font-size: $text-lg;
+  color: $color-text-secondary;
+  line-height: $leading-relaxed;
+  margin-bottom: $space-6;
+
+  @include md {
+    font-size: $text-xl;
+  }
+
+  max-width: 65ch;
+
+  @include section-title-centered {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   SECTION HEADER (Title + Subtitle wrapper)
+// ────────────────────────────────────────────────────────────────────────────
+@mixin section-header {
+  margin-bottom: $space-12;
+  gap: $space-4;
+
+  @include md {
+    margin-bottom: $space-16;
+  }
+}
+
+@mixin section-header-centered {
+  @include section-header;
+  text-align: center;
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   SECTION LAYOUT
+// ────────────────────────────────────────────────────────────────────────────
+@mixin section-content {
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   BADGE ABOVE TITLE
+// ────────────────────────────────────────────────────────────────────────────
+@mixin section-badge {
+  display: inline-flex;
+  margin-bottom: $space-4;
+}
+
+@mixin section-label {
+  font-size: $text-sm;
+  font-weight: $weight-semibold;
+  color: $color-primary;
+  text-transform: uppercase;
+  letter-spacing: $tracking-wide;
+  margin-bottom: $space-4;
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   DIVIDER
+// ────────────────────────────────────────────────────────────────────────────
+@mixin section-divider {
+  width: 60px;
+  height: 4px;
+  background: $gradient-btn-primary;
+  border-radius: $radius-full;
+  margin-block: $space-6;
+}
+
+@mixin section-divider-centered {
+  @include section-divider;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@mixin section-divider-full {
+  width: 100%;
+  height: 1px;
+  background: $color-divider;
+  margin-block: $space-8;
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   CSS CLASS EXPORTS
+// ────────────────────────────────────────────────────────────────────────────
+.section {
+  @include section-base;
+}
+
+.section-title {
+  @include section-title;
+}
+
+.section-title-gradient {
+  @include section-title-gradient;
+}
+
+.section-title-centered {
+  @include section-title-centered;
+}
+
+.section-subtitle {
+  @include section-subtitle;
+}
+
+.section-header {
+  @include section-header;
+}
+
+.section-header-centered {
+  @include section-header-centered;
+}
+
+.section-content {
+  @include section-content;
+}
+
+.section-badge {
+  @include section-badge;
+}
+
+.section-label {
+  @include section-label;
+}
+
+.section-divider {
+  @include section-divider;
+}
+
+.section-divider-centered {
+  @include section-divider-centered;
+}
+
+.section-divider-full {
+  @include section-divider-full;
+}

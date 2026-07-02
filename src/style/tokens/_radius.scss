@@ -1,0 +1,27 @@
+// ════════════════════════════════════════════════════════════════════════════
+//   BORDER RADIUS TOKENS
+//   Consistent corner rounding scale
+// ════════════════════════════════════════════════════════════════════════════
+
+// ────────────────────────────────────────────────────────────────────────────
+//   RADIUS SCALE
+// ────────────────────────────────────────────────────────────────────────────
+$radius-sm:    0.25rem;   // 4px - small buttons, badges
+$radius-md:    0.5rem;    // 8px - inputs, small cards
+$radius-lg:    0.75rem;   // 12px - cards, buttons
+$radius-xl:    1rem;      // 16px - large cards, modals
+$radius-2xl:   1.5rem;    // 24px - hero elements
+$radius-3xl:   2rem;      // 32px - decorative elements
+$radius-full:  9999px;    // pill shape, avatars
+
+// ────────────────────────────────────────────────────────────────────────────
+//   COMPONENT RADIUS (Aliases)
+// ────────────────────────────────────────────────────────────────────────────
+$radius-button:    $radius-md;
+$radius-button-lg: $radius-lg;
+$radius-card:      $radius-lg;
+$radius-card-lg:   $radius-xl;
+$radius-modal:     $radius-xl;
+$radius-input:     $radius-md;
+$radius-badge:     $radius-full;
+$radius-avatar:    $radius-full;

@@ -1,0 +1,188 @@
+// ════════════════════════════════════════════════════════════════════════════
+//   BADGE COMPONENT STYLES
+//   Standardized badge variants and utilities
+// ════════════════════════════════════════════════════════════════════════════
+
+@use 'tokens' as *;
+
+// ────────────────────────────────────────────────────────────────────────────
+//   BASE BADGE STYLES
+// ────────────────────────────────────────────────────────────────────────────
+@mixin badge-base {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  padding: $space-1 $space-2;
+  font-size: $text-xs;
+  font-weight: $weight-medium;
+  line-height: $leading-normal;
+  border-radius: $radius-badge;
+  white-space: nowrap;
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   DEFAULT BADGE
+// ────────────────────────────────────────────────────────────────────────────
+@mixin badge {
+  @include badge-base;
+  color: $color-text-secondary;
+  background: $color-glass;
+  border: 1px solid $color-border;
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   PRIMARY BADGE
+// ────────────────────────────────────────────────────────────────────────────
+@mixin badge-primary {
+  @include badge-base;
+  color: $color-primary;
+  background: rgba($color-primary, 0.1);
+  border: 1px solid rgba($color-primary, 0.2);
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   ACCENT BADGE
+// ────────────────────────────────────────────────────────────────────────────
+@mixin badge-accent {
+  @include badge-base;
+  color: $color-accent;
+  background: rgba($color-accent, 0.1);
+  border: 1px solid rgba($color-accent, 0.2);
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   SUCCESS BADGE
+// ────────────────────────────────────────────────────────────────────────────
+@mixin badge-success {
+  @include badge-base;
+  color: $color-success;
+  background: rgba($color-success, 0.1);
+  border: 1px solid rgba($color-success, 0.2);
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   WARNING BADGE
+// ────────────────────────────────────────────────────────────────────────────
+@mixin badge-warning {
+  @include badge-base;
+  color: $color-warning;
+  background: rgba($color-warning, 0.1);
+  border: 1px solid rgba($color-warning, 0.2);
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   ERROR BADGE
+// ────────────────────────────────────────────────────────────────────────────
+@mixin badge-error {
+  @include badge-base;
+  color: $color-error;
+  background: rgba($color-error, 0.1);
+  border: 1px solid rgba($color-error, 0.2);
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   INFO BADGE
+// ────────────────────────────────────────────────────────────────────────────
+@mixin badge-info {
+  @include badge-base;
+  color: $color-info;
+  background: rgba($color-info, 0.1);
+  border: 1px solid rgba($color-info, 0.2);
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   OUTLINE BADGE (No background)
+// ────────────────────────────────────────────────────────────────────────────
+@mixin badge-outline {
+  @include badge-base;
+  background: transparent;
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   DOT BADGE (With indicator dot)
+// ────────────────────────────────────────────────────────────────────────────
+@mixin badge-dot {
+  @include badge-base;
+  position: relative;
+
+  &::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: $radius-full;
+    background: currentColor;
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   BADGE SIZES
+// ────────────────────────────────────────────────────────────────────────────
+@mixin badge-sm {
+  padding: 2px $space-1;
+  font-size: 0.625rem; // 10px
+}
+
+@mixin badge-lg {
+  padding: $space-2 $space-3;
+  font-size: $text-sm;
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   BADGE GROUP
+// ────────────────────────────────────────────────────────────────────────────
+@mixin badge-group {
+  display: inline-flex;
+  gap: $space-2;
+  flex-wrap: wrap;
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   CSS CLASS EXPORTS
+// ────────────────────────────────────────────────────────────────────────────
+.badge {
+  @include badge;
+}
+
+.badge-primary {
+  @include badge-primary;
+}
+
+.badge-accent {
+  @include badge-accent;
+}
+
+.badge-success {
+  @include badge-success;
+}
+
+.badge-warning {
+  @include badge-warning;
+}
+
+.badge-error {
+  @include badge-error;
+}
+
+.badge-info {
+  @include badge-info;
+}
+
+.badge-outline {
+  @include badge-outline;
+}
+
+.badge-dot {
+  @include badge-dot;
+}
+
+.badge-sm {
+  @include badge-sm;
+}
+
+.badge-lg {
+  @include badge-lg;
+}
+
+.badge-group {
+  @include badge-group;
+}

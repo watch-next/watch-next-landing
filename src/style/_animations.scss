@@ -1,0 +1,364 @@
+// ════════════════════════════════════════════════════════════════════════════
+//   ANIMATION MIXINS
+//   Reusable animation utilities
+// ════════════════════════════════════════════════════════════════════════════
+
+@use 'tokens' as *;
+
+// ────────────────────────────────────────────────────────────────────────────
+//   FADE ANIMATIONS
+// ────────────────────────────────────────────────────────────────────────────
+@mixin fade-in($duration: $duration-base, $delay: 0) {
+  animation: fadeIn $duration $ease-out $delay forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@mixin fade-out($duration: $duration-base) {
+  animation: fadeOut $duration $ease-in forwards;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   SLIDE ANIMATIONS
+// ────────────────────────────────────────────────────────────────────────────
+@mixin slide-up($duration: $duration-base, $distance: 16px) {
+  animation: slideUp $duration $ease-out forwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY($distance);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@mixin slide-down($duration: $duration-base, $distance: 16px) {
+  animation: slideDown $duration $ease-out forwards;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-$distance);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@mixin slide-left($duration: $duration-base, $distance: 16px) {
+  animation: slideLeft $duration $ease-out forwards;
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX($distance);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@mixin slide-right($duration: $duration-base, $distance: 16px) {
+  animation: slideRight $duration $ease-out forwards;
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-$distance);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   SCALE ANIMATIONS
+// ────────────────────────────────────────────────────────────────────────────
+@mixin scale-in($duration: $duration-base, $from: 0.95) {
+  animation: scaleIn $duration $ease-out forwards;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale($from);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@mixin scale-out($duration: $duration-base, $to: 0.95) {
+  animation: scaleOut $duration $ease-in forwards;
+}
+
+@keyframes scaleOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale($to);
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   GLOW ANIMATIONS
+// ────────────────────────────────────────────────────────────────────────────
+@mixin glow-pulse($color: $color-primary, $duration: 2s, $intensity: 0.3) {
+  animation: glowPulse $duration ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba($color-primary, $intensity);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba($color-primary, ($intensity + 0.2));
+  }
+}
+
+@mixin glow-pulse-soft($duration: 3s) {
+  animation: glowPulseSoft $duration ease-in-out infinite;
+}
+
+@keyframes glowPulseSoft {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba($color-primary, 0.25), 0 0 40px rgba($color-primary, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba($color-primary, 0.4), 0 0 60px rgba($color-primary, 0.2);
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   FLOAT ANIMATIONS
+// ────────────────────────────────────────────────────────────────────────────
+@mixin float($duration: 4s, $distance: 8px) {
+  animation: float $duration ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-$distance);
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   SHAKE ANIMATION
+// ────────────────────────────────────────────────────────────────────────────
+@mixin shake($duration: 400ms) {
+  animation: shake $duration $ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+  20%, 40%, 60%, 80% { transform: translateX(8px); }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   SPINNER ANIMATION
+// ────────────────────────────────────────────────────────────────────────────
+@mixin spin($duration: 1s) {
+  animation: spin $duration linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   PULSE ANIMATION
+// ────────────────────────────────────────────────────────────────────────────
+@mixin pulse($duration: 2s) {
+  animation: pulse $duration ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   REVEAL ANIMATIONS (Scroll-triggered)
+// ────────────────────────────────────────────────────────────────────────────
+@mixin reveal-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity $duration-slower $ease-out,
+              transform $duration-slower $ease-out;
+  will-change: opacity, transform;
+
+  &.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @include reduced-motion {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@mixin reveal-left {
+  opacity: 0;
+  transform: translateX(24px);
+  transition: opacity $duration-slower $ease-out,
+              transform $duration-slower $ease-out;
+
+  &.revealed {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @include reduced-motion {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@mixin reveal-right {
+  opacity: 0;
+  transform: translateX(-24px);
+  transition: opacity $duration-slower $ease-out,
+              transform $duration-slower $ease-out;
+
+  &.revealed {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @include reduced-motion {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@mixin reveal-scale {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity $duration-slow $ease-out,
+              transform $duration-slow $ease-out;
+
+  &.revealed {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  @include reduced-motion {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   STAGGER ANIMATIONS
+// ────────────────────────────────────────────────────────────────────────────
+@mixin stagger($index: 0, $delay: 80ms, $direction: 'up') {
+  animation-delay: calc($index * $delay);
+
+  @if $direction == 'up' {
+    animation-fill-mode: both;
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   GRADIENT ANIMATIONS
+// ────────────────────────────────────────────────────────────────────────────
+@mixin gradient-flow($duration: 15s) {
+  background-size: 200% 200%;
+  animation: gradientFlow $duration ease-in-out infinite;
+}
+
+@keyframes gradientFlow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   CARD 3D HOVER
+// ────────────────────────────────────────────────────────────────────────────
+@mixin card-3d-hover {
+  transition: transform $duration-slow $ease-in-out,
+              box-shadow $duration-slow $ease-in-out;
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+
+  &:hover {
+    transform: perspective(1000px) translateZ(20px) translateY(-8px);
+    box-shadow: $shadow-card-hover, 0 20px 60px rgba(62, 139, 255, 0.15);
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//   INDICATOR ANIMATIONS
+// ────────────────────────────────────────────────────────────────────────────
+@mixin indicator-grow {
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: $gradient-btn-primary;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform $duration-base $ease-out;
+  }
+
+  &.active::after {
+    transform: scaleX(1);
+    animation: indicatorGrow $duration-base $ease-out;
+  }
+}
+
+@keyframes indicatorGrow {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
