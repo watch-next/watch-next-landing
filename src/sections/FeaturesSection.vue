@@ -7,11 +7,12 @@
       </div>
       <div class="features__grid">
         <FeatureCard
-          v-for="feature in features"
+          v-for="(feature, index) in features"
           :key="feature.title"
           :title="feature.title"
           :description="feature.description"
           :icon="feature.icon"
+          :stagger-index="index"
         />
       </div>
     </div>

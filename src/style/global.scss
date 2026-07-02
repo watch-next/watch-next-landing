@@ -300,3 +300,167 @@ h1, h2, h3, h4, h5, h6 {
     transform: scale(1);
   }
 }
+
+// ─── Animation Utilities ────────────────────────────────────
+// Base reveal animation for sections
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+
+  &.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+// Reveal from right (for hero visual)
+.reveal-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+
+  &.revealed {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+// Reveal with scale (for cards)
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+
+  &.revealed {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+// Stagger animation for child elements
+[data-stagger] {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: staggerFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+.stagger-visible {
+  animation-play-state: running;
+}
+
+@keyframes staggerFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Floating animation for hero images
+.float-animation {
+  animation: float 5s ease-in-out infinite;
+  will-change: transform;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+// Glow pulse for primary CTA
+.glow-pulse {
+  animation: glowPulse 3s ease-in-out infinite;
+  will-change: box-shadow;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(62, 139, 255, 0.25),
+                0 0 40px rgba(62, 139, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(62, 139, 255, 0.45),
+                0 0 70px rgba(62, 139, 255, 0.2);
+  }
+}
+
+// Smooth hover elevation for cards
+.hover-elevation {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+                0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+// Smooth button hover transitions
+.btn-hover-smooth {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 0.2s ease;
+  will-change: transform, box-shadow;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(62, 139, 255, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    transform: none;
+  }
+}

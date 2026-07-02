@@ -306,3 +306,73 @@ $z-tooltip:   500;
     background-position: 100% 50%;
   }
 }
+
+// ────────────────────────────────────────────────────────────────────────────
+//   PREMIUM ANIMATIONS
+//   Subtle, lightweight animations for enhanced UX
+// ────────────────────────────────────────────────────────────────────────────
+
+// Floating/Levitation animation
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@mixin float($duration: 4s) {
+  animation: float $duration ease-in-out infinite;
+}
+
+// Soft glow pulse for CTAs
+@keyframes glowPulseSoft {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba($color-primary, 0.25), 0 0 40px rgba($color-primary, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba($color-primary, 0.4), 0 0 60px rgba($color-primary, 0.2);
+  }
+}
+
+@mixin glow-pulse-soft($duration: 3s) {
+  animation: glowPulseSoft $duration ease-in-out infinite;
+}
+
+// Stagger delay utilities
+@mixin stagger-delay($index: 0) {
+  animation-delay: $index * 80ms;
+}
+
+// Hover elevation for cards
+@mixin hover-elevation {
+  transition: transform $transition-base, box-shadow $transition-base;
+  will-change: transform, box-shadow;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: $shadow-card-hover;
+  }
+}
+
+// Reduced motion support
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+// Motion-safe utility - wraps animation declaration
+@mixin motion-safe($property...) {
+  @media (prefers-reduced-motion: no-preference) {
+    @each $p in $property {
+      #{$p};
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}

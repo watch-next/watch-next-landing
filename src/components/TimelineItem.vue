@@ -15,16 +15,24 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import { useScrollReveal } from '@/composables/useScrollReveal'
 
-defineProps<{
+const props = defineProps<{
   quarter: string
   title: string
   description: string
   status: 'completed' | 'in-progress' | 'planned'
+  staggerIndex?: number
 }>()
 
 const { el: itemRef } = useScrollReveal()
+
+onMounted(() => {
+  if (props.staggerIndex !== undefined && itemRef.value) {
+    itemRef.value.style.animationDelay = `${props.staggerIndex * 100}ms`
+  }
+})
 </script>
 
 <style scoped lang="scss">
@@ -33,6 +41,22 @@ const { el: itemRef } = useScrollReveal()
 .timeline-item {
   display: flex;
   gap: $space-6;
+  padding: $space-4;
+  border-radius: $radius-lg;
+  transition: transform $transition-base, box-shadow $transition-base;
+  will-change: transform, box-shadow;
+
+  &:hover {
+    transform: translateX(8px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    &:hover {
+      transform: none;
+    }
+  }
 
   &__marker {
     display: flex;

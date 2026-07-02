@@ -19,16 +19,23 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useScrollReveal } from '@/composables/useScrollReveal'
 
 const props = defineProps<{
   id: string
   name: string
   description: string
+  staggerIndex?: number
 }>()
 
 const { el: cardRef } = useScrollReveal()
+
+onMounted(() => {
+  if (props.staggerIndex !== undefined && cardRef.value) {
+    cardRef.value.style.animationDelay = `${props.staggerIndex * 80}ms`
+  }
+})
 
 const iconSrc = computed(() => {
   return new URL(`../assets/icons/${props.id}.svg`, import.meta.url).href
@@ -58,11 +65,19 @@ const buttonLabel = computed(() => {
   border: 1px solid $color-border;
   border-radius: $radius-xl;
   transition: all $transition-base;
+  will-change: transform, box-shadow;
 
   &:hover {
     border-color: $color-border-hover;
-    transform: translateY(-4px);
+    transform: translateY(-6px);
     box-shadow: $shadow-card-hover;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    &:hover {
+      transform: none;
+    }
   }
 
   &__badge {

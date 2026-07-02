@@ -146,21 +146,29 @@ function handleSubmit() {
     background-color: $color-primary;
     border-radius: $radius-md;
     white-space: nowrap;
-    transition: background-color $transition-fast, transform $transition-fast;
-    will-change: transform;
+    transition: background-color $transition-fast, transform $transition-fast, box-shadow $transition-fast;
+    will-change: transform, box-shadow;
 
     &:hover:not(:disabled) {
       background-color: $color-primary-hover;
-      transform: scale(1.04);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(62, 139, 255, 0.3);
     }
 
     &:active:not(:disabled) {
-      transform: scale(0.97);
+      transform: translateY(0) scale(0.97);
     }
 
     &:disabled {
       background-color: $color-gray-400;
       cursor: default;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: background-color $transition-fast;
+      &:hover:not(:disabled) {
+        transform: none;
+      }
     }
   }
 

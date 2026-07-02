@@ -6,8 +6,8 @@
         <h1 class="hero__headline" v-html="hero.headline.replace('\n', '<br />')"></h1>
         <p class="hero__subtitle">{{ hero.subtitle }}</p>
         <div class="hero__actions">
-          <a href="#features" class="hero__cta hero__cta--primary">{{ hero.ctaPrimary }}</a>
-          <a href="#premium" class="hero__cta hero__cta--secondary">{{ hero.ctaSecondary }}</a>
+          <a href="#features" class="hero__cta hero__cta--primary glow-pulse btn-hover-smooth">{{ hero.ctaPrimary }}</a>
+          <a href="#premium" class="hero__cta hero__cta--secondary btn-hover-smooth">{{ hero.ctaSecondary }}</a>
         </div>
         <div class="hero__signup">
           <input
@@ -23,7 +23,7 @@
         <picture>
           <source type="image/svg+xml" srcset="@/assets/images/hero.svg" />
           <img
-            class="hero__image"
+            class="hero__image float-animation"
             src="@/assets/images/hero.svg"
             alt="WatchNext dashboard preview"
             loading="eager"
@@ -105,21 +105,15 @@ const { el: visualReveal } = useScrollReveal()
     font-size: $text-base;
     font-weight: $weight-semibold;
     border-radius: $radius-md;
-    transition: background-color $transition-fast, color $transition-fast, transform $transition-fast;
-    will-change: transform;
+    will-change: transform, box-shadow;
 
     &--primary {
       color: $color-text;
       background: $gradient-btn-primary;
-      box-shadow: $shadow-primary-glow;
+      box-shadow: 0 0 20px rgba($color-primary, 0.25), 0 0 40px rgba($color-primary, 0.1);
 
       &:hover {
         background: $gradient-btn-primary-hover;
-        transform: scale(1.04);
-      }
-
-      &:active {
-        transform: scale(0.97);
       }
     }
 
@@ -131,11 +125,6 @@ const { el: visualReveal } = useScrollReveal()
       &:hover {
         border-color: $color-text-secondary;
         background-color: $color-glass-hover;
-        transform: scale(1.04);
-      }
-
-      &:active {
-        transform: scale(0.97);
       }
     }
   }
@@ -173,16 +162,22 @@ const { el: visualReveal } = useScrollReveal()
     background-color: $color-accent;
     border-radius: $radius-md;
     white-space: nowrap;
-    transition: background-color $transition-fast, transform $transition-fast;
-    will-change: transform;
+    transition: background-color $transition-fast, transform $transition-fast, box-shadow $transition-fast;
+    will-change: transform, box-shadow;
 
     &:hover {
       background-color: $color-accent-hover;
-      transform: scale(1.04);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba($color-accent, 0.3);
     }
 
     &:active {
-      transform: scale(0.97);
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: background-color $transition-fast;
+      transform: none;
     }
   }
 

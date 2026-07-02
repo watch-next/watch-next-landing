@@ -31,6 +31,8 @@ import { premiumSection } from '@/data/premium'
   &__header {
     text-align: center;
     margin-bottom: $space-12;
+    max-width: 600px;
+    margin-inline: auto;
   }
 
   &__title {
@@ -52,12 +54,30 @@ import { premiumSection } from '@/data/premium'
     list-style: none;
     padding: 0;
     margin-bottom: $space-12;
+    max-width: 800px;
+    margin-inline: auto;
   }
 
   &__feature {
     font-size: $text-base;
     color: $color-text-secondary;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: staggerFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+
+    @media (prefers-reduced-motion: reduce) {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
   }
+
+  &__feature:nth-child(1) { animation-delay: 0ms; }
+  &__feature:nth-child(2) { animation-delay: 80ms; }
+  &__feature:nth-child(3) { animation-delay: 160ms; }
+  &__feature:nth-child(4) { animation-delay: 240ms; }
+  &__feature:nth-child(5) { animation-delay: 320ms; }
+  &__feature:nth-child(6) { animation-delay: 400ms; }
 
   &__cta {
     display: block;
@@ -70,16 +90,26 @@ import { premiumSection } from '@/data/premium'
     border: none;
     border-radius: $radius-md;
     cursor: pointer;
-    transition: background-color $transition-fast, transform $transition-fast;
+    transition: background-color $transition-fast, transform $transition-fast, box-shadow $transition-base;
     box-shadow: $shadow-primary-glow;
+    will-change: box-shadow;
+    animation: glowPulse 3s ease-in-out infinite;
 
     &:hover {
       background: $gradient-btn-primary-hover;
-      transform: scale(1.05);
+      transform: scale(1.05) translateY(-2px);
     }
 
     &:active {
-      transform: scale(0.97);
+      transform: scale(0.97) translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+      transition: background-color $transition-fast;
+      &:hover {
+        transform: none;
+      }
     }
   }
 }
