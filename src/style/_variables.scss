@@ -1,0 +1,193 @@
+// ════════════════════════════════════════════════════════════════════════════
+//   WATCH NEXT - Variables & Design Tokens
+//   Central export of all design tokens for the project
+// ════════════════════════════════════════════════════════════════════════════
+
+// Colors - Brand
+$brand-bg:          #02031A;
+$brand-surface:     #02031A;
+$brand-primary:     #3E8BFF;
+$brand-accent:      #7255FF;
+$brand-text:        #FFFFFF;
+$brand-text-sec:    #B3B3B3;
+$brand-error:       #CF6679;
+
+// Colors - Backgrounds
+$color-background:       #02031A;
+$color-surface:          #0B0D2D;
+$color-surface-light:    #131640;
+$color-surface-hover:    #1A1F55;
+$color-surface-active:   #22285A;
+
+// Colors - Glass/Overlay
+$color-glass:            rgba(255, 255, 255, 0.04);
+$color-glass-hover:      rgba(255, 255, 255, 0.06);
+$color-overlay-dark:     rgba(2, 3, 26, 0.8);
+$color-overlay-darker:   rgba(2, 3, 26, 0.95);
+
+// Colors - Primary
+$color-primary:          #3E8BFF;
+$color-primary-hover:    #5A9CFF;
+$color-primary-active:   #2B73E6;
+$color-primary-light:    rgba(62, 139, 255, 0.15);
+$color-primary-glow:     rgba(62, 139, 255, 0.35);
+
+// Colors - Accent
+$color-accent:           #7255FF;
+$color-accent-hover:     #886FFF;
+$color-accent-active:    #5F45E0;
+$color-accent-light:     rgba(114, 85, 255, 0.15);
+$color-accent-glow:      rgba(114, 85, 255, 0.30);
+
+// Colors - Text
+$color-text:             #FFFFFF;
+$color-text-secondary:   #B3B3B3;
+$color-text-muted:       #8A8FA8;
+$color-text-disabled:    #5A5F7A;
+
+// Colors - Border & Divider
+$color-border:           rgba(255, 255, 255, 0.08);
+$color-border-hover:     rgba(255, 255, 255, 0.15);
+$color-divider:          rgba(255, 255, 255, 0.05);
+
+// Colors - Semantic
+$color-success:          #4ADE80;
+$color-success-glow:     rgba(74, 222, 128, 0.35);
+$color-warning:          #FACC15;
+$color-warning-glow:     rgba(250, 204, 21, 0.30);
+$color-error:            #CF6679;
+$color-error-glow:       rgba(207, 102, 121, 0.30);
+$color-info:             #3E8BFF;
+$color-info-glow:        rgba(62, 139, 255, 0.30);
+
+// Brand highlight for accents (logo, highlights)
+$brand-highlight:        #FFC857;
+
+// Colors - Grayscale fallback
+$color-gray-100:         #E0E0E0;
+$color-gray-200:         #B0B0B0;
+$color-gray-300:         #808080;
+$color-gray-400:         #555555;
+$color-gray-500:         #333333;
+
+// Typography
+$font-primary: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+$font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+$text-xs:    0.75rem;
+$text-sm:    0.875rem;
+$text-base:  1rem;
+$text-lg:    1.125rem;
+$text-xl:    1.25rem;
+$text-2xl:   1.5rem;
+$text-3xl:   1.875rem;
+$text-4xl:   2.25rem;
+$text-5xl:   3rem;
+$text-6xl:   3.75rem;
+
+$weight-normal:   400;
+$weight-medium:   500;
+$weight-semibold: 600;
+$weight-bold:     700;
+$weight-extrabold: 800;
+
+$leading-tight:   1.1;
+$leading-snug:    1.25;
+$leading-normal:  1.5;
+$leading-relaxed: 1.625;
+$leading-loose:   1.75;
+
+$tracking-tighter: -0.03em;
+$tracking-tight:   -0.02em;
+$tracking-normal:   0;
+$tracking-wide:     0.02em;
+$tracking-wider:    0.04em;
+$tracking-widest:   0.08em;
+
+// Spacing
+$space-1:  0.25rem;
+$space-2:  0.5rem;
+$space-3:  0.75rem;
+$space-4:  1rem;
+$space-5:  1.25rem;
+$space-6:  1.5rem;
+$space-8:  2rem;
+$space-10: 2.5rem;
+$space-12: 3rem;
+$space-16: 4rem;
+$space-20: 5rem;
+$space-24: 6rem;
+$space-32: 8rem;
+
+// Border Radius
+$radius-sm:   0.25rem;
+$radius-md:   0.5rem;
+$radius-lg:   0.75rem;
+$radius-xl:   1rem;
+$radius-2xl:  1.5rem;
+$radius-3xl:  2rem;
+$radius-full: 9999px;
+
+// Shadows
+$shadow-sm:  0 1px 3px rgba(0, 0, 0, 0.3);
+$shadow-md:  0 4px 12px rgba(0, 0, 0, 0.4);
+$shadow-lg:  0 8px 24px rgba(0, 0, 0, 0.5);
+$shadow-xl:  0 16px 48px rgba(0, 0, 0, 0.6);
+
+$shadow-primary-glow: 0 0 20px rgba(62, 139, 255, 0.3);
+$shadow-accent-glow:  0 0 20px rgba(114, 85, 255, 0.3);
+$shadow-success-glow: 0 0 20px rgba(74, 222, 128, 0.3);
+$shadow-error-glow:   0 0 20px rgba(207, 102, 121, 0.3);
+
+$shadow-card: 0 4px 24px rgba(0, 0, 0, 0.35), 0 1px 4px rgba(0, 0, 0, 0.2);
+$shadow-card-hover: 0 8px 40px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(62, 139, 255, 0.1);
+
+// Breakpoints
+$bp-sm:  640px;
+$bp-md:  768px;
+$bp-lg:  1024px;
+$bp-xl:  1280px;
+$bp-2xl: 1536px;
+
+// Transitions
+$duration-fast:    100ms;
+$duration-base:    200ms;
+$duration-slow:    300ms;
+$duration-slower:  400ms;
+
+$ease-linear:  linear;
+$ease-in:      cubic-bezier(0.4, 0, 1, 1);
+$ease-out:     cubic-bezier(0, 0, 0.2, 1);
+$ease-in-out:  cubic-bezier(0.4, 0, 0.2, 1);
+$ease-bounce:  cubic-bezier(0.34, 1.56, 0.64, 1);
+
+$transition-fast:    $duration-fast $ease-in-out;
+$transition-base:    $duration-base $ease-in-out;
+$transition-slow:    $duration-slow $ease-in-out;
+$transition-slower:  $duration-slower $ease-in-out;
+
+// Z-Index
+$z-below:     -1;
+$z-base:      0;
+$z-dropdown:  100;
+$z-sticky:    200;
+$z-modal:     300;
+$z-popover:   400;
+$z-tooltip:   500;
+
+// Gradients
+$gradient-hero: linear-gradient(135deg, #3E8BFF 0%, #7255FF 100%);
+$gradient-btn-primary: linear-gradient(90deg, #3E8BFF, #7255FF);
+$gradient-btn-primary-hover: linear-gradient(90deg, #5A9CFF, #886FFF);
+$gradient-btn-accent: linear-gradient(90deg, #7255FF, #3E8BFF);
+$gradient-card: linear-gradient(135deg, rgba(62, 139, 255, 0.08), rgba(114, 85, 255, 0.05));
+$gradient-card-hover: linear-gradient(135deg, rgba(62, 139, 255, 0.12), rgba(114, 85, 255, 0.08));
+$gradient-section: linear-gradient(180deg, rgba(62, 139, 255, 0.08), rgba(114, 85, 255, 0.05));
+$gradient-surface: linear-gradient(135deg, $color-surface 0%, $color-surface-light 100%);
+$gradient-glass: linear-gradient(135deg, rgba($color-glass, 0.8), rgba($color-glass, 0.4));
+
+// Aliases
+$color-black: $color-background;
+$color-dark: $color-surface;
+$color-elevated: $color-surface-light;
+$color-white: $color-text;
