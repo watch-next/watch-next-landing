@@ -13,6 +13,7 @@
           :title="item.title"
           :description="item.description"
           :status="item.status"
+          :stagger-index="index"
         />
       </div>
     </div>

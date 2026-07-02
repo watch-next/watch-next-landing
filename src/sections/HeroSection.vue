@@ -1,13 +1,14 @@
 <template>
   <section id="hero" class="hero">
-    <div class="hero__bg"></div>
+    <div class="hero__bg gradient-flow-bg"></div>
+    <div class="hero__glow glow-behind"></div>
     <div class="container hero__inner">
       <div ref="heroReveal" class="hero__content reveal">
         <h1 class="hero__headline" v-html="hero.headline.replace('\n', '<br />')"></h1>
         <p class="hero__subtitle">{{ hero.subtitle }}</p>
         <div class="hero__actions">
-          <a href="#features" class="hero__cta hero__cta--primary">{{ hero.ctaPrimary }}</a>
-          <a href="#premium" class="hero__cta hero__cta--secondary">{{ hero.ctaSecondary }}</a>
+          <a href="#features" class="hero__cta hero__cta--primary glow-pulse btn-hover-smooth">{{ hero.ctaPrimary }}</a>
+          <a href="#premium" class="hero__cta hero__cta--secondary btn-hover-smooth">{{ hero.ctaSecondary }}</a>
         </div>
         <div class="hero__signup">
           <input
@@ -23,7 +24,7 @@
         <picture>
           <source type="image/svg+xml" srcset="@/assets/images/hero.svg" />
           <img
-            class="hero__image"
+            class="hero__image float-animation"
             src="@/assets/images/hero.svg"
             alt="WatchNext dashboard preview"
             loading="eager"
@@ -41,9 +42,42 @@
 <script setup lang="ts">
 import { useScrollReveal } from '@/composables/useScrollReveal'
 import { hero } from '@/data/hero'
+import { onMounted, onUnmounted } from 'vue'
 
 const { el: heroReveal } = useScrollReveal()
 const { el: visualReveal } = useScrollReveal()
+
+// Mouse parallax effect for hero visual
+onMounted(() => {
+  const heroSection = document.querySelector('.hero') as HTMLElement
+  const heroImage = document.querySelector('.hero__image') as HTMLElement
+
+  if (!heroSection || !heroImage) return
+
+  const handleMouseMove = (e: globalThis.MouseEvent) => {
+    const rect = heroSection.getBoundingClientRect()
+    const x = (e.clientX - rect.left) / rect.width - 0.5
+    const y = (e.clientY - rect.top) / rect.height - 0.5
+
+    // Subtle parallax movement (max 10px)
+    const strength = 10
+    heroImage.style.setProperty('--parallax-x', `${x * strength}px`)
+    heroImage.style.setProperty('--parallax-y', `${y * strength}px`)
+  }
+
+  const handleMouseLeave = () => {
+    heroImage.style.setProperty('--parallax-x', '0px')
+    heroImage.style.setProperty('--parallax-y', '0px')
+  }
+
+  heroSection.addEventListener('mousemove', handleMouseMove as EventListener)
+  heroSection.addEventListener('mouseleave', handleMouseLeave as EventListener)
+
+  onUnmounted(() => {
+    heroSection.removeEventListener('mousemove', handleMouseMove as EventListener)
+    heroSection.removeEventListener('mouseleave', handleMouseLeave as EventListener)
+  })
+})
 </script>
 
 <style scoped lang="scss">
@@ -61,6 +95,23 @@ const { el: visualReveal } = useScrollReveal()
                 radial-gradient(ellipse 60% 50% at 80% 100%, rgba($color-accent, 0.08) 0%, transparent 50%),
                 $color-background;
     z-index: $z-base;
+  }
+
+  &__glow {
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba($color-primary, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: $z-base;
+    pointer-events: none;
+
+    @media (max-width: 1023px) {
+      display: none;
+    }
   }
 
   &__inner {
@@ -105,21 +156,15 @@ const { el: visualReveal } = useScrollReveal()
     font-size: $text-base;
     font-weight: $weight-semibold;
     border-radius: $radius-md;
-    transition: background-color $transition-fast, color $transition-fast, transform $transition-fast;
-    will-change: transform;
+    will-change: transform, box-shadow;
 
     &--primary {
       color: $color-text;
       background: $gradient-btn-primary;
-      box-shadow: $shadow-primary-glow;
+      box-shadow: 0 0 20px rgba($color-primary, 0.25), 0 0 40px rgba($color-primary, 0.1);
 
       &:hover {
         background: $gradient-btn-primary-hover;
-        transform: scale(1.04);
-      }
-
-      &:active {
-        transform: scale(0.97);
       }
     }
 
@@ -131,11 +176,6 @@ const { el: visualReveal } = useScrollReveal()
       &:hover {
         border-color: $color-text-secondary;
         background-color: $color-glass-hover;
-        transform: scale(1.04);
-      }
-
-      &:active {
-        transform: scale(0.97);
       }
     }
   }
@@ -173,16 +213,22 @@ const { el: visualReveal } = useScrollReveal()
     background-color: $color-accent;
     border-radius: $radius-md;
     white-space: nowrap;
-    transition: background-color $transition-fast, transform $transition-fast;
-    will-change: transform;
+    transition: background-color $transition-fast, transform $transition-fast, box-shadow $transition-fast;
+    will-change: transform, box-shadow;
 
     &:hover {
       background-color: $color-accent-hover;
-      transform: scale(1.04);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba($color-accent, 0.3);
     }
 
     &:active {
-      transform: scale(0.97);
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: background-color $transition-fast;
+      transform: none;
     }
   }
 
@@ -197,6 +243,14 @@ const { el: visualReveal } = useScrollReveal()
     max-width: 560px;
     height: auto;
     border-radius: $radius-lg;
+    transform: translate(var(--parallax-x, 0), var(--parallax-y, 0));
+    transition: transform 100ms ease-out;
+    will-change: transform;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+      transform: none;
+    }
   }
 
   @media (max-width: 1023px) {

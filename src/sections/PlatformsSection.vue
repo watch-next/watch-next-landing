@@ -7,11 +7,12 @@
       </div>
       <div class="platforms__grid">
         <PlatformCard
-          v-for="platform in platforms"
+          v-for="(platform, index) in platforms"
           :key="platform.id"
           :id="platform.id"
           :name="platform.name"
           :description="platform.description"
+          :stagger-index="index"
         />
       </div>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <header class="header" role="banner">
+  <header class="header" :data-scrolled="scrolled" role="banner">
     <div class="container header__inner">
       <div class="header__logo">
         <span class="header__logo-text">Watch</span>
@@ -27,10 +27,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { navLinks } from '@/data/navigation'
 
 const menuOpen = ref(false)
+const scrolled = ref(false)
 
 function toggleMenu() {
   menuOpen.value = !menuOpen.value
@@ -39,6 +40,20 @@ function toggleMenu() {
 function closeMenu() {
   menuOpen.value = false
 }
+
+// Scroll detection for header animation
+onMounted(() => {
+  const handleScroll = () => {
+    scrolled.value = window.scrollY > 10
+  }
+
+  window.addEventListener('scroll', handleScroll, { passive: true })
+  handleScroll() // Check initial state
+
+  onUnmounted(() => {
+    window.removeEventListener('scroll', handleScroll)
+  })
+})
 </script>
 
 <style scoped lang="scss">
@@ -54,6 +69,19 @@ function closeMenu() {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid $color-border;
+  transition: background-color $transition-base, backdrop-filter $transition-base, box-shadow $transition-base;
+  will-change: background-color, backdrop-filter;
+
+  &[data-scrolled="true"] {
+    background-color: rgba(2, 3, 26, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 
   &__inner {
     display: flex;
@@ -116,13 +144,36 @@ function closeMenu() {
   }
 
   &__nav-link {
+    position: relative;
     font-size: $text-sm;
     font-weight: $weight-medium;
     color: $color-text-secondary;
     transition: color $transition-fast;
 
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: $gradient-btn-primary;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform $transition-base;
+    }
+
     &:hover {
       color: $color-text;
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+
+    &.active::after {
+      transform: scaleX(1);
+      animation: indicatorGrow $transition-base ease-out;
     }
   }
 
