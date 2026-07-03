@@ -59,7 +59,7 @@ onMounted(async () => {
 })
 
 const iconSrc = computed(() => {
-  return new URL(`../assets/icons/${props.id}.svg`, import.meta.url).href
+  return new URL(`../assets/icons/${props.id}.png` || `../assets/icons/${props.id}.png`, import.meta.url).href
 })
 const buttonLabel = computed(() => {
   const map: Record<string, string> = {

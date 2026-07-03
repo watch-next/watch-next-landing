@@ -19,8 +19,10 @@
               {{ androidSubmitted ? hero.submittedLabel : hero.submitBtn }}
             </button>
           </form>
-          <span v-if="androidError" class="hero__error" role="alert">{{ androidError }}</span>
-          <span v-if="androidSubmitted" class="hero__success" role="status">{{ hero.successMessage }}</span>
+          <div class="hero__feedback">
+            <span v-if="androidError" class="hero__error" role="alert">{{ androidError }}</span>
+            <span v-if="androidSubmitted" class="hero__success" role="status">{{ hero.successMessage }}</span>
+          </div>
         </div>
 
 
@@ -39,12 +41,12 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { useScrollReveal } from '@/composables/useScrollReveal'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { joinWaitlist } from '@/services/waitlist'
 
 const { t } = useI18n()
 
-const hero = {
+const hero = computed(() => ({
   headline: t('hero.headline'),
   subtitle: t('hero.subtitle'),
   ctaPrimary: t('hero.ctaPrimary'),
@@ -53,7 +55,7 @@ const hero = {
   submitBtn: t('hero.submitBtn'),
   submittedLabel: t('hero.submittedLabel'),
   successMessage: t('hero.successMessage'),
-}
+}))
 
 const { el: heroReveal } = useScrollReveal()
 const { el: visualReveal } = useScrollReveal()
@@ -77,7 +79,7 @@ async function handleAndroidSubmit() {
   }
 
   isSubmittingAndroid.value = true
-  const result = await joinWaitlist(androidEmail.value, 'android', 'hero')
+  const result = await joinWaitlist(androidEmail.value, 'web', 'hero')
 
   if (result.success) {
     androidSubmitted.value = true
@@ -241,8 +243,18 @@ onMounted(() => {
 
   &__signup {
     display: flex;
-    gap: $space-3;
+    flex-direction: column;
+    gap: $space-2;
     max-width: 440px;
+  }
+
+  &__waitlist-form {
+    display: flex;
+    gap: $space-2;
+  }
+
+  &__feedback {
+    min-height: $space-5;
   }
 
   &__email {
