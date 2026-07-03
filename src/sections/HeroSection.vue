@@ -78,13 +78,9 @@ const { el: visualReveal } = useScrollReveal()
 
 // Waitlist form state
 const androidEmail = ref('')
-const iosEmail = ref('')
 const androidSubmitted = ref(false)
-const iosSubmitted = ref(false)
 const androidError = ref('')
-const iosError = ref('')
 const isSubmittingAndroid = ref(false)
-const isSubmittingIos = ref(false)
 
 async function handleAndroidSubmit() {
   androidError.value = ''
@@ -111,33 +107,6 @@ async function handleAndroidSubmit() {
   }
 
   isSubmittingAndroid.value = false
-}
-
-async function handleIosSubmit() {
-  iosError.value = ''
-  if (!iosEmail.value.trim()) {
-    iosError.value = 'Email is required'
-    return
-  }
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  if (!emailRegex.test(iosEmail.value)) {
-    iosError.value = 'Please enter a valid email address'
-    return
-  }
-
-  isSubmittingIos.value = true
-  const result = await joinWaitlist(iosEmail.value, 'ios', 'hero')
-
-  if (result.success) {
-    iosSubmitted.value = true
-    iosEmail.value = ''
-  } else if (result.duplicate) {
-    iosError.value = result.error || "You're already on the iOS waitlist"
-  } else {
-    iosError.value = result.error || 'Failed to join waitlist. Please try again later.'
-  }
-
-  isSubmittingIos.value = false
 }
 
 // Mouse parallax effect for hero visual
