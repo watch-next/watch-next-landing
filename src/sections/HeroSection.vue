@@ -12,20 +12,10 @@
         </div>
         <div class="hero__signup">
           <form class="hero__waitlist-form" @submit.prevent="handleAndroidSubmit">
-            <input
-              v-model="androidEmail"
-              type="email"
-              class="hero__email"
-              :class="{ 'hero__email--error': androidError }"
-              :placeholder="hero.emailPlaceholder"
-              aria-label="Email address for Android waitlist"
-              :disabled="androidSubmitted || isSubmittingAndroid"
-            />
-            <button
-              type="submit"
-              class="hero__submit"
-              :disabled="androidSubmitted || isSubmittingAndroid"
-            >
+            <input v-model="androidEmail" type="email" class="hero__email"
+              :class="{ 'hero__email--error': androidError }" :placeholder="hero.emailPlaceholder"
+              aria-label="Email address for Android waitlist" :disabled="androidSubmitted || isSubmittingAndroid" />
+            <button type="submit" class="hero__submit" :disabled="androidSubmitted || isSubmittingAndroid">
               {{ androidSubmitted ? hero.submittedLabel : hero.submitBtn }}
             </button>
           </form>
@@ -33,21 +23,13 @@
           <span v-if="androidSubmitted" class="hero__success" role="status">{{ hero.successMessage }}</span>
         </div>
 
-        
+
       </div>
       <div ref="visualReveal" class="hero__visual reveal-right">
         <picture>
           <source type="image/svg+xml" srcset="@/assets/images/hero.svg" />
-          <img
-            class="hero__image float-animation"
-            src="@/assets/images/hero.svg"
-            alt="WatchNext dashboard preview"
-            loading="eager"
-            decoding="async"
-            importance="high"
-            width="560"
-            height="350"
-          />
+          <img class="hero__image float-animation" src="@/assets/images/hero.svg" alt="WatchNext dashboard preview"
+            loading="eager" decoding="async" importance="high" width="560" height="350" />
         </picture>
       </div>
     </div>
@@ -153,10 +135,25 @@ onMounted(() => {
   &__bg {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba($color-primary, 0.15) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 50% at 80% 100%, rgba($color-accent, 0.08) 0%, transparent 50%),
-                $color-background;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% -10%,
+        rgba($color-primary, 0.15) 0%,
+        transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 100%,
+        rgba($color-accent, 0.08) 0%,
+        transparent 50%),
+      $color-background;
     z-index: $z-base;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('@/images/hero/hero_background.png') center center / cover no-repeat;
+      opacity: 0.18; // ajuste entre 0.1 e 0.4
+      z-index: -1;
+    }
   }
 
   &__glow {
