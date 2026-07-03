@@ -99,7 +99,7 @@ async function handleAndroidSubmit() {
   }
 
   isSubmittingAndroid.value = true
-  const result = await joinWaitlist(androidEmail.value, 'android')
+  const result = await joinWaitlist(androidEmail.value, 'android', 'hero')
 
   if (result.success) {
     androidSubmitted.value = true
@@ -126,7 +126,7 @@ async function handleIosSubmit() {
   }
 
   isSubmittingIos.value = true
-  const result = await joinWaitlist(iosEmail.value, 'ios')
+  const result = await joinWaitlist(iosEmail.value, 'ios', 'hero')
 
   if (result.success) {
     iosSubmitted.value = true
