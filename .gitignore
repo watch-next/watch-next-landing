@@ -2,7 +2,9 @@
 .env
 
 # Supabase local config
-supabase/
+# supabase/
+!supabase/migrations/
+!supabase/migrations/**
 
 # Dependencies
 node_modules/
