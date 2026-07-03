@@ -2,7 +2,9 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase'
 
 export interface NewsletterSubscription {
   email: string
-  subscribed_at: string
+  source: 'newsletter'
+  locale: string
+  created_at: string
 }
 
 export interface SubscribeResult {
@@ -12,8 +14,28 @@ export interface SubscribeResult {
 }
 
 /**
+ * Normalizes browser locale to supported values: pt-BR, en, es
+ */
+function normalizeLocale(locale: string): 'pt-BR' | 'en' | 'es' {
+  const normalized = locale.toLowerCase().trim()
+
+  // Portuguese variants
+  if (normalized.startsWith('pt')) {
+    return 'pt-BR'
+  }
+
+  // Spanish variants
+  if (normalized.startsWith('es')) {
+    return 'es'
+  }
+
+  // Default to English for all other locales
+  return 'en'
+}
+
+/**
  * Subscribes an email to the newsletter.
- * Handles validation, duplicate prevention, and error states.
+ * Handles validation, duplicate prevention via database constraint.
  */
 export async function subscribeToNewsletter(
   email: string
@@ -32,38 +54,42 @@ export async function subscribeToNewsletter(
 
   // If Supabase is not configured, simulate success (for development)
   if (!isSupabaseConfigured()) {
-    console.log('[Dev Mode] Newsletter subscription simulated:', trimmedEmail)
+    console.warn(`[Dev Mode] Newsletter subscription simulated: ${trimmedEmail}`)
     return { success: true }
   }
 
   try {
-    // Check for existing subscription (duplicate prevention)
-    const { data: existing } = await supabase
-      .from('newsletter_subscribers')
-      .select('id')
-      .eq('email', trimmedEmail)
-      .single()
+    // Normalize locale to supported values
+    const browserLocale = typeof navigator !== 'undefined' ? navigator.language : 'en'
+    const locale = normalizeLocale(browserLocale)
 
-    if (existing) {
-      return { success: false, duplicate: true, error: 'This email is already subscribed' }
-    }
-
-    // Insert new subscription
+    // Single INSERT - let PostgreSQL UNIQUE constraint handle duplicates
     const { error } = await supabase
       .from('newsletter_subscribers')
       .insert({
         email: trimmedEmail,
-        subscribed_at: new Date().toISOString(),
+        source: 'newsletter',
+        locale,
       })
 
-    if (error) throw error
+    if (error) {
+      // Check for unique constraint violation (duplicate entry)
+      if (error.code === '23505') {
+        return { success: false, duplicate: true, error: 'This email is already subscribed' }
+      }
+
+      // Log unexpected errors in development
+      console.error('Newsletter insert failed:', error)
+      throw error
+    }
 
     return { success: true }
   } catch (err) {
+    // Log unexpected errors in development
     console.error('Newsletter subscription failed:', err)
     return {
       success: false,
-      error: 'Failed to subscribe. Please try again later.',
+      error: err instanceof Error ? err.message : 'Failed to subscribe. Please try again later.',
     }
   }
 }
