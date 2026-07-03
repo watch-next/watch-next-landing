@@ -13,7 +13,9 @@
     "ctaPrimary": "Comece Gratuitamente",
     "ctaSecondary": "Ver Planos",
     "emailPlaceholder": "Digite seu e-mail",
-    "submitBtn": "Participar Agora"
+    "submitBtn": "Participar Agora",
+    "submittedLabel": "Inscrito",
+    "successMessage": "Obrigado por entrar na lista de espera!"
   },
   "features": {
     "title": "Tudo o Que Você Precisa",

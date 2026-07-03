@@ -13,7 +13,9 @@
     "ctaPrimary": "Comienza Gratis",
     "ctaSecondary": "Ver Planes",
     "emailPlaceholder": "Ingresa tu correo",
-    "submitBtn": "Únete Ahora"
+    "submitBtn": "Únete Ahora",
+    "submittedLabel": "Unido",
+    "successMessage": "¡Gracias por unirte a la lista de espera!"
   },
   "features": {
     "title": "Todo Lo Que Necesitas",

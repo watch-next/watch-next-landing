@@ -13,7 +13,9 @@
     "ctaPrimary": "Get Started Free",
     "ctaSecondary": "See Plans",
     "emailPlaceholder": "Enter your email",
-    "submitBtn": "Join Now"
+    "submitBtn": "Join Now",
+    "submittedLabel": "Joined",
+    "successMessage": "Thanks for joining the waitlist!"
   },
   "features": {
     "title": "Everything You Need",

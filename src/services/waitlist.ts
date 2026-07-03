@@ -2,7 +2,7 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase'
 
 export interface WaitlistEntry {
   email: string
-  platform: 'android' | 'ios' | 'newsletter' | 'windows'
+  platform: 'android' | 'ios' | 'newsletter' | 'windows' | 'web'
   source: 'hero' | 'newsletter' | 'footer'
   locale: string
   created_at: string
@@ -40,7 +40,7 @@ function normalizeLocale(locale: string): 'pt-BR' | 'en' | 'es' {
  */
 export async function joinWaitlist(
   email: string,
-  platform: 'android' | 'ios' | 'newsletter' | 'windows',
+  platform: 'android' | 'ios' | 'newsletter' | 'windows' | 'web',
   source: 'hero' | 'newsletter' | 'footer'
 ): Promise<WaitlistResult> {
   const trimmedEmail = email.trim().toLowerCase()
