@@ -62,18 +62,8 @@ onMounted(async () => {
 })
 
 
-const normalizedId = computed(() => props.id.toLowerCase())
-const icons = import.meta.glob('@/assets/icons/*.png', {
-  eager: true,
-  import: 'default',
-}) as Record<string, string>
-
 const iconSrc = computed(() => {
-  const key = Object.keys(icons).find((path) =>
-    path.toLowerCase().includes(normalizedId.value)
-  )
-
-  return key ? icons[key] : ''
+  return `/assets/icons/${props.id.toLowerCase()}.png`
 })
 
 const buttonLabel = computed(() => {
