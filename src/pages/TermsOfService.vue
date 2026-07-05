@@ -1,6 +1,14 @@
 <template>
   <div class="legal-page">
     <div class="container">
+      <nav class="legal-back">
+        <router-link to="/" class="legal-back-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          {{ $t('legal.backToHome') }}
+        </router-link>
+      </nav>
       <article class="legal-content">
         <header class="legal-header">
           <h1 class="legal-title">Termos de Serviço</h1>
@@ -172,6 +180,33 @@
   min-height: 100vh;
   padding-top: 80px;
   background-color: $color-background;
+}
+
+.legal-back {
+  margin-bottom: $space-8;
+
+  &-link {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    font-size: $text-sm;
+    font-weight: $weight-medium;
+    color: $color-text-secondary;
+    text-decoration: none;
+    padding: $space-2 $space-3;
+    border-radius: $radius-md;
+    transition: all $transition-fast;
+
+    &:hover {
+      color: $brand-highlight;
+      background-color: $color-surface;
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
 }
 
 .legal-content {

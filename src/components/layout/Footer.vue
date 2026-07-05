@@ -36,12 +36,17 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 import { trackEvent, trackFooterLink, trackSocialClick } from '@/services/analytics'
 
 const { t } = useI18n()
+const router = useRouter()
 
 function handleFooterLinkClick(label: string, href: string) {
   trackEvent(trackFooterLink(label, href))
+  if (href.startsWith('/')) {
+    router.push(href)
+  }
 }
 
 function handleSocialClick(label: string, href: string) {
@@ -74,9 +79,9 @@ const footerNav = [
   {
     heading: t('footer.legal.heading'),
     links: [
-      { label: t('footer.legal.privacy'), href: '#' },
-      { label: t('footer.legal.terms'), href: '#' },
-      { label: t('footer.legal.cookies'), href: '#' },
+      { label: t('footer.legal.privacy'), href: '/privacy-policy' },
+      { label: t('footer.legal.terms'), href: '/terms-of-service' },
+      { label: t('footer.legal.cookies'), href: '/cookies-policy' },
     ],
   },
 ]
