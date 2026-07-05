@@ -61,7 +61,6 @@ onMounted(async () => {
   }
 })
 
-s
 
 const iconSrc = computed(() => {
   return `/assets/icons/${props.id.toLowerCase()}.png`
