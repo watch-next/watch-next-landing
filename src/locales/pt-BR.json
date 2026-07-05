@@ -49,7 +49,27 @@
   },
   "platforms": {
     "title": "Disponível em Todos os Lugares",
-    "subtitle": "O WatchNext chega a todos os seus dispositivos. Comece em um, continue em outro."
+    "subtitle": "O WatchNext chega a todos os seus dispositivos. Comece em um, continue em outro.",
+    "cards": {
+      "web": {
+        "name": "Web",
+        "description": "Acesse o WatchNext de qualquer navegador. Sem necessidade de download."
+      },
+      "windows": {
+        "name": "Windows",
+        "description": "Aplicativo nativo para Windows com suporte offline completo e integração com a bandeja do sistema."
+      },
+      "android": {
+        "name": "Android",
+        "description": "Leve sua lista de reprodução para qualquer lugar com o aplicativo móvel para Android."
+      }
+    },
+    "buttons": {
+      "web": "Abrir no Navegador",
+      "windows": "Baixar para Windows",
+      "android": "Disponível no Google Play",
+      "comingSoon": "Em Breve"
+    }
   },
   "premium": {
     "title": "Seja Premium",

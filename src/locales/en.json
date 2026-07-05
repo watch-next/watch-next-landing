@@ -49,7 +49,27 @@
   },
   "platforms": {
     "title": "Available Everywhere",
-    "subtitle": "WatchNext comes to all your devices. Start on one, continue on another."
+    "subtitle": "WatchNext comes to all your devices. Start on one, continue on another.",
+    "cards": {
+      "web": {
+        "name": "Web",
+        "description": "Access WatchNext from any browser. No download required."
+      },
+      "windows": {
+        "name": "Windows",
+        "description": "Native Windows app with full offline support and system tray integration."
+      },
+      "android": {
+        "name": "Android",
+        "description": "Take your watchlist on the go with the Android mobile app."
+      }
+    },
+    "buttons": {
+      "web": "Open in Browser",
+      "windows": "Download for Windows",
+      "android": "Get it on Google Play",
+      "comingSoon": "Coming Soon"
+    }
   },
   "premium": {
     "title": "Go Premium",

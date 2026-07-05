@@ -28,15 +28,18 @@
       :class="`platform-card__btn--${id}`"
       disabled
     >
-      Coming Soon
+      {{ comingSoonLabel }}
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useScrollReveal } from '@/composables/useScrollReveal'
 import { loadDownloadConfig } from '@/services/downloads'
+
+const { t } = useI18n()
 
 const props = defineProps<{
   id: string
@@ -63,13 +66,15 @@ const iconSrc = computed(() => {
 })
 const buttonLabel = computed(() => {
   const map: Record<string, string> = {
-    web: 'Open in Browser',
-    windows: 'Download for Windows',
-    android: 'Get it on Google Play',
-    macos: 'Download for macOS',
+    web: 'platforms.buttons.web',
+    windows: 'platforms.buttons.windows',
+    android: 'platforms.buttons.android',
+    macos: 'platforms.buttons.macos',
   }
-  return map[props.id] || 'Download'
+  const key = map[props.id]
+  return key ? t(key) : t('platforms.buttons.comingSoon')
 })
+const comingSoonLabel = computed(() => t('platforms.buttons.comingSoon'))
 </script>
 
 <style scoped lang="scss">

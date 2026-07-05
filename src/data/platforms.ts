@@ -1,28 +1,28 @@
-export interface Platform {
+export interface PlatformTranslationKeys {
   id: string
-  name: string
-  description: string
+  nameKey: string
+  descriptionKey: string
 }
 
 export const platformsSection = {
-  title: 'Available Everywhere',
-  subtitle: 'WatchNext is available on your favorite devices. Start watching on any platform.',
+  titleKey: 'platforms.title',
+  subtitleKey: 'platforms.subtitle',
 }
 
-export const platforms: Platform[] = [
+export const platforms: PlatformTranslationKeys[] = [
   {
     id: 'web',
-    name: 'Web',
-    description: 'Access WatchNext from any browser. No download required.',
+    nameKey: 'platforms.cards.web.name',
+    descriptionKey: 'platforms.cards.web.description',
   },
   {
     id: 'windows',
-    name: 'Windows',
-    description: 'Native Windows app with full offline support and system tray integration.',
+    nameKey: 'platforms.cards.windows.name',
+    descriptionKey: 'platforms.cards.windows.description',
   },
   {
     id: 'android',
-    name: 'Android',
-    description: 'Take your watchlist on the go with the Android mobile app.',
+    nameKey: 'platforms.cards.android.name',
+    descriptionKey: 'platforms.cards.android.description',
   },
 ]

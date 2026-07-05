@@ -2,16 +2,16 @@
   <section id="platforms" class="platforms">
     <div class="container">
       <div ref="sectionRef" class="platforms__header reveal">
-        <h2 class="platforms__title">{{ platformsSection.title }}</h2>
-        <p class="platforms__subtitle">{{ platformsSection.subtitle }}</p>
+        <h2 class="platforms__title">{{ t(platformsSection.titleKey) }}</h2>
+        <p class="platforms__subtitle">{{ t(platformsSection.subtitleKey) }}</p>
       </div>
       <div class="platforms__grid">
         <PlatformCard
           v-for="(platform, index) in platforms"
           :key="platform.id"
           :id="platform.id"
-          :name="platform.name"
-          :description="platform.description"
+          :name="t(platform.nameKey)"
+          :description="t(platform.descriptionKey)"
           :stagger-index="index"
         />
       </div>
@@ -20,9 +20,12 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import PlatformCard from '@/components/PlatformCard.vue'
 import { platforms, platformsSection } from '@/data/platforms'
 import { useScrollReveal } from '@/composables/useScrollReveal'
+
+const { t } = useI18n()
 
 const { el: sectionRef } = useScrollReveal()
 </script>
