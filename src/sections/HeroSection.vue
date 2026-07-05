@@ -72,27 +72,39 @@ const androidError = ref('')
 const isSubmittingAndroid = ref(false)
 
 async function handleAndroidSubmit() {
+  console.log('[handleAndroidSubmit] Chamado, email:', androidEmail.value)
   androidError.value = ''
   if (!androidEmail.value.trim()) {
+    console.log('[handleAndroidSubmit] Email vazio, definindo erro')
     androidError.value = 'Email is required'
     return
   }
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   if (!emailRegex.test(androidEmail.value)) {
+    console.log('[handleAndroidSubmit] Email inválido, definindo erro')
     androidError.value = 'Please enter a valid email address'
     return
   }
 
+  console.log('[handleAndroidSubmit] Email válido, iniciando submissão...')
   isSubmittingAndroid.value = true
   const result = await joinWaitlist(androidEmail.value, 'web', 'hero')
+  console.log('[handleAndroidSubmit] Resultado de joinWaitlist:', result)
 
-  if (result.success) {
+  // Only consider success when BOTH conditions are true:
+  // - result.success === true
+  // - result.error == null (no error message)
+  if (result.success && result.error == null) {
     androidSubmitted.value = true
     androidEmail.value = ''
   } else if (result.duplicate) {
     androidError.value = result.error || "You're already on the Android waitlist"
+  } else if (result.error) {
+    // Real error from production or development
+    androidError.value = result.error
   } else {
-    androidError.value = result.error || 'Failed to join waitlist. Please try again later.'
+    // Fallback for unexpected states
+    androidError.value = 'Failed to join waitlist. Please try again later.'
   }
 
   isSubmittingAndroid.value = false
