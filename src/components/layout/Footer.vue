@@ -66,9 +66,9 @@ const footerNav = [
   {
     heading: t('footer.platforms.heading'),
     links: [
-      { label: t('footer.platforms.web'), href: '#' },
-      { label: t('footer.platforms.windows'), href: '#' },
-      { label: t('footer.platforms.android'), href: '#' },
+      { label: t('footer.platforms.web'), href: '#platforms' },
+      { label: t('footer.platforms.windows'), href: '#platforms' },
+      { label: t('footer.platforms.android'), href: '#platforms' },
     ],
   },
   {
