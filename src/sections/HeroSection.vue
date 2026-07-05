@@ -11,6 +11,8 @@
           <a href="#premium" class="hero__cta hero__cta--secondary btn-hover-smooth">{{ hero.ctaSecondary }}</a>
         </div>
         <div class="hero__signup">
+          <div class="hero__badge">{{ hero.androidBadge }}</div>
+          <p class="hero__badge-subtitle">{{ hero.androidBadgeSubtitle }}</p>
           <form class="hero__waitlist-form" @submit.prevent="handleAndroidSubmit">
             <input v-model="androidEmail" type="email" class="hero__email"
               :class="{ 'hero__email--error': androidError }" :placeholder="hero.emailPlaceholder"
@@ -55,6 +57,8 @@ const hero = computed(() => ({
   submitBtn: t('hero.submitBtn'),
   submittedLabel: t('hero.submittedLabel'),
   successMessage: t('hero.successMessage'),
+  androidBadge: t('hero.androidBadge'),
+  androidBadgeSubtitle: t('hero.androidBadgeSubtitle'),
 }))
 
 const { el: heroReveal } = useScrollReveal()
@@ -246,6 +250,26 @@ onMounted(() => {
     flex-direction: column;
     gap: $space-2;
     max-width: 440px;
+  }
+
+  &__badge {
+    display: inline-block;
+    padding: $space-1 $space-3;
+    font-size: $text-xs;
+    font-weight: $weight-semibold;
+    color: $color-accent;
+    background: rgba($color-accent, 0.1);
+    border: 1px solid rgba($color-accent, 0.2);
+    border-radius: $radius-sm;
+    width: fit-content;
+    margin-bottom: $space-1;
+  }
+
+  &__badge-subtitle {
+    font-size: $text-sm;
+    color: $color-text-secondary;
+    margin: 0 0 $space-3 0;
+    line-height: $leading-normal;
   }
 
   &__waitlist-form {
