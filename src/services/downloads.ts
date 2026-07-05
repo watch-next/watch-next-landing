@@ -34,8 +34,13 @@ export function trackAndDownload(
  * Falls back to environment variables if database is not configured.
  */
 export async function loadDownloadConfig(): Promise<DownloadConfig> {
-  // If Supabase is not configured, use environment variables
-  if (!isSupabaseConfigured()) {
+  const isProduction = import.meta.env.PROD
+  const hasSupabaseUrl = !!import.meta.env.VITE_SUPABASE_URL
+  const hasSupabaseAnonKey = !!import.meta.env.VITE_SUPABASE_ANON_KEY
+  const isConfigured = hasSupabaseUrl && hasSupabaseAnonKey
+
+  // PRODUCTION: If Supabase not configured, skip database query entirely
+  if (isProduction && !isConfigured) {
     return {
       web: import.meta.env.VITE_DOWNLOAD_WEB,
       windows: import.meta.env.VITE_DOWNLOAD_WINDOWS,
@@ -44,31 +49,36 @@ export async function loadDownloadConfig(): Promise<DownloadConfig> {
     }
   }
 
-  try {
-    const { data, error } = await supabase
-      .from('download_links')
-      .select('platform, url')
-      .eq('active', true)
+  // DEV or configured: try Supabase
+  if (isConfigured) {
+    try {
+      const { data, error } = await supabase
+        .from('download_links')
+        .select('platform, url')
+        .eq('active', true)
 
-    if (error) throw error
+      if (error) throw error
 
-    const config: DownloadConfig = {}
-    data?.forEach((item: { platform: string; url: string }) => {
-      const platform = item.platform.toLowerCase()
-      if (platform === 'web') config.web = item.url
-      if (platform === 'windows') config.windows = item.url
-      if (platform === 'android') config.android = item.url
-      if (platform === 'macos') config.macos = item.url
-    })
+      const config: DownloadConfig = {}
+      data?.forEach((item: { platform: string; url: string }) => {
+        const platform = item.platform.toLowerCase()
+        if (platform === 'web') config.web = item.url
+        if (platform === 'windows') config.windows = item.url
+        if (platform === 'android') config.android = item.url
+        if (platform === 'macos') config.macos = item.url
+      })
 
-    return config
-  } catch (err) {
-    console.error('Failed to load download config:', err)
-    return {
-      web: import.meta.env.VITE_DOWNLOAD_WEB,
-      windows: import.meta.env.VITE_DOWNLOAD_WINDOWS,
-      android: import.meta.env.VITE_DOWNLOAD_ANDROID,
-      macos: import.meta.env.VITE_DOWNLOAD_MACOS,
+      return config
+    } catch {
+      // Silently fall back to env vars on error
     }
+  }
+
+  // Fallback for dev without config or on error
+  return {
+    web: import.meta.env.VITE_DOWNLOAD_WEB,
+    windows: import.meta.env.VITE_DOWNLOAD_WINDOWS,
+    android: import.meta.env.VITE_DOWNLOAD_ANDROID,
+    macos: import.meta.env.VITE_DOWNLOAD_MACOS,
   }
 }
