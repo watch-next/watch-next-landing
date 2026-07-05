@@ -10,11 +10,13 @@
         height="48"
       />
     </div>
-    <h3 class="feature-card__title">{{ title }}</h3>
-    <p class="feature-card__description">{{ description }}</p>
+
+    <div class="feature-card__content">
+      <h3 class="feature-card__title">{{ title }}</h3>
+      <p class="feature-card__description">{{ description }}</p>
+    </div>
   </div>
 </template>
-
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
 import { useScrollReveal } from '@/composables/useScrollReveal'
@@ -55,8 +57,8 @@ onMounted(() => {
 .feature-card {
   &.card-hover {
     display: flex;
-    flex-direction: column;
-    gap: $space-3;
+    align-items: flex-start;
+    gap: $space-4;
     padding: $space-6;
     background: $gradient-surface;
     border: 1px solid $color-border;
@@ -67,7 +69,7 @@ onMounted(() => {
     transform-style: preserve-3d;
     will-change: transform, box-shadow;
     position: relative;
-
+    
     &::before {
       content: '';
       position: absolute;
@@ -104,34 +106,43 @@ onMounted(() => {
     }
   }
 
+  
+
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+  }
+
   &__icon {
+    flex-shrink: 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     width: 48px;
     height: 48px;
-    border-radius: $radius-md;
-    background: $gradient-card;
-    border: 1px solid $color-border;
-  }
 
-  &__icon-img {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
+    border-radius: $radius-md;
+   
+  
   }
 
   &__title {
+    margin: 0;
     font-size: $text-lg;
     font-weight: $weight-semibold;
     color: $color-text;
-    margin-top: $space-2;
   }
 
   &__description {
+    margin: 0;
     font-size: $text-sm;
     color: $color-text-secondary;
     line-height: $leading-relaxed;
   }
+
 }
 </style>
