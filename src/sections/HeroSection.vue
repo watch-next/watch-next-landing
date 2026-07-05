@@ -29,8 +29,8 @@
       </div>
       <div ref="visualReveal" class="hero__visual reveal-right">
         <picture>
-          <source type="image/svg+xml" srcset="@/assets/images/hero.svg" />
-          <img class="hero__image float-animation" src="@/assets/images/hero.svg" alt="WatchNext dashboard preview"
+          <source type="image/svg+xml" srcset="@/images/hero/hero.svg" />
+          <img class="hero__image float-animation" src="@/images/hero/hero.svg" alt="WatchNext dashboard preview"
             loading="eager" decoding="async" importance="high" width="560" height="350" />
         </picture>
       </div>
