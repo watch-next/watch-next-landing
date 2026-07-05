@@ -8,7 +8,7 @@
           <p class="footer__description">{{ footerSection.brandDescription }}</p>
           <ul class="footer__social">
             <li v-for="social in socialLinks" :key="social.label">
-              <a :href="social.href" class="footer__social-link" :aria-label="social.label">
+              <a :href="social.href" class="footer__social-link" :aria-label="social.label" @click="handleSocialClick(social.label, social.href)">
                 {{ social.label.charAt(0) }}
               </a>
             </li>
@@ -19,7 +19,7 @@
           <h3 class="footer__group-title">{{ group.heading }}</h3>
           <ul class="footer__group-list">
             <li v-for="link in group.links" :key="link.label">
-              <a :href="link.href" class="footer__link link-hover">{{ link.label }}</a>
+              <a :href="link.href" class="footer__link link-hover" @click="handleFooterLinkClick(link.label, link.href)">{{ link.label }}</a>
             </li>
           </ul>
         </div>
@@ -36,8 +36,17 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { trackEvent, trackFooterLink, trackSocialClick } from '@/services/analytics'
 
 const { t } = useI18n()
+
+function handleFooterLinkClick(label: string, href: string) {
+  trackEvent(trackFooterLink(label, href))
+}
+
+function handleSocialClick(label: string, href: string) {
+  trackEvent(trackSocialClick(label.replace(/\s+/g, '').toLowerCase(), href))
+}
 
 const footerSection = {
   brandDescription: t('footer.brandDescription'),

@@ -34,6 +34,9 @@ export const AnalyticsEvents = {
 
   // Social
   SOCIAL_CLICK: 'social_click',
+
+  // Page View
+  PAGE_VIEW: 'page_view',
 } as const
 
 export type AnalyticsEventName = (typeof AnalyticsEvents)[keyof typeof AnalyticsEvents]

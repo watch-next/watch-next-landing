@@ -1,9 +1,22 @@
 import { joinWaitlist } from './waitlist'
 
+import { trackEvent, trackNewsletterSubscribe } from './analytics'
+
 export interface SubscribeResult {
   success: boolean
   duplicate?: boolean
   error?: string
+}
+
+/**
+ * Gets the current locale for analytics tracking
+ */
+function getCurrentLocale(): string {
+  if (typeof navigator === 'undefined') return 'en'
+  const browserLocale = navigator.language.toLowerCase().trim()
+  if (browserLocale.startsWith('pt')) return 'pt-BR'
+  if (browserLocale.startsWith('es')) return 'es'
+  return 'en'
 }
 
 /**
@@ -16,6 +29,11 @@ export async function subscribeToNewsletter(
   email: string
 ): Promise<SubscribeResult> {
   const result = await joinWaitlist(email, 'newsletter', 'newsletter')
+
+  // Track successful newsletter subscription (no PII - locale only)
+  if (result.success) {
+    trackEvent(trackNewsletterSubscribe('success', getCurrentLocale()))
+  }
 
   return {
     success: result.success,
