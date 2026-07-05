@@ -14,16 +14,20 @@ export interface PlausibleConfig {
 
 export class PlausibleAnalytics implements AnalyticsProvider {
   readonly name = 'Plausible'
-  private config: PlausibleConfig | null = null
+  private plausibleConfig: PlausibleConfig | null = null
   private initialized = false
 
   async initialize(config: Record<string, unknown>): Promise<void> {
-    const plausibleConfig = config as PlausibleConfig
-    if (!plausibleConfig.domain) {
+    const domain = config.domain as string | undefined
+    if (!domain) {
       throw new Error('Plausible: domain is required')
     }
 
-    this.config = plausibleConfig
+    this.plausibleConfig = {
+      domain,
+      selfHosted: config.selfHosted as boolean | undefined,
+      selfHostedUrl: config.selfHostedUrl as string | undefined,
+    }
 
     if (typeof window !== 'undefined') {
       // Setup plausible queue
@@ -35,14 +39,14 @@ export class PlausibleAnalytics implements AnalyticsProvider {
       }
 
       // Whether to use self-hosted or cloud
-      const scriptUrl = plausibleConfig.selfHosted
-        ? plausibleConfig.selfHostedUrl || plausibleConfig.domain
+      const scriptUrl = this.plausibleConfig.selfHosted
+        ? this.plausibleConfig.selfHostedUrl || this.plausibleConfig.domain
         : `https://plausible.io/js/script.js`
 
       const script = document.createElement('script')
       script.defer = true
       script.src = scriptUrl
-      script.dataset.domain = plausibleConfig.domain
+      script.dataset.domain = this.plausibleConfig.domain
       document.head.appendChild(script)
 
       script.onload = () => {

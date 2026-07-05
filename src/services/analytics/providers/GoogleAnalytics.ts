@@ -12,21 +12,21 @@ export interface GAConfig {
 
 export class GoogleAnalytics implements AnalyticsProvider {
   readonly name = 'GoogleAnalytics'
-  private config: GAConfig | null = null
+  private gaConfig: GAConfig | null = null
   private initialized = false
 
   async initialize(config: Record<string, unknown>): Promise<void> {
-    const gaConfig = config as GAConfig
-    if (!gaConfig.measurementId) {
+    const measurementId = config.measurementId as string | undefined
+    if (!measurementId) {
       throw new Error('GoogleAnalytics: measurementId is required')
     }
 
-    this.config = gaConfig
+    this.gaConfig = { measurementId }
 
     // Load gtag script
     if (typeof window !== 'undefined') {
       const script = document.createElement('script')
-      script.src = `https://www.googletagmanager.com/gtag/js?id=${gaConfig.measurementId}`
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`
       script.async = true
       document.head.appendChild(script)
 
@@ -39,7 +39,7 @@ export class GoogleAnalytics implements AnalyticsProvider {
           }
         }
         window.gtag('js', new Date())
-        window.gtag('config', gaConfig.measurementId)
+        window.gtag('config', measurementId)
         this.initialized = true
       }
     }
