@@ -38,7 +38,7 @@ export class PostHogAnalytics implements AnalyticsProvider {
       document.head.appendChild(script)
 
       script.onload = () => {
-        if (window.posthog) {
+        if (window.posthog && this.postHogConfig) {
           window.posthog.init(this.postHogConfig.apiKey, {
             api_host: this.postHogConfig.host || 'https://app.posthog.com',
           })
