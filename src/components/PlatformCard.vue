@@ -61,9 +61,21 @@ onMounted(async () => {
   }
 })
 
+
+const normalizedId = computed(() => props.id.toLowerCase())
+const icons = import.meta.glob('@/assets/icons/*.png', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>
+
 const iconSrc = computed(() => {
-  return new URL(`../assets/icons/${props.id}.png` || `../assets/icons/${props.id}.png`, import.meta.url).href
+  const key = Object.keys(icons).find((path) =>
+    path.toLowerCase().includes(normalizedId.value)
+  )
+
+  return key ? icons[key] : ''
 })
+
 const buttonLabel = computed(() => {
   const map: Record<string, string> = {
     web: 'platforms.buttons.web',
