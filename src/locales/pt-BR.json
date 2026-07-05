@@ -15,7 +15,9 @@
     "emailPlaceholder": "Digite seu e-mail",
     "submitBtn": "Participar Agora",
     "submittedLabel": "Inscrito",
-    "successMessage": "Obrigado por entrar na lista de espera!"
+    "successMessage": "Obrigado por entrar na lista de espera!",
+    "androidBadge": "Em Breve para Android",
+    "androidBadgeSubtitle": "Entre na lista de espera e seja o primeiro a saber."
   },
   "features": {
     "title": "Tudo o Que Você Precisa",

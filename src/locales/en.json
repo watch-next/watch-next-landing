@@ -15,7 +15,9 @@
     "emailPlaceholder": "Enter your email",
     "submitBtn": "Join Now",
     "submittedLabel": "Joined",
-    "successMessage": "Thanks for joining the waitlist!"
+    "successMessage": "Thanks for joining the waitlist!",
+    "androidBadge": "Coming Soon for Android",
+    "androidBadgeSubtitle": "Join the waitlist and be the first to know."
   },
   "features": {
     "title": "Everything You Need",
