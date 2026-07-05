@@ -7,8 +7,8 @@
         <h1 class="hero__headline" v-html="hero.headline.replace('\n', '<br />')"></h1>
         <p class="hero__subtitle">{{ hero.subtitle }}</p>
         <div class="hero__actions">
-          <a href="#features" class="hero__cta hero__cta--primary glow-pulse btn-hover-smooth">{{ hero.ctaPrimary }}</a>
-          <a href="#premium" class="hero__cta hero__cta--secondary btn-hover-smooth">{{ hero.ctaSecondary }}</a>
+          <a href="#features" class="hero__cta hero__cta--primary glow-pulse btn-hover-smooth" @click="trackEvent(trackHeroCta('features'))">{{ hero.ctaPrimary }}</a>
+          <a href="#premium" class="hero__cta hero__cta--secondary btn-hover-smooth" @click="trackEvent(trackHeroCta('premium'))">{{ hero.ctaSecondary }}</a>
         </div>
         <div class="hero__signup">
           <div class="hero__badge">{{ hero.androidBadge }}</div>
@@ -45,6 +45,7 @@ import { useI18n } from 'vue-i18n'
 import { useScrollReveal } from '@/composables/useScrollReveal'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { joinWaitlist } from '@/services/waitlist'
+import { trackEvent, trackHeroCta } from '@/services/analytics'
 
 const { t } = useI18n()
 

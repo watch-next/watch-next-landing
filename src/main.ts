@@ -62,6 +62,8 @@ const analyticsConfig = {
 const hasProviders = Object.values(analyticsConfig.providers).some(Boolean)
 if (hasProviders) {
   analytics.initialize(analyticsConfig)
+  // Track initial page view
+  analytics.trackPageView()
 }
 
 const app = createApp(App)

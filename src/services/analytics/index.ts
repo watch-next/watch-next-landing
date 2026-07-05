@@ -45,6 +45,7 @@ export {
   trackLanguageChange,
   trackFooterLink,
   trackSocialClick,
+  trackPageView,
 } from './helpers'
 
 import { analytics } from './analytics'

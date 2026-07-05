@@ -10,15 +10,20 @@
           {{ feature }}
         </li>
       </ul>
-      <button class="premium__cta">{{ premiumSection.cta }}</button>
+      <button class="premium__cta" @click="handlePremiumCtaClick">{{ premiumSection.cta }}</button>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { trackEvent, trackPremiumCta } from '@/services/analytics'
 
 const { t } = useI18n()
+
+const handlePremiumCtaClick = () => {
+  trackEvent(trackPremiumCta('premium-section'))
+}
 
 const premiumSection = {
   title: t('premium.title'),

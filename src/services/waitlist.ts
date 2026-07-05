@@ -1,4 +1,5 @@
 import { supabase, isSupabaseConfigured } from '../lib/supabase'
+import { trackEvent, trackWaitlistSubscribe } from './analytics'
 
 export interface WaitlistEntry {
   email: string
@@ -90,6 +91,9 @@ export async function joinWaitlist(
       throw error
     }
 
+    // Track successful waitlist signup (no PII - platform, source, locale only)
+    trackEvent(trackWaitlistSubscribe('success', platform, source, locale))
+
     return { success: true }
   } catch (err) {
     // Log unexpected errors in development
@@ -99,4 +103,15 @@ export async function joinWaitlist(
       error: err instanceof Error ? err.message : 'Failed to join waitlist. Please try again later.',
     }
   }
+}
+
+/**
+ * Legacy wrapper for backwards compatibility
+ */
+export async function joinWaitlistLegacy(
+  email: string,
+  platform: 'android' | 'ios' | 'newsletter' | 'windows' | 'web',
+  source: 'hero' | 'newsletter' | 'footer'
+): Promise<WaitlistResult> {
+  return joinWaitlist(email, platform, source)
 }

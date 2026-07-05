@@ -9,7 +9,7 @@
       <nav class="header__nav" :class="{ 'header__nav--open': menuOpen }" role="navigation" aria-label="Main navigation" id="main-nav">
         <ul class="header__nav-list">
           <li v-for="link in navLinks" :key="link.href" class="header__nav-item">
-            <a :href="link.href" class="header__nav-link link-hover" @click="closeMenu">{{ link.label }}</a>
+            <a :href="link.href" class="header__nav-link link-hover" @click="handleNavClick(link)">{{ link.label }}</a>
           </li>
         </ul>
         <button class="header__login-btn">{{ t('navigation.login') }}</button>
@@ -40,6 +40,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { trackEvent, trackNavigation, trackLanguageChange } from '@/services/analytics'
 
 const { t, locale } = useI18n()
 
@@ -71,15 +72,22 @@ function closeMenu() {
   menuOpen.value = false
 }
 
+function handleNavClick(link: { label: string; href: string }) {
+  trackEvent(trackNavigation(link.label, 'header'))
+  closeMenu()
+}
+
 function toggleLangMenu() {
   showLangMenu.value = !showLangMenu.value
 }
 
 function selectLang(code: string) {
+  const from = locale.value
   locale.value = code
   currentLang.value = code
   showLangMenu.value = false
   localStorage.setItem('watchnext-locale', code)
+  trackEvent(trackLanguageChange(from, code))
 }
 
 onMounted(() => {

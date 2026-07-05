@@ -113,13 +113,14 @@ export class AnalyticsService {
   /**
    * Track a page view
    */
-  trackPageView(path: string): void {
+  trackPageView(path?: string): void {
     if (!this.initialized) {
       return
     }
+    const pagePath = path || window.location.pathname
     this.providers.forEach((provider) => {
       if (provider.isReady()) {
-        provider.trackPageView(path)
+        provider.trackPageView(pagePath)
       }
     })
   }

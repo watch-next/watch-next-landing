@@ -28,8 +28,11 @@ export function trackHeroCta(action: string): AnalyticsEvent {
 /**
  * Download button event helper
  */
-export function trackDownload(platform: string, version?: string): AnalyticsEvent {
-  return createAnalyticsEvent(AnalyticsEvents.DOWNLOAD_CLICK, { platform, version })
+export function trackDownload(
+  platform: 'windows' | 'android' | 'macos' | 'web',
+  location: 'hero' | 'features' | 'footer'
+): AnalyticsEvent {
+  return createAnalyticsEvent(AnalyticsEvents.DOWNLOAD_CLICK, { platform, location })
 }
 
 /**
@@ -37,7 +40,7 @@ export function trackDownload(platform: string, version?: string): AnalyticsEven
  */
 export function trackNewsletterSubscribe(
   status: 'initiated' | 'success' | 'error',
-  email?: string
+  locale?: string
 ): AnalyticsEvent {
   const eventName =
     status === 'success'
@@ -46,7 +49,7 @@ export function trackNewsletterSubscribe(
         ? AnalyticsEvents.NEWSLETTER_SUBSCRIBE_ERROR
         : AnalyticsEvents.NEWSLETTER_SUBSCRIBE
 
-  return createAnalyticsEvent(eventName, { status, email })
+  return createAnalyticsEvent(eventName, { status, locale })
 }
 
 /**
@@ -54,7 +57,9 @@ export function trackNewsletterSubscribe(
  */
 export function trackWaitlistSubscribe(
   status: 'initiated' | 'success' | 'error',
-  email?: string
+  platform?: string,
+  source?: string,
+  locale?: string
 ): AnalyticsEvent {
   const eventName =
     status === 'success'
@@ -63,7 +68,7 @@ export function trackWaitlistSubscribe(
         ? AnalyticsEvents.WAITLIST_SUBSCRIBE_ERROR
         : AnalyticsEvents.WAITLIST_SUBSCRIBE
 
-  return createAnalyticsEvent(eventName, { status, email })
+  return createAnalyticsEvent(eventName, { status, platform, source, locale })
 }
 
 /**
@@ -92,4 +97,11 @@ export function trackFooterLink(label: string, href?: string): AnalyticsEvent {
  */
 export function trackSocialClick(platform: string, url?: string): AnalyticsEvent {
   return createAnalyticsEvent(AnalyticsEvents.SOCIAL_CLICK, { platform, url })
+}
+
+/**
+ * Page view event helper - fires once on initial page load
+ */
+export function trackPageView(): AnalyticsEvent {
+  return createAnalyticsEvent(AnalyticsEvents.PAGE_VIEW)
 }
