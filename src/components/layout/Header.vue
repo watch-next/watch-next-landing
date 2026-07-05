@@ -283,5 +283,72 @@ onUnmounted(() => {
       top: 100%;
     }
   }
+
+  &__lang-switcher {
+    position: relative;
+    z-index: $z-dropdown;
+  }
+
+  &__lang-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    padding: $space-2 $space-4;
+    font-size: $text-sm;
+    font-weight: $weight-medium;
+    color: $color-text;
+    background: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    cursor: pointer;
+    transition: all $transition-fast;
+
+    &::after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 4px solid currentColor;
+    }
+
+    &:hover {
+      border-color: $color-primary;
+    }
+  }
+
+  &__lang-dropdown {
+    position: absolute;
+    top: calc(100% + #{$space-2});
+    right: 0;
+    min-width: 160px;
+    padding: $space-2;
+    list-style: none;
+    background: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: $z-dropdown;
+
+    li {
+      button {
+        width: 100%;
+        padding: $space-2 $space-4;
+        font-size: $text-sm;
+        color: $color-text;
+        text-align: left;
+        background: none;
+        border: none;
+        border-radius: $radius-sm;
+        cursor: pointer;
+        transition: background $transition-fast;
+        white-space: nowrap;
+
+        &:hover {
+          background: rgba($color-primary, 0.1);
+        }
+      }
+    }
+  }
 }
 </style>
