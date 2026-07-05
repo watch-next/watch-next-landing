@@ -170,7 +170,18 @@
 </template>
 
 <script setup lang="ts">
-// Página de Termos de Serviço - conteúdo estático em português
+import { useSeo } from '@/composables/useSeo'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+useSeo({
+  title: t('footer.legal.terms'),
+  description: 'Termos de Serviço do WatchNext. Regras e condições para uso da plataforma de descoberta e acompanhamento de conteúdo.',
+  canonical: 'https://watchnext.app/terms-of-service',
+  ogImage: 'https://watchnext.app/assets/images/hero.svg',
+  twitterCard: 'summary_large_image',
+})
 </script>
 
 <style scoped lang="scss">

@@ -154,7 +154,19 @@
 </template>
 
 <script setup lang="ts">
-// Página de Política de Privacidade - conteúdo estático em português
+import { useSeo } from '@/composables/useSeo'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+// SEO dinâmico baseado no locale
+useSeo({
+  title: t('footer.legal.privacy'),
+  description: 'Política de Privacidade do WatchNext. Saiba como coletamos, usamos e protegemos seus dados pessoais.',
+  canonical: 'https://watchnext.app/privacy-policy',
+  ogImage: 'https://watchnext.app/assets/images/hero.svg',
+  twitterCard: 'summary_large_image',
+})
 </script>
 
 <style scoped lang="scss">

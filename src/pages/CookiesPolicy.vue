@@ -224,7 +224,18 @@
 </template>
 
 <script setup lang="ts">
-// Página de Política de Cookies - conteúdo estático em português
+import { useSeo } from '@/composables/useSeo'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+useSeo({
+  title: t('footer.legal.cookies'),
+  description: 'Política de Cookies do WatchNext. Saiba como utilizamos cookies e tecnologias similares para melhorar sua experiência.',
+  canonical: 'https://watchnext.app/cookies-policy',
+  ogImage: 'https://watchnext.app/assets/images/hero.svg',
+  twitterCard: 'summary_large_image',
+})
 </script>
 
 <style scoped lang="scss">
