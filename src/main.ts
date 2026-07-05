@@ -8,6 +8,9 @@ import en from './locales/en.json'
 import ptBR from './locales/pt-BR.json'
 import es from './locales/es.json'
 
+// Import analytics service
+import { analytics } from './services/analytics'
+
 // Detect browser language
 function getBrowserLanguage(): string {
   // Check localStorage first
@@ -32,6 +35,34 @@ const i18n = createI18n({
     es,
   },
 })
+
+// Initialize analytics with environment-configured providers
+const analyticsConfig = {
+  providers: {
+    googleAnalytics: import.meta.env.VITE_GA_MEASUREMENT_ID
+      ? { measurementId: import.meta.env.VITE_GA_MEASUREMENT_ID }
+      : undefined,
+    plausible: import.meta.env.VITE_PLAUSIBLE_DOMAIN
+      ? {
+          domain: import.meta.env.VITE_PLAUSIBLE_DOMAIN,
+          selfHosted: import.meta.env.VITE_PLAUSIBLE_SELF_HOSTED === 'true',
+          selfHostedUrl: import.meta.env.VITE_PLAUSIBLE_HOST,
+        }
+      : undefined,
+    posthog: import.meta.env.VITE_POSTHOG_API_KEY
+      ? {
+          apiKey: import.meta.env.VITE_POSTHOG_API_KEY,
+          host: import.meta.env.VITE_POSTHOG_HOST,
+        }
+      : undefined,
+  },
+}
+
+// Only initialize if at least one provider is configured
+const hasProviders = Object.values(analyticsConfig.providers).some(Boolean)
+if (hasProviders) {
+  analytics.initialize(analyticsConfig)
+}
 
 const app = createApp(App)
 app.use(i18n)
