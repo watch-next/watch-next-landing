@@ -72,24 +72,24 @@ const androidError = ref('')
 const isSubmittingAndroid = ref(false)
 
 async function handleAndroidSubmit() {
-  console.log('[handleAndroidSubmit] Chamado, email:', androidEmail.value)
+
   androidError.value = ''
   if (!androidEmail.value.trim()) {
-    console.log('[handleAndroidSubmit] Email vazio, definindo erro')
+    
     androidError.value = 'Email is required'
     return
   }
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   if (!emailRegex.test(androidEmail.value)) {
-    console.log('[handleAndroidSubmit] Email inválido, definindo erro')
+   
     androidError.value = 'Please enter a valid email address'
     return
   }
 
-  console.log('[handleAndroidSubmit] Email válido, iniciando submissão...')
+ 
   isSubmittingAndroid.value = true
   const result = await joinWaitlist(androidEmail.value, 'web', 'hero')
-  console.log('[handleAndroidSubmit] Resultado de joinWaitlist:', result)
+
 
   // Only consider success when BOTH conditions are true:
   // - result.success === true
