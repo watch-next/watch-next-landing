@@ -28,17 +28,22 @@ const routes = [
   },
 ]
 
+const pages = new Set(['/privacy-policy', '/terms-of-service', '/cookies-policy'])
+
 const router = createRouter({
   history: createWebHistory(),
   routes,
   scrollBehavior(to, _from, savedPosition) {
+    if (pages.has(to.path)) {
+      return { top: 0 }
+    }
     if (savedPosition) {
       return savedPosition
     }
     if (to.hash) {
       return { el: to.hash, behavior: 'smooth' }
     }
-    return { top: 0 }
+    return { top: 0, behavior: 'smooth' }
   },
 })
 
