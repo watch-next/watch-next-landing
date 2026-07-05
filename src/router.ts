@@ -1,15 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import App from './App.vue'
-import PrivacyPolicy from './pages/PrivacyPolicy.vue'
-import TermsOfService from './pages/TermsOfService.vue'
-import CookiesPolicy from './pages/CookiesPolicy.vue'
+// Layout principal da landing page
+const HomeLayout = () => import('./App.vue')
+// Páginas jurídicas com layout próprio
+const PrivacyPolicy = () => import('./pages/PrivacyPolicy.vue')
+const TermsOfService = () => import('./pages/TermsOfService.vue')
+const CookiesPolicy = () => import('./pages/CookiesPolicy.vue')
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: App,
+    component: HomeLayout,
   },
   {
     path: '/privacy-policy',

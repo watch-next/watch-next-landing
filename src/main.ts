@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import { createI18n } from 'vue-i18n'
-import App from './App.vue'
+import Root from './Root.vue'
 import router from './router'
 import './style/global.scss'
 
@@ -67,7 +67,7 @@ if (hasProviders) {
   analytics.trackPageView()
 }
 
-const app = createApp(App)
+const app = createApp(Root)
 app.use(i18n)
 app.use(router)
 app.mount('#app')
