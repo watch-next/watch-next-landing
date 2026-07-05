@@ -19,12 +19,13 @@ export class PostHogAnalytics implements AnalyticsProvider {
   private config: PostHogConfig | null = null
   private initialized = false
 
-  async initialize(config: PostHogConfig): Promise<void> {
-    if (!config.apiKey) {
+  async initialize(config: Record<string, unknown>): Promise<void> {
+    const postHogConfig = config as PostHogConfig
+    if (!postHogConfig.apiKey) {
       throw new Error('PostHog: apiKey is required')
     }
 
-    this.config = config
+    this.config = postHogConfig
 
     if (typeof window !== 'undefined') {
       // Load PostHog script
@@ -35,8 +36,8 @@ export class PostHogAnalytics implements AnalyticsProvider {
 
       script.onload = () => {
         if (window.posthog) {
-          window.posthog.init(config.apiKey, {
-            api_host: config.host || 'https://app.posthog.com',
+          window.posthog.init(postHogConfig.apiKey, {
+            api_host: postHogConfig.host || 'https://app.posthog.com',
           })
           this.initialized = true
         }

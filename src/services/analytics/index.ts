@@ -47,6 +47,8 @@ export {
   trackSocialClick,
 } from './helpers'
 
+import { analytics } from './analytics'
+
 /**
  * Convenience function for tracking events
  * Usage: trackEvent(trackNavigation('Home', 'header'))

@@ -32,3 +32,8 @@ export interface AnalyticsProvider {
    */
   isReady(): boolean
 }
+
+/**
+ * Helper type for type-safe provider configs
+ */
+export type ProviderConfig<T> = T & Record<string, unknown>
