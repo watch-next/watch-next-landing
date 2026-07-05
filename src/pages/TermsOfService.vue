@@ -170,17 +170,27 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { useSeo } from '@/composables/useSeo'
 import { useI18n } from 'vue-i18n'
+import { analytics } from '@/services/analytics'
+import { trackPageView, trackFooterLink } from '@/services/analytics/helpers'
 
 const { t } = useI18n()
 
+// SEO
 useSeo({
   title: t('footer.legal.terms'),
   description: 'Termos de Serviço do WatchNext. Regras e condições para uso da plataforma de descoberta e acompanhamento de conteúdo.',
   canonical: 'https://watchnext.app/terms-of-service',
   ogImage: 'https://watchnext.app/assets/images/hero.svg',
   twitterCard: 'summary_large_image',
+})
+
+// Track page view
+onMounted(() => {
+  analytics.trackEvent(trackPageView())
+  analytics.trackEvent(trackFooterLink('Terms of Service', '/terms-of-service'))
 })
 </script>
 

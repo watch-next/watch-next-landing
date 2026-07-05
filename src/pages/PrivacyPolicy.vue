@@ -154,18 +154,27 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { useSeo } from '@/composables/useSeo'
 import { useI18n } from 'vue-i18n'
+import { analytics } from '@/services/analytics'
+import { trackPageView, trackFooterLink } from '@/services/analytics/helpers'
 
 const { t } = useI18n()
 
-// SEO dinâmico baseado no locale
+// SEO
 useSeo({
   title: t('footer.legal.privacy'),
   description: 'Política de Privacidade do WatchNext. Saiba como coletamos, usamos e protegemos seus dados pessoais.',
   canonical: 'https://watchnext.app/privacy-policy',
   ogImage: 'https://watchnext.app/assets/images/hero.svg',
   twitterCard: 'summary_large_image',
+})
+
+// Track page view
+onMounted(() => {
+  analytics.trackEvent(trackPageView())
+  analytics.trackEvent(trackFooterLink('Privacy Policy', '/privacy-policy'))
 })
 </script>
 

@@ -224,17 +224,27 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { useSeo } from '@/composables/useSeo'
 import { useI18n } from 'vue-i18n'
+import { analytics } from '@/services/analytics'
+import { trackPageView, trackFooterLink } from '@/services/analytics/helpers'
 
 const { t } = useI18n()
 
+// SEO
 useSeo({
   title: t('footer.legal.cookies'),
   description: 'Política de Cookies do WatchNext. Saiba como utilizamos cookies e tecnologias similares para melhorar sua experiência.',
   canonical: 'https://watchnext.app/cookies-policy',
   ogImage: 'https://watchnext.app/assets/images/hero.svg',
   twitterCard: 'summary_large_image',
+})
+
+// Track page view
+onMounted(() => {
+  analytics.trackEvent(trackPageView())
+  analytics.trackEvent(trackFooterLink('Cookie Policy', '/cookies-policy'))
 })
 </script>
 
