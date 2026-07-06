@@ -12,17 +12,27 @@
       </ul>
       <button class="premium__cta" @click="handlePremiumCtaClick">{{ premiumSection.cta }}</button>
     </div>
+
+    <BottomDialog v-model="isDialogOpen" :title="$t('premium.title')">
+      <PremiumPage />
+    </BottomDialog>
   </section>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { trackEvent, trackPremiumCta } from '@/services/analytics'
+import BottomDialog from '@/components/BottomDialog.vue'
+import PremiumPage from '@/pages/PremiumPage.vue'
 
 const { t } = useI18n()
 
+const isDialogOpen = ref(false)
+
 const handlePremiumCtaClick = () => {
   trackEvent(trackPremiumCta('premium-section'))
+  isDialogOpen.value = true
 }
 
 const premiumSection = {
@@ -46,12 +56,23 @@ const premiumSection = {
   background: $gradient-section;
   border-top: 1px solid $color-border;
   border-bottom: 1px solid $color-border;
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    .container {
+      max-width: 100%;
+      padding-inline: $space-8;
+    }
+  }
 
   &__header {
     text-align: center;
     margin-bottom: $space-12;
-    max-width: 600px;
     margin-inline: auto;
+
+    @media (min-width: 1024px) {
+      max-width: none;
+    }
   }
 
   &__title {
@@ -73,8 +94,11 @@ const premiumSection = {
     list-style: none;
     padding: 0;
     margin-bottom: $space-12;
-    max-width: 800px;
     margin-inline: auto;
+
+    @media (min-width: 1024px) {
+      max-width: none;
+    }
   }
 
   &__feature {
