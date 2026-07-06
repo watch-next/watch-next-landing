@@ -82,7 +82,54 @@
       "support": "Suporte prioritário",
       "earlyAccess": "Acesso antecipado a novos recursos"
     },
-    "cta": "Fazer Upgrade Agora"
+    "cta": "Fazer Upgrade Agora",
+    "plans": {
+      "title": "Escolha Seu Plano",
+      "subtitle": "Tudo o que você precisa para organizar o que deseja assistir.",
+      "startFree": "Começar Gratuitamente",
+      "comingSoonLabel": "Em breve",
+      "badge": "Mais popular",
+      "free": {
+        "title": "Grátis",
+        "description": "Tudo o que você precisa para organizar o que deseja assistir.",
+        "features": {
+          "favorites": "Favoritos",
+          "unlimitedWatchlist": "Watchlist ilimitada",
+          "officialTrailers": "Trailers oficiais"
+        }
+      },
+      "premium": {
+        "title": "Premium",
+        "price": "R$ 9,90",
+        "period": "/mês",
+        "description": "Aproveite todos os recursos do Watch Next sem limitações.",
+        "features": {
+          "unlimitedSync": "Sincronização ilimitada entre dispositivos",
+          "personalStats": "Estatísticas pessoais",
+          "fullHistory": "Histórico completo de visualização",
+          "adFree": "Experiência sem anúncios",
+          "aiRecommendations": "Recomendações inteligentes por IA",
+          "smartNotifications": "Notificações inteligentes",
+          "exclusiveWidgets": "Widgets exclusivos"
+        },
+        "footer": "Disponível em breve para Android, Web e Windows."
+      },
+      "monthly": "Mensal",
+      "yearly": "Anual",
+      "price999": "R$ 49,90",
+      "price9999": "R$ 499,90",
+      "periodMonth": "/mês",
+      "periodYear": "/ano",
+      "selectPlan": "Selecionar Plano",
+      "features": {
+        "adFree": "Experiência sem anúncios",
+        "basicAnalytics": "Análises básicas",
+        "advancedAnalytics": "Análises avançadas",
+        "prioritySupport": "Suporte prioritário",
+        "earlyAccess": "Acesso antecipado a novos recursos",
+        "exclusiveContent": "Conteúdo e recompensas exclusivas"
+      }
+    }
   },
   "roadmap": {
     "title": "O Que Vem Por Aí",

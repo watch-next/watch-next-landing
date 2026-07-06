@@ -82,7 +82,54 @@
       "support": "Priority support",
       "earlyAccess": "Early access to new features"
     },
-    "cta": "Upgrade Now"
+    "cta": "Upgrade Now",
+    "plans": {
+      "title": "Choose Your Plan",
+      "subtitle": "Everything you need to organize what you want to watch.",
+      "startFree": "Start Free",
+      "comingSoonLabel": "Coming Soon",
+      "badge": "Most Popular",
+      "free": {
+        "title": "Free",
+        "description": "Everything you need to organize what you want to watch.",
+        "features": {
+          "favorites": "Favorites",
+          "unlimitedWatchlist": "Unlimited watchlist",
+          "officialTrailers": "Official trailers"
+        }
+      },
+      "premium": {
+        "title": "Premium",
+        "price": "$9.90",
+        "period": "/month",
+        "description": "Enjoy all Watch Next features without limitations.",
+        "features": {
+          "unlimitedSync": "Unlimited sync across devices",
+          "personalStats": "Personal statistics",
+          "fullHistory": "Complete viewing history",
+          "adFree": "Ad-free experience",
+          "aiRecommendations": "Smart AI recommendations",
+          "smartNotifications": "Smart notifications",
+          "exclusiveWidgets": "Exclusive widgets"
+        },
+        "footer": "Coming soon for Android, Web and Windows."
+      },
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "price999": "$9.99",
+      "price9999": "$99.99",
+      "periodMonth": "/month",
+      "periodYear": "/year",
+      "selectPlan": "Select Plan",
+      "features": {
+        "adFree": "Ad-free experience",
+        "basicAnalytics": "Basic analytics",
+        "advancedAnalytics": "Advanced analytics",
+        "prioritySupport": "Priority support",
+        "earlyAccess": "Early access to new features",
+        "exclusiveContent": "Exclusive content & rewards"
+      }
+    }
   },
   "roadmap": {
     "title": "What's Coming Next",

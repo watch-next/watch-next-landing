@@ -60,7 +60,54 @@
       "support": "Soporte prioritario",
       "earlyAccess": "Acceso anticipado a nuevas funciones"
     },
-    "cta": "Actualizar Ahora"
+    "cta": "Actualizar Ahora",
+    "plans": {
+      "title": "Elige Tu Plan",
+      "subtitle": "Todo lo que necesitas para organizar lo que quieres ver.",
+      "startFree": "Comenzar Gratuitamente",
+      "comingSoonLabel": "Próximamente",
+      "badge": "Más popular",
+      "free": {
+        "title": "Gratis",
+        "description": "Todo lo que necesitas para organizar lo que quieres ver.",
+        "features": {
+          "favorites": "Favoritos",
+          "unlimitedWatchlist": "Lista ilimitada",
+          "officialTrailers": "Tráilers oficiales"
+        }
+      },
+      "premium": {
+        "title": "Premium",
+        "price": "$9.90",
+        "period": "/mes",
+        "description": "Disfruta de todas las funciones de Watch Next sin limitaciones.",
+        "features": {
+          "unlimitedSync": "Sincronización ilimitada entre dispositivos",
+          "personalStats": "Estadísticas personales",
+          "fullHistory": "Historial completo de visualización",
+          "adFree": "Experiencia sin anuncios",
+          "aiRecommendations": "Recomendaciones inteligentes con IA",
+          "smartNotifications": "Notificaciones inteligentes",
+          "exclusiveWidgets": "Widgets exclusivos"
+        },
+        "footer": "Próximamente para Android, Web y Windows."
+      },
+      "monthly": "Mensual",
+      "yearly": "Anual",
+      "price999": "€9.99",
+      "price9999": "€99.99",
+      "periodMonth": "/mes",
+      "periodYear": "/año",
+      "selectPlan": "Seleccionar Plan",
+      "features": {
+        "adFree": "Experiencia sin anuncios",
+        "basicAnalytics": "Análisis básicos",
+        "advancedAnalytics": "Análisis avanzados",
+        "prioritySupport": "Soporte prioritario",
+        "earlyAccess": "Acceso anticipado a nuevas funciones",
+        "exclusiveContent": "Contenido y recompensas exclusivas"
+      }
+    }
   },
   "roadmap": {
     "title": "Lo Que Viene Próximamente",
