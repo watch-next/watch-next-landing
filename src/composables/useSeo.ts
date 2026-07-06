@@ -1,102 +1,80 @@
-import { watch, type MaybeRef } from 'vue'
+import { useHead } from '@vueuse/head'
+import type { UseHeadOptions } from '@vueuse/head'
 
-export interface SeoOptions {
-  title: MaybeRef<string>
-  description: MaybeRef<string>
-  canonical?: MaybeRef<string>
-  ogImage?: MaybeRef<string>
-  twitterCard?: 'summary' | 'summary_large_image' | 'app' | 'player'
+export function useSeo(options: {
+  title: string
+  description: string
+  image?: string
+  type?: string
+  url?: string
+  jsonLd?: Record<string, any>
+}) {
+  const head: UseHeadOptions = {
+    title: options.title,
+    meta: [
+      { name: 'description', content: options.description },
+      { name: 'twitter:title', content: options.title },
+      { name: 'twitter:description', content: options.description },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'og:title', content: options.title },
+      { name: 'og:description', content: options.description },
+      { name: 'og:type', content: options.type ?? 'website' },
+      { name: 'og:locale', content: 'en_US' },
+    ],
+  }
+
+  if (options.image) {
+    head.meta!.push(
+      { name: 'twitter:image', content: options.image! },
+      { name: 'og:image', content: options.image! },
+      { name: 'og:image:alt', content: 'Watch Next' },
+    )
+  }
+
+  if (options.url) {
+    head.meta!.push({ name: 'og:url', content: options.url! })
+  }
+
+  if (options.jsonLd) {
+    head.script = [
+      {
+        type: 'application/ld+json',
+        children: JSON.stringify(options.jsonLd),
+      },
+    ]
+  }
+
+  useHead(head)
 }
 
-export function useSeo(options: SeoOptions) {
-  const updateMetaTags = (seo: SeoOptions) => {
-    // Title
-    document.title = typeof seo.title === 'string' ? seo.title : seo.title.value
-
-    // Description
-    updateOrCreateMeta('description', typeof seo.description === 'string' ? seo.description : seo.description.value)
-
-    // Canonical
-    const canonicalUrl = seo.canonical
-      ? typeof seo.canonical === 'string'
-        ? seo.canonical
-        : seo.canonical.value
-      : window.location.href
-
-    updateOrCreateLink('canonical', canonicalUrl)
-
-    // Open Graph
-    updateOrCreateMeta('og:title', typeof seo.title === 'string' ? seo.title : seo.title.value)
-    updateOrCreateMeta('og:description', typeof seo.description === 'string' ? seo.description : seo.description.value)
-    updateOrCreateMeta('og:type', 'website')
-    updateOrCreateMeta('og:url', canonicalUrl)
-
-    if (seo.ogImage) {
-      const ogImage = typeof seo.ogImage === 'string' ? seo.ogImage : seo.ogImage.value
-      updateOrCreateMeta('og:image', ogImage)
-      updateOrCreateMeta('og:image:alt', 'Watch Next - Legal Page')
-    }
-
-    // Twitter Card
-    const twitterCard = seo.twitterCard || 'summary_large_image'
-    updateOrCreateMeta('twitter:card', twitterCard)
-    updateOrCreateMeta('twitter:title', typeof seo.title === 'string' ? seo.title : seo.title.value)
-    updateOrCreateMeta('twitter:description', typeof seo.description === 'string' ? seo.description : seo.description.value)
-
-    if (seo.ogImage) {
-      const twitterImage = typeof seo.ogImage === 'string' ? seo.ogImage : seo.ogImage.value
-      updateOrCreateMeta('twitter:image', twitterImage)
-    }
+/**
+ * Inject FAQ structured data (FAQPage schema) for SEO
+ * This function adds the JSON-LD script to the page head
+ */
+export function useFaqJsonLd(faqItems: Array<{ question: string; answer: string }>) {
+  if (!faqItems || faqItems.length === 0) {
+    return
   }
 
-  const updateOrCreateMeta = (name: string, content: string) => {
-    let meta = document.querySelector(`meta[name="${name}"]`)
-    if (!meta) {
-      meta = document.querySelector(`meta[property="${name}"]`)
-    }
-    if (!meta) {
-      meta = document.createElement('meta')
-      if (name.startsWith('og:') || name.startsWith('twitter:')) {
-        meta.setAttribute('property', name)
-      } else {
-        meta.setAttribute('name', name)
-      }
-      document.head.appendChild(meta)
-    }
-    meta.setAttribute('content', content)
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map(item => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
   }
 
-  const updateOrCreateLink = (rel: string, href: string) => {
-    let link = document.querySelector(`link[rel="${rel}"]`) as HTMLLinkElement
-    if (!link) {
-      link = document.createElement('link')
-      link.setAttribute('rel', rel)
-      document.head.appendChild(link)
-    }
-    link.href = href
-  }
-
-  // Initial update
-  updateMetaTags(options)
-
-  // Watch for changes in reactive options
-  watch(
-    () => ({
-      title: typeof options.title === 'string' ? options.title : options.title.value,
-      description: typeof options.description === 'string' ? options.description : options.description.value,
-      canonical: options.canonical ? (typeof options.canonical === 'string' ? options.canonical : options.canonical.value) : undefined,
-      ogImage: options.ogImage ? (typeof options.ogImage === 'string' ? options.ogImage : options.ogImage.value) : undefined,
-      twitterCard: options.twitterCard,
-    }),
-    (newOptions) => {
-      updateMetaTags({
-        title: newOptions.title,
-        description: newOptions.description,
-        canonical: newOptions.canonical,
-        ogImage: newOptions.ogImage,
-        twitterCard: newOptions.twitterCard,
-      })
-    },
-    { immediate: true }
-  )
+  useHead({
+    script: [
+      {
+        type: 'application/ld+json',
+        children: JSON.stringify(jsonLd),
+      },
+    ],
+  })
 }

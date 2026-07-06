@@ -8,6 +8,7 @@
       <PremiumSection />
       <RoadmapSection />
       <NewsletterSection />
+      <FaqSection />
     </main>
     <Footer />
   </div>
@@ -17,6 +18,7 @@
 import Header from '@/components/layout/Header.vue'
 import Footer from '@/components/layout/Footer.vue'
 import HeroSection from '@/sections/HeroSection.vue'
+import FaqSection from '@/sections/FaqSection.vue'
 import FeaturesSection from '@/sections/FeaturesSection.vue'
 import PlatformsSection from '@/sections/PlatformsSection.vue'
 import PremiumSection from '@/sections/PremiumSection.vue'
