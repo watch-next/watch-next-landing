@@ -2,6 +2,7 @@ import type { AnalyticsProvider, AnalyticsEvent } from './AnalyticsProvider'
 
 declare global {
   interface Window {
+    dataLayer?: unknown[]
     gtag?: (...args: unknown[]) => void
   }
 }
@@ -23,25 +24,24 @@ export class GoogleAnalytics implements AnalyticsProvider {
 
     this.measurementId = measurementId
 
-    // Load gtag script
+    // gtag is already loaded globally via index.html
+    // Just wait for it to be ready
     if (typeof window !== 'undefined') {
-      const script = document.createElement('script')
-      script.src = `https://www.googletagmanager.com/gtag/js?id=${this.measurementId}`
-      script.async = true
-      document.head.appendChild(script)
-
-      // Initialize gtag
-      script.onload = () => {
-        window.gtag = window.gtag || function () {
-          const args = Array.from(arguments) as unknown[]
-          if (window.gtag) {
-            (window.gtag as (...args: unknown[]) => void).apply(null, args)
+      const waitForGtag = (): Promise<void> => {
+        return new Promise((resolve) => {
+          const checkGtag = () => {
+            if (window.gtag) {
+              this.initialized = true
+              resolve()
+            } else {
+              setTimeout(checkGtag, 50)
+            }
           }
-        }
-        window.gtag('js', new Date())
-        window.gtag('config', this.measurementId)
-        this.initialized = true
+          checkGtag()
+        })
       }
+
+      await waitForGtag()
     }
   }
 

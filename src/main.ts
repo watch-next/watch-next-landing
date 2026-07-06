@@ -40,8 +40,8 @@ const i18n = createI18n({
 // Initialize analytics with environment-configured providers
 const analyticsConfig = {
   providers: {
-    googleAnalytics: import.meta.env.VITE_GA_MEASUREMENT_ID
-      ? { measurementId: import.meta.env.VITE_GA_MEASUREMENT_ID }
+    googleAnalytics: import.meta.env.VITE_GOOGLE_ANALYTICS_ID
+      ? { measurementId: import.meta.env.VITE_GOOGLE_ANALYTICS_ID }
       : undefined,
     plausible: import.meta.env.VITE_PLAUSIBLE_DOMAIN
       ? {
