@@ -8,8 +8,8 @@
     "login": "Entrar"
   },
   "hero": {
-    "headline": "Assista Juntos.\nEm Qualquer Lugar, a Qualquer Hora.",
-    "subtitle": "Descubra, acompanhe e compartilhe seus filmes e séries favoritos com amigos. Sua próxima maratona está a apenas um clique de distância.",
+    "headline": "Seu Acompanhador Universal de Streaming.\nRastreie Filmes e Séries em Todo Lugar.",
+    "subtitle": "Descubra, acompanhe e compartilhe filmes e séries no Netflix, Prime Video, Disney+ e muito mais. O ultimate movie tracker e guia de streaming—tudo em um só lugar.",
     "ctaPrimary": "Comece Gratuitamente",
     "ctaSecondary": "Ver Planos",
     "emailPlaceholder": "Digite seu e-mail",
@@ -20,32 +20,32 @@
     "androidBadgeSubtitle": "Entre na lista de espera e seja o primeiro a saber."
   },
   "features": {
-    "title": "Tudo o Que Você Precisa",
-    "subtitle": "Da descoberta ao acompanhamento, o WatchNext cobre todos os seus streaming favoritos.",
+    "title": "Tudo Que Você Precisa em um Movie Tracker",
+    "subtitle": "Da descoberta ao acompanhamento, o WatchNext é seu guia completo de streaming em todas as plataformas.",
     "items": {
       "discovery": {
         "title": "Descoberta Inteligente",
-        "description": "Receba recomendações personalizadas baseadas no seu histórico e preferências de visualização."
+        "description": "Receba recomendações personalizadas de filmes e séries baseadas no seu histórico e preferências."
       },
       "tracking": {
         "title": "Acompanhamento Unificado",
-        "description": "Mantenha o controle de tudo o que você assiste no Netflix, Prime, Hulu e muito mais."
+        "description": "Acompanhe filmes e séries no Netflix, Prime Video, Disney+, Hulu e todos seus serviços de streaming."
       },
       "social": {
         "title": "Lista Social",
-        "description": "Crie e compartilhe listas de reprodução com amigos. Nunca mais perca o que assistir a seguir."
+        "description": "Crie e compartilhe listas de filmes e séries com amigos. Organize sua próxima maratona juntos."
       },
       "calendar": {
         "title": "Calendário de Lançamentos",
-        "description": "Mantenha-se atualizado sobre lançamentos, novas temporadas e datas de estreia."
+        "description": "Nunca perca uma estreia. Receba alertas de novas temporadas, filmes e séries."
       },
       "ratings": {
         "title": "Avaliações Inteligentes",
-        "description": "Veja pontuações combinadas do IMDb, Rotten Tomatoes e Metacritic em um só lugar."
+        "description": "Compare notas do IMDb, Rotten Tomatoes e Metacritic em uma visão unificada."
       },
       "offline": {
         "title": "Modo Offline",
-        "description": "Navegue pela sua biblioteca e planeje sua lista mesmo sem conexão com a internet."
+        "description": "Navegue pela sua biblioteca de filmes e gerencie sua watchlist mesmo sem internet."
       }
     }
   },

@@ -1,0 +1,11 @@
+# Watch Next - Robots.txt
+# Allow all public pages
+
+User-agent: *
+Allow: /
+Allow: /privacy-policy
+Allow: /terms-of-service
+Allow: /cookies-policy
+
+# Sitemap location
+Sitemap: https://watchnext.app/sitemap.xml

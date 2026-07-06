@@ -8,8 +8,8 @@
     "login": "Login"
   },
   "hero": {
-    "headline": "Watch Together.\nAnywhere, Anytime.",
-    "subtitle": "Discover, track, and share your favorite movies and series with friends. Your next binge is just a click away.",
+    "headline": "Your Universal Streaming Watchlist.\nTrack Movies & Series Everywhere.",
+    "subtitle": "Discover, track, and share movies and series across Netflix, Prime Video, Disney+, and more. The ultimate movie tracker and streaming guide—all in one place.",
     "ctaPrimary": "Get Started Free",
     "ctaSecondary": "See Plans",
     "emailPlaceholder": "Enter your email",
@@ -20,32 +20,32 @@
     "androidBadgeSubtitle": "Join the waitlist and be the first to know."
   },
   "features": {
-    "title": "Everything You Need",
-    "subtitle": "From discovery to tracking, WatchNext has you covered across all your favorite platforms.",
+    "title": "Everything You Need in a Movie Tracker",
+    "subtitle": "From streaming discovery to series tracking, WatchNext is your complete guide across all platforms.",
     "items": {
       "discovery": {
         "title": "Smart Discovery",
-        "description": "Get personalized recommendations powered by your watch history and preferences."
+        "description": "Get personalized movie and series recommendations powered by your watch history and preferences."
       },
       "tracking": {
         "title": "Unified Tracking",
-        "description": "Keep tabs on everything you watch across Netflix, Prime, Hulu, and more."
+        "description": "Track movies and TV series across Netflix, Prime Video, Disney+, Hulu, and all your streaming services."
       },
       "social": {
         "title": "Social Watchlist",
-        "description": "Create and share watchlists with friends. Never lose track of what to watch next."
+        "description": "Create and share watchlists with friends. Build your ultimate movie queue together."
       },
       "calendar": {
         "title": "Release Calendar",
-        "description": "Stay up to date with upcoming releases, new seasons, and premiere dates."
+        "description": "Never miss a premiere. Get alerts for new seasons, movie releases, and series premieres."
       },
       "ratings": {
         "title": "Smart Ratings",
-        "description": "See combined scores from IMDb, Rotten Tomatoes, and Metacritic in one place."
+        "description": "Compare scores from IMDb, Rotten Tomatoes, and Metacritic in one unified view."
       },
       "offline": {
         "title": "Offline Mode",
-        "description": "Browse your library and plan your watchlist even without an internet connection."
+        "description": "Browse your movie library and manage your watchlist even without an internet connection."
       }
     }
   },
