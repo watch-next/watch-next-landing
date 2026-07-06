@@ -1,27 +1,15 @@
-import { defineConfig } from 'vite'
+import { defineConfig, Plugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 
-export default defineConfig({
-  plugins: [vue()],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@use "@/style/variables" as *;\n`
-      }
-    }
-  },
-  // Inject Google Analytics gtag.js script
-  transformIndexHtml: {
-    order: 'pre',
-    handler(html: string) {
-      const gaId = process.env.VITE_GOOGLE_ANALYTICS_ID
+function googleAnalyticsPlugin(): Plugin {
+  const gaId = process.env.VITE_GOOGLE_ANALYTICS_ID
+
+  return {
+    name: 'google-analytics',
+    transformIndexHtml(html: string) {
       if (!gaId) {
+        // Remove placeholder if no GA ID configured
         return html.replace('%VITE_GOOGLE_ANALYTICS%', '')
       }
 
@@ -35,6 +23,22 @@ export default defineConfig({
 </script>`
 
       return html.replace('%VITE_GOOGLE_ANALYTICS%', gtagScript)
+    }
+  }
+}
+
+export default defineConfig({
+  plugins: [vue(), googleAnalyticsPlugin()],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use "@/style/variables" as *;\n`
+      }
     }
   }
 })
