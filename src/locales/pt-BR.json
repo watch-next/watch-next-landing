@@ -166,6 +166,46 @@
       "planned": "Planejado"
     }
   },
+  "faq": {
+    "section": {
+      "title": "Perguntas Frequentes",
+      "subtitle": "Tudo o que você precisa saber sobre o Watch Next."
+    },
+    "items": [
+      {
+        "question": "O Watch Next é grátis?",
+        "answer": "Sim. O Watch Next oferece uma versão gratuita com recursos essenciais. Uma versão Premium está disponível para usuários que desejam recursos adicionais."
+      },
+      {
+        "question": "Preciso criar uma conta?",
+        "answer": "Não. Você pode começar a usar o Watch Next imediatamente. Criar uma conta permite sincronizar seus dados entre dispositivos."
+      },
+      {
+        "question": "Como sincronizar meus dados?",
+        "answer": "Basta fazer login com sua conta. Suas watchlists, favoritos e preferências são sincronizados automaticamente."
+      },
+      {
+        "question": "Existe um aplicativo Android?",
+        "answer": "Sim. O Watch Next está disponível para dispositivos Android."
+      },
+      {
+        "question": "Existe uma versão para Windows?",
+        "answer": "Ainda não. A versão web funciona no Windows, e um aplicativo desktop nativo faz parte do nosso roadmap."
+      },
+      {
+        "question": "Como funciona o Premium?",
+        "answer": "O Premium desbloqueia recursos adicionais e ajuda a apoiar o desenvolvimento contínuo do Watch Next."
+      },
+      {
+        "question": "O Watch Next rastreia onde assisto meu conteúdo?",
+        "answer": "Não. O Watch Next ajuda a organizar o que você assiste, mas não monitora onde você transmite seu conteúdo."
+      },
+      {
+        "question": "Posso importar minhas watchlists existentes?",
+        "answer": "A funcionalidade de importação está planejada e estará disponível em uma atualização futura."
+      }
+    ]
+  },
   "newsletter": {
     "title": "Fique Por Dentro",
     "description": "Receba as últimas novidades, atualizações da plataforma e recomendações curadas na sua caixa de entrada.",
