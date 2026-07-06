@@ -6,12 +6,18 @@ const HomeLayout = () => import('./App.vue')
 const PrivacyPolicy = () => import('./pages/PrivacyPolicy.vue')
 const TermsOfService = () => import('./pages/TermsOfService.vue')
 const CookiesPolicy = () => import('./pages/CookiesPolicy.vue')
+const FeedbackPage = () => import('./pages/FeedbackPage.vue')
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: HomeLayout,
+  },
+  {
+    path: '/feedback',
+    name: 'Feedback',
+    component: FeedbackPage,
   },
   {
     path: '/privacy-policy',
@@ -30,7 +36,7 @@ const routes = [
   },
 ]
 
-const pages = new Set(['/privacy-policy', '/terms-of-service', '/cookies-policy'])
+const pages = new Set(['/privacy-policy', '/terms-of-service', '/cookies-policy', '/feedback'])
 
 const router = createRouter({
   history: createWebHistory(),

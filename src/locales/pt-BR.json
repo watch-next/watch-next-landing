@@ -195,12 +195,46 @@
       "privacy": "Política de Privacidade",
       "terms": "Termos de Serviço",
       "cookies": "Política de Cookies",
+      "feedback": "Feedback",
       "backToHome": "Voltar ao Início"
     },
     "social": {
       "twitter": "Twitter",
       "github": "GitHub",
       "discord": "Discord"
+    }
+  },
+  "feedback": {
+    "seo": {
+      "title": "Feedback | Watch Next",
+      "description": "Envie sugestões, reporte bugs ou solicite novos recursos para o Watch Next."
+    },
+    "title": "Feedback",
+    "subtitle": "Ajude-nos a melhorar o Watch Next. Escolha uma das opções abaixo e envie seu feedback.",
+    "categories": {
+      "suggestion": "Sugestões",
+      "bug": "Reportar um Bug",
+      "feature": "Solicitar Recurso"
+    },
+    "form": {
+      "name": "Nome",
+      "namePlaceholder": "Seu nome (opcional)",
+      "email": "E-mail",
+      "emailPlaceholder": "seu email (opcional)",
+      "message": "Mensagem",
+      "submit": "Enviar Feedback",
+      "submitting": "Enviando...",
+      "submitAnother": "Enviar Outro Feedback",
+      "placeholders": {
+        "suggestion": "Conte-nos sua ideia...",
+        "bug": "Descreva o problema...",
+        "feature": "Qual recurso você gostaria de ver?"
+      }
+    },
+    "success": {
+      "title": "Obrigado!",
+      "message": "Seu feedback ajuda-nos a melhorar o Watch Next.",
+      "submitAnother": "Enviar Outro Feedback"
     }
   }
 }
