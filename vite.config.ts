@@ -1,11 +1,12 @@
-import { defineConfig, Plugin } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 
-function googleAnalyticsPlugin(): Plugin {
-  const gaId = process.env.VITE_GOOGLE_ANALYTICS_ID
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode || 'development', process.cwd(), '')
+  const gaId = env.VITE_GOOGLE_ANALYTICS_ID
 
-  return {
+  const googleAnalyticsPlugin = {
     name: 'google-analytics',
     transformIndexHtml(html: string) {
       if (!gaId) {
@@ -25,19 +26,19 @@ function googleAnalyticsPlugin(): Plugin {
       return html.replace('%VITE_GOOGLE_ANALYTICS%', gtagScript)
     }
   }
-}
 
-export default defineConfig({
-  plugins: [vue(), googleAnalyticsPlugin()],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@use "@/style/variables" as *;\n`
+  return {
+    plugins: [vue(), googleAnalyticsPlugin],
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url))
+      }
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@use "@/style/variables" as *;\n`
+        }
       }
     }
   }
