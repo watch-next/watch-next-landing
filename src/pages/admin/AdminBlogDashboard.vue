@@ -343,6 +343,10 @@ const formatDate = (dateString: string) => {
       font-size: $text-2xl;
       font-weight: $weight-bold;
       margin: 0;
+      background: linear-gradient(135deg, $color-primary, $color-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
   }
 
@@ -356,17 +360,9 @@ const formatDate = (dateString: string) => {
     position: relative;
 
     &-input {
-      padding: $space-2 $space-4 $space-2 $space-10;
-      border: 1px solid $color-border;
-      border-radius: $radius-md;
-      font-size: $text-sm;
+      @include input-base;
+      padding-left: $space-10;
       width: 240px;
-
-      &:focus {
-        outline: none;
-        border-color: $color-primary;
-        box-shadow: 0 0 0 3px $color-primary-light;
-      }
     }
 
     svg {
@@ -379,12 +375,13 @@ const formatDate = (dateString: string) => {
   }
 
   &__select {
-    padding: $space-2 $space-4;
-    border: 1px solid $color-border;
-    border-radius: $radius-md;
-    font-size: $text-sm;
-    background: white;
+    @include input-base;
     cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right $space-3 center;
+    padding-right: $space-10;
   }
 
   &__loading {
@@ -408,7 +405,7 @@ const formatDate = (dateString: string) => {
   &__empty {
     text-align: center;
     padding: $space-12;
-    color: $color-text-secondary;
+    color: $color-text-muted;
 
     svg {
       color: $color-border;
@@ -440,19 +437,23 @@ const formatDate = (dateString: string) => {
   }
 
   &__stat {
-    background: white;
+    background: $gradient-surface;
     padding: $space-4;
-    border-radius: $radius-lg;
+    border-radius: $radius-card;
     display: flex;
     flex-direction: column;
     gap: $space-2;
-    box-shadow: $shadow-sm;
+    box-shadow: $shadow-card;
+    border: 1px solid $color-border;
   }
 
   &__stat-value {
     font-size: $text-2xl;
     font-weight: $weight-bold;
-    color: $color-primary;
+    background: linear-gradient(135deg, $color-primary, $color-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   &__stat-label {
@@ -489,10 +490,11 @@ const formatDate = (dateString: string) => {
 
   &__table {
     width: 100%;
-    background: white;
-    border-radius: $radius-lg;
+    background: $gradient-surface;
+    border-radius: $radius-card;
     overflow: hidden;
-    box-shadow: $shadow-sm;
+    box-shadow: $shadow-card;
+    border: 1px solid $color-border;
     border-collapse: collapse;
 
     th,
@@ -503,7 +505,7 @@ const formatDate = (dateString: string) => {
     }
 
     th {
-      background: $color-surface;
+      background: $color-glass-hover;
       font-weight: $weight-semibold;
       font-size: $text-sm;
       color: $color-text-secondary;
@@ -511,6 +513,16 @@ const formatDate = (dateString: string) => {
 
     td {
       font-size: $text-sm;
+    }
+
+    tbody tr {
+      &:hover {
+        background: $color-glass-hover;
+      }
+
+      &:last-child td {
+        border-bottom: none;
+      }
     }
   }
 
@@ -522,7 +534,7 @@ const formatDate = (dateString: string) => {
   }
 
   &__featured-badge {
-    background: $color-accent;
+    background: linear-gradient(135deg, $color-primary, $color-accent);
     color: white;
     padding: 2px $space-2;
     border-radius: $radius-full;
@@ -589,8 +601,8 @@ const formatDate = (dateString: string) => {
     }
 
     &:hover {
-      background: $color-surface;
-      border-color: $color-text-muted;
+      background: $color-glass-hover;
+      border-color: $color-border-hover;
 
       svg {
         color: $color-text;
@@ -619,7 +631,7 @@ const formatDate = (dateString: string) => {
 
   &__pagination-info {
     font-size: $text-sm;
-    color: $color-text-secondary;
+    color: $color-text-muted;
   }
 }
 

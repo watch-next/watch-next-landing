@@ -39,7 +39,7 @@ export default defineConfig(({ mode }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@use "@/style/variables" as *;\n`
+          additionalData: `@use "@/style/variables" as *;\n@use "@/style/components/inputs" as *;\n@use "@/style/components/badges" as *;\n`
         }
       }
     }

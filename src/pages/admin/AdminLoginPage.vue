@@ -100,10 +100,11 @@ const handleSubmit = async () => {
 }
 
 .admin-login-page__card {
-  background: white;
-  border-radius: $radius-xl;
+  background: $gradient-surface;
+  border-radius: $radius-card;
   padding: $space-8;
-  box-shadow: $shadow-lg;
+  box-shadow: $shadow-card;
+  border: 1px solid $color-border;
 }
 
 .admin-login-page__header {
@@ -113,12 +114,15 @@ const handleSubmit = async () => {
   h1 {
     font-size: $text-2xl;
     font-weight: $weight-bold;
-    color: $color-primary;
+    background: linear-gradient(135deg, $color-primary, $color-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin: 0 0 $space-2;
   }
 
   p {
-    color: $color-text-secondary;
+    color: $color-text-muted;
     margin: 0;
   }
 }
@@ -141,26 +145,16 @@ const handleSubmit = async () => {
   }
 
   input {
-    padding: $space-3 $space-4;
-    border: 1px solid $color-border;
-    border-radius: $radius-md;
-    font-size: $text-base;
-    transition: border-color $transition-fast, box-shadow $transition-fast;
-
-    &:focus {
-      outline: none;
-      border-color: $color-primary;
-      box-shadow: 0 0 0 3px $color-primary-light;
-    }
+    @include input-base;
   }
 }
 
 .admin-login-page__error {
   padding: $space-3;
-  background: #fef2f2;
-  border: 1px solid #fecaca;
+  background: rgba($color-error, 0.1);
+  border: 1px solid $color-error;
   border-radius: $radius-md;
-  color: #dc2626;
+  color: $color-error;
   font-size: $text-sm;
 }
 
@@ -169,9 +163,10 @@ const handleSubmit = async () => {
   text-align: center;
 
   a {
-    color: $color-text-secondary;
+    color: $color-text-muted;
     text-decoration: none;
     font-size: $text-sm;
+    transition: color $transition-fast;
 
     &:hover {
       color: $color-primary;

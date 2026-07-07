@@ -1,4 +1,9 @@
 @use 'variables' as *;
+@use 'animations' as *;
+@use 'components/buttons' as *;
+@use 'components/cards' as *;
+@use 'components/inputs' as *;
+@use 'components/badges' as *;
 
 // ─── Reset ────────────────────────────────────────────────
 *,
