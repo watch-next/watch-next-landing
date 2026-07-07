@@ -23,7 +23,6 @@ const renderedContent = computed(() => {
 </script>
 
 <style lang="scss" scoped>
- @use '@/style/variables' as *;
 @use '@/style/variables' as *;
 
 .markdown-renderer {
@@ -37,17 +36,19 @@ const renderedContent = computed(() => {
   line-height: $leading-relaxed;
 
   :deep(h1) {
-    font-size: $text-4xl;
+    font-size: $text-3xl;
     font-weight: $weight-bold;
     margin-bottom: $space-6;
     line-height: $leading-tight;
+    color: $color-text;
   }
 
   :deep(h2) {
     font-size: $text-2xl;
     font-weight: $weight-bold;
-    margin-top: $space-12;
+    margin-top: $space-10;
     margin-bottom: $space-4;
+    color: $color-text;
   }
 
   :deep(h3) {
@@ -55,6 +56,7 @@ const renderedContent = computed(() => {
     font-weight: $weight-semibold;
     margin-top: $space-8;
     margin-bottom: $space-3;
+    color: $color-text;
   }
 
   :deep(h4) {
@@ -62,6 +64,7 @@ const renderedContent = computed(() => {
     font-weight: $weight-semibold;
     margin-top: $space-6;
     margin-bottom: $space-2;
+    color: $color-text;
   }
 
   :deep(p) {
@@ -127,6 +130,7 @@ const renderedContent = computed(() => {
     font-family: $font-mono;
     font-size: $text-sm;
     color: $color-primary;
+    border: 1px solid $color-border;
   }
 
   :deep(pre) {
@@ -135,12 +139,14 @@ const renderedContent = computed(() => {
     border-radius: $radius-md;
     overflow-x: auto;
     margin: $space-6 0;
+    border: 1px solid $color-border;
 
     code {
       background: none;
       padding: 0;
       font-size: $text-sm;
       line-height: $leading-loose;
+      border: none;
     }
   }
 
@@ -149,6 +155,7 @@ const renderedContent = computed(() => {
     height: auto;
     margin: $space-6 0;
     border-radius: $radius-lg;
+    border: 1px solid $color-border;
   }
 
   :deep(hr) {
@@ -169,8 +176,13 @@ const renderedContent = computed(() => {
     }
 
     th {
-      background-color: $color-surface;
+      background-color: $color-surface-light;
       font-weight: $weight-semibold;
+      color: $color-text;
+    }
+
+    td {
+      color: $color-text-secondary;
     }
   }
 }

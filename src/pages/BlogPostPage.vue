@@ -317,8 +317,9 @@ watch(() => props.slug, loadPost, { immediate: true })
 
   &__cover-figure {
     margin: 0 0 $space-10;
-    border-radius: $radius-xl;
+    border-radius: $radius-card;
     overflow: hidden;
+    border: 1px solid $color-border;
   }
 
   &__cover {
@@ -331,10 +332,11 @@ watch(() => props.slug, loadPost, { immediate: true })
 
   &__cover-caption {
     padding: $space-3 $space-4;
-    background: $color-surface;
+    background: $gradient-surface;
     text-align: center;
     font-size: $text-sm;
     color: $color-text-muted;
+    border-top: 1px solid $color-border;
   }
 
   &__content {

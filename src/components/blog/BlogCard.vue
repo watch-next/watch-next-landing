@@ -48,21 +48,27 @@ defineProps<{
 </script>
 
 <style lang="scss" scoped>
- @use '@/style/variables' as *;
 @use '@/style/variables' as *;
 
 .blog-card {
   position: relative;
-  background: $color-surface;
-  border-radius: $radius-lg;
+  background: $gradient-surface;
+  border-radius: $radius-card;
   overflow: hidden;
-  transition: transform $transition-base, box-shadow $transition-base;
+  transition: transform $transition-card, box-shadow $transition-card;
   border: 1px solid $color-border;
+  will-change: transform, box-shadow;
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-    border-color: $color-primary;
+    transform: translateY(-6px);
+    box-shadow: $shadow-card-hover;
+    border-color: $color-border-hover;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &:hover {
+      transform: none;
+    }
   }
 
   &__link {
@@ -106,7 +112,7 @@ defineProps<{
     top: $space-3;
     left: $space-3;
     background: linear-gradient(135deg, $color-primary, $color-accent);
-    color: white;
+    color: $color-text;
     padding: $space-1 $space-3;
     border-radius: $radius-full;
     font-size: $text-xs;

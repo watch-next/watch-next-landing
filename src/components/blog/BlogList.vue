@@ -37,7 +37,6 @@ const displayedPosts = computed(() => {
 </script>
 
 <style lang="scss" scoped>
- @use '@/style/variables' as *;
 @use '@/style/variables' as *;
 
 .blog-list {
