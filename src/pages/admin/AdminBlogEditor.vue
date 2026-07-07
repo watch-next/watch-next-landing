@@ -393,7 +393,7 @@
             </button>
           </header>
           <div class="admin-blog-editor__preview-modal-body">
-            <BlogPostPreview :post="previewPost" />
+            <BlogPostPreview :slug="form.slug" />
           </div>
         </div>
       </div>
@@ -807,12 +807,11 @@ const goBack = () => {
     align-items: center;
     gap: $space-2;
     padding: $space-3 $space-4;
-    background: #fef3c7;
-    border: 1px solid #fcd34d;
+    background: rgba($color-warning, 0.15);
+    border: 1px solid $color-warning;
     border-radius: $radius-md;
-    color: #92400e;
+    color: $color-warning;
     font-size: $text-sm;
-    margin-bottom: $space-4;
 
     svg {
       flex-shrink: 0;
@@ -832,7 +831,7 @@ const goBack = () => {
   }
 
   &__form {
-    background: white;
+    background: $gradient-surface;
     padding: $space-6;
     border-radius: $radius-lg;
     box-shadow: $shadow-sm;
@@ -864,27 +863,16 @@ const goBack = () => {
     }
 
     .required {
-      color: #dc2626;
+      color: $color-error;
     }
 
     input,
-    textarea,
     select {
-      padding: $space-3 $space-4;
-      border: 1px solid $color-border;
-      border-radius: $radius-md;
-      font-size: $text-sm;
-      font-family: inherit;
-      transition: border-color $transition-fast, box-shadow $transition-fast;
-
-      &:focus {
-        outline: none;
-        border-color: $color-primary;
-        box-shadow: 0 0 0 3px $color-primary-light;
-      }
+      @include input-base;
     }
 
     textarea {
+      @include input-base;
       resize: vertical;
       min-height: 80px;
     }
@@ -902,7 +890,7 @@ const goBack = () => {
 
   &__error {
     font-size: $text-xs;
-    color: #dc2626;
+    color: $color-error;
   }
 
   &__tags-input {
@@ -996,7 +984,7 @@ const goBack = () => {
   }
 
   &__editor-section {
-    background: white;
+    background: $gradient-surface;
     border-radius: $radius-lg;
     box-shadow: $shadow-sm;
     overflow: hidden;
@@ -1028,12 +1016,12 @@ const goBack = () => {
     transition: all $transition-fast;
 
     &:hover {
-      background: white;
+      background: $color-surface-hover;
       color: $color-text;
     }
 
     &.active {
-      background: white;
+      background: $color-surface-hover;
       color: $color-primary;
     }
   }
@@ -1048,7 +1036,7 @@ const goBack = () => {
       display: flex;
       align-items: center;
       justify-content: center;
-      background: white;
+  
       border: 1px solid $color-border;
       border-radius: $radius-md;
       cursor: pointer;
@@ -1066,6 +1054,7 @@ const goBack = () => {
     display: grid;
     grid-template-columns: 1fr 1fr;
     min-height: 400px;
+   
 
     &.view-split {
       grid-template-columns: 1fr 1fr;
@@ -1076,6 +1065,7 @@ const goBack = () => {
 
       .admin-blog-editor__markdown-input {
         display: block;
+        
       }
     }
 
@@ -1100,7 +1090,7 @@ const goBack = () => {
       font-family: 'Consolas', 'Monaco', monospace;
       font-size: $text-sm;
       line-height: 1.6;
-
+      background-color: $color-surface-light;
       &:focus {
         outline: none;
       }
@@ -1110,7 +1100,7 @@ const goBack = () => {
   &__preview {
     padding: $space-4;
     overflow-y: auto;
-    background: #fafafa;
+    background: $color-surface-light;
   }
 
   &__preview-content {
@@ -1128,7 +1118,7 @@ const goBack = () => {
     }
 
     :deep(code) {
-      background: #f3f4f6;
+      background: $color-surface-hover;
       padding: 2px 6px;
       border-radius: $radius-sm;
       font-family: 'Consolas', 'Monaco', monospace;
@@ -1136,8 +1126,8 @@ const goBack = () => {
     }
 
     :deep(pre) {
-      background: #1e1e1e;
-      color: #d4d4d4;
+      background: $color-gray-500;
+      color: $color-gray-200;
       padding: $space-4;
       border-radius: $radius-md;
       overflow-x: auto;
@@ -1178,7 +1168,6 @@ const goBack = () => {
   }
 
   &__seo-section {
-    background: white;
     border-radius: $radius-lg;
     box-shadow: $shadow-sm;
     overflow: hidden;
@@ -1258,7 +1247,7 @@ const goBack = () => {
   }
 
   &__preview-modal-content {
-    background: white;
+    background: $color-surface;
     border-radius: $radius-xl;
     max-width: 900px;
     width: 100%;

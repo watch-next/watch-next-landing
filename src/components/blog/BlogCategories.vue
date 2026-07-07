@@ -62,10 +62,11 @@ const selectCategory = (category: string) => {
   margin-bottom: $space-8;
 
   &__title {
-    font-size: $text-lg;
+    font-size: $text-base;
     font-weight: $weight-semibold;
     margin-bottom: $space-4;
     color: $color-text;
+    letter-spacing: $tracking-wide;
   }
 
   &__list {
@@ -76,7 +77,7 @@ const selectCategory = (category: string) => {
 
   &__item {
     padding: $space-2 $space-4;
-    background: $gradient-surface;
+    background: $color-surface;
     border: 1px solid $color-border;
     border-radius: $radius-full;
     color: $color-text-secondary;
@@ -87,25 +88,36 @@ const selectCategory = (category: string) => {
     display: flex;
     align-items: center;
     gap: $space-2;
+    white-space: nowrap;
 
     &:hover {
       border-color: $color-border-hover;
       color: $color-text;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     }
 
     &.active {
-      background: $color-primary-light;
+      background: linear-gradient(135deg, $color-primary, rgba($color-primary, 0.85));
       border-color: $color-primary;
-      color: $color-primary;
+      color: $color-white;
+      box-shadow: 0 2px 12px rgba($color-primary, 0.25);
     }
   }
 
   &__count {
-    background: $color-surface-light;
-    padding: $space-1 $space-2;
+    background: rgba(0, 0, 0, 0.06);
+    padding: $space-0\.5 $space-2;
     border-radius: $radius-full;
     font-size: $text-xs;
-    color: $color-text-muted;
+    color: inherit;
+    opacity: 0.8;
+    transition: opacity $transition-base;
+  }
+
+  .blog-categories__item:hover &__count,
+  .blog-categories__item.active &__count {
+    opacity: 1;
   }
 }
 </style>

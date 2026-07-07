@@ -5,6 +5,7 @@
 
 @use '../tokens' as *;
 @use '../animations' as *;
+@use 'sass:color';
 
 // ────────────────────────────────────────────────────────────────────────────
 //   BASE BUTTON STYLES
@@ -124,7 +125,7 @@
 //   BUTTON VARIANTS
 // ────────────────────────────────────────────────────────────────────────────
 @mixin btn-success {
-  background: linear-gradient(90deg, $color-success, darken($color-success, 10%));
+  background: linear-gradient(90deg, $color-success, color.adjust($color-success, $lightness: -10%));
   color: $color-background;
 
   &:hover {
@@ -133,7 +134,7 @@
 }
 
 @mixin btn-error {
-  background: linear-gradient(90deg, $color-error, darken($color-error, 10%));
+  background: linear-gradient(90deg, $color-error, color.adjust($color-error, $lightness: -10%));
   color: $color-text;
 
   &:hover {
