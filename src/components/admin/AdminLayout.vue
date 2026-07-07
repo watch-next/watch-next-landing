@@ -117,7 +117,7 @@ const handleSignOut = async () => {
 .admin-layout {
   display: flex;
   min-height: 100vh;
-  background: #f5f5f5;
+  background: $color-background;
 
   &__loading,
   &__denied {
@@ -125,7 +125,7 @@ const handleSignOut = async () => {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: #f5f5f5;
+    background: $color-background;
   }
 
   &__denied-content {
@@ -140,7 +140,7 @@ const handleSignOut = async () => {
     }
 
     p {
-      color: $color-text-secondary;
+      color: $color-text-muted;
       margin-bottom: $space-6;
     }
   }
@@ -156,7 +156,7 @@ const handleSignOut = async () => {
 
   &__sidebar {
     width: 280px;
-    background: white;
+    background: $gradient-surface;
     border-right: 1px solid $color-border;
     display: flex;
     flex-direction: column;
@@ -173,7 +173,10 @@ const handleSignOut = async () => {
     h2 {
       font-size: $text-xl;
       font-weight: $weight-bold;
-      color: $color-primary;
+      background: linear-gradient(135deg, $color-primary, $color-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       margin: 0;
     }
 
@@ -206,7 +209,7 @@ const handleSignOut = async () => {
     }
 
     &:hover {
-      background: $color-surface;
+      background: $color-glass-hover;
       color: $color-text;
     }
 
@@ -265,8 +268,8 @@ const handleSignOut = async () => {
     }
 
     &:hover {
-      background: $color-surface;
-      border-color: $color-text-muted;
+      background: $color-glass-hover;
+      border-color: $color-border-hover;
 
       svg {
         color: $color-text;

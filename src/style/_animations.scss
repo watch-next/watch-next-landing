@@ -31,61 +31,57 @@
 // ────────────────────────────────────────────────────────────────────────────
 @mixin slide-up($duration: $duration-base, $distance: 16px) {
   animation: slideUp $duration $ease-out forwards;
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY($distance);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY($distance);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
 @mixin slide-down($duration: $duration-base, $distance: 16px) {
   animation: slideDown $duration $ease-out forwards;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-$distance);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-$distance);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
 @mixin slide-left($duration: $duration-base, $distance: 16px) {
   animation: slideLeft $duration $ease-out forwards;
-}
-
-@keyframes slideLeft {
-  from {
-    opacity: 0;
-    transform: translateX($distance);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
+  @keyframes slideLeft {
+    from {
+      opacity: 0;
+      transform: translateX($distance);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 }
 
 @mixin slide-right($duration: $duration-base, $distance: 16px) {
   animation: slideRight $duration $ease-out forwards;
-}
-
-@keyframes slideRight {
-  from {
-    opacity: 0;
-    transform: translateX(-$distance);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
+  @keyframes slideRight {
+    from {
+      opacity: 0;
+      transform: translateX(-$distance);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 }
 
@@ -93,32 +89,30 @@
 //   SCALE ANIMATIONS
 // ────────────────────────────────────────────────────────────────────────────
 @mixin scale-in($duration: $duration-base, $from: 0.95) {
-  animation: scaleIn $duration $ease-out forwards;
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale($from);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
+  animation: scaleIn-#{$from} $duration $ease-out forwards;
+  @keyframes scaleIn-#{$from} {
+    from {
+      opacity: 0;
+      transform: scale($from);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 }
 
 @mixin scale-out($duration: $duration-base, $to: 0.95) {
-  animation: scaleOut $duration $ease-in forwards;
-}
-
-@keyframes scaleOut {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: scale($to);
+  animation: scaleOut-#{$to} $duration $ease-in forwards;
+  @keyframes scaleOut-#{$to} {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale($to);
+    }
   }
 }
 
@@ -126,15 +120,14 @@
 //   GLOW ANIMATIONS
 // ────────────────────────────────────────────────────────────────────────────
 @mixin glow-pulse($color: $color-primary, $duration: 2s, $intensity: 0.3) {
-  animation: glowPulse $duration ease-in-out infinite;
-}
-
-@keyframes glowPulse {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba($color-primary, $intensity);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba($color-primary, ($intensity + 0.2));
+  animation: glowPulse-#{$intensity} $duration ease-in-out infinite;
+  @keyframes glowPulse-#{$intensity} {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba($color, $intensity);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba($color, ($intensity + 0.2));
+    }
   }
 }
 
@@ -155,15 +148,14 @@
 //   FLOAT ANIMATIONS
 // ────────────────────────────────────────────────────────────────────────────
 @mixin float($duration: 4s, $distance: 8px) {
-  animation: float $duration ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-$distance);
+  animation: float-#{$distance} $duration ease-in-out infinite;
+  @keyframes float-#{$distance} {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-$distance);
+    }
   }
 }
 
