@@ -107,7 +107,7 @@ const selectCategory = (category: string) => {
 
   &__count {
     background: rgba(0, 0, 0, 0.06);
-    padding: $space-0\.5 $space-2;
+    padding: $space-1 $space-2;
     border-radius: $radius-full;
     font-size: $text-xs;
     color: inherit;
