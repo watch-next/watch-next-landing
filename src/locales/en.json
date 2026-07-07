@@ -5,6 +5,7 @@
     "platforms": "Platforms",
     "premium": "Premium",
     "roadmap": "Roadmap",
+    "blog": "Blog",
     "login": "Login"
   },
   "hero": {
@@ -264,19 +265,38 @@
       "message": "Message",
       "submit": "Send Feedback",
       "submitting": "Sending...",
-      "submitAnother": "Submit Another Feedback"
-    },
-    "success": {
-      "title": "Thank you!",
-      "message": "Your feedback helps us improve Watch Next.",
-      "submitAnother": "Submit Another Feedback"
-    },
-    "form": {
+      "submitAnother": "Submit Another Feedback",
       "placeholders": {
         "suggestion": "Tell us your idea...",
         "bug": "Describe the problem...",
         "feature": "What feature would you like to see?"
       }
+    },
+    "success": {
+      "title": "Thank you!",
+      "message": "Your feedback helps us improve Watch Next.",
+      "submitAnother": "Submit Another Feedback"
     }
+  },
+  "blog": {
+    "seo": {
+      "title": "Blog | Watch Next",
+      "description": "Discover articles about streaming movies and series, guides, tips, and news for Watch Next users."
+    },
+    "title": "Blog",
+    "subtitle": "Guides, tips, and news about streaming movies and series.",
+    "home": "Home",
+    "by": "By",
+    "readingTime": "min read",
+    "minRead": "min read",
+    "featured": "Featured",
+    "categories": "Categories",
+    "tags": "Tags",
+    "searchPlaceholder": "Search articles...",
+    "noPostsFound": "No posts found.",
+    "postNotFound": "Post Not Found",
+    "postNotFoundDescription": "The article you're looking for doesn't exist.",
+    "backToBlog": "Back to Blog",
+    "relatedArticles": "Related Articles"
   }
 }

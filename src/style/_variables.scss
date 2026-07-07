@@ -191,3 +191,27 @@ $color-black: $color-background;
 $color-dark: $color-surface;
 $color-elevated: $color-surface-light;
 $color-white: $color-text;
+
+// Content Max Width
+$content-max-width: 1200px;
+
+// Typography aliases for blog
+$leading-tight: 1.25;
+$leading-relaxed: 1.75;
+$color-primary-dark: #2B73E6;
+
+// Font weights
+$weight-normal: 400;
+$weight-medium: 500;
+$weight-semibold: 600;
+$weight-bold: 700;
+
+// Font sizes
+$text-xs: 0.75rem;
+$text-sm: 0.875rem;
+$text-base: 1rem;
+$text-lg: 1.125rem;
+$text-xl: 1.25rem;
+$text-2xl: 1.5rem;
+$text-3xl: 1.875rem;
+$text-4xl: 2.25rem;

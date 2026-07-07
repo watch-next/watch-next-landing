@@ -7,6 +7,12 @@ const PrivacyPolicy = () => import('./pages/PrivacyPolicy.vue')
 const TermsOfService = () => import('./pages/TermsOfService.vue')
 const CookiesPolicy = () => import('./pages/CookiesPolicy.vue')
 const FeedbackPage = () => import('./pages/FeedbackPage.vue')
+const BlogPage = () => import('./pages/BlogPage.vue')
+const BlogPostPage = () => import('./pages/BlogPostPage.vue')
+// Admin pages
+const AdminLoginPage = () => import('./pages/admin/AdminLoginPage.vue')
+const AdminBlogDashboard = () => import('./pages/admin/AdminBlogDashboard.vue')
+const AdminBlogEditor = () => import('./pages/admin/AdminBlogEditor.vue')
 
 const routes = [
   {
@@ -18,6 +24,17 @@ const routes = [
     path: '/feedback',
     name: 'Feedback',
     component: FeedbackPage,
+  },
+  {
+    path: '/blog',
+    name: 'Blog',
+    component: BlogPage,
+  },
+  {
+    path: '/blog/:slug',
+    name: 'BlogPost',
+    component: BlogPostPage,
+    props: true,
   },
   {
     path: '/privacy-policy',
@@ -34,9 +51,31 @@ const routes = [
     name: 'CookiesPolicy',
     component: CookiesPolicy,
   },
+  // Admin routes
+  {
+    path: '/admin/login',
+    name: 'AdminLogin',
+    component: AdminLoginPage,
+  },
+  {
+    path: '/admin/blog',
+    name: 'AdminBlogDashboard',
+    component: AdminBlogDashboard,
+  },
+  {
+    path: '/admin/blog/new',
+    name: 'AdminBlogNew',
+    component: AdminBlogEditor,
+  },
+  {
+    path: '/admin/blog/:id',
+    name: 'AdminBlogEdit',
+    component: AdminBlogEditor,
+    props: true,
+  },
 ]
 
-const pages = new Set(['/privacy-policy', '/terms-of-service', '/cookies-policy', '/feedback'])
+const pages = new Set(['/privacy-policy', '/terms-of-service', '/cookies-policy', '/feedback', '/blog'])
 
 const router = createRouter({
   history: createWebHistory(),
@@ -53,6 +92,34 @@ const router = createRouter({
     }
     return { top: 0, behavior: 'smooth' }
   },
+})
+
+// Admin route guard
+router.beforeEach(async (to, _from, next) => {
+  if (to.path.startsWith('/admin')) {
+    // Allow login page without auth
+    if (to.path === '/admin/login') {
+      return next()
+    }
+
+    // Check if Supabase is configured
+    const { isSupabaseConfigured } = await import('@/lib/supabase')
+    if (!isSupabaseConfigured()) {
+      // Redirect to login if Supabase not configured
+      return next('/admin/login')
+    }
+
+    // Check admin status
+    const { useAdminAuth } = await import('@/composables/useAdminAuth')
+    const { checkAdmin } = useAdminAuth()
+    const isAdmin = await checkAdmin()
+
+    if (!isAdmin) {
+      return next('/admin/login')
+    }
+  }
+
+  next()
 })
 
 export default router

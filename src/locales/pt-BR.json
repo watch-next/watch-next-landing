@@ -5,6 +5,7 @@
     "platforms": "Plataformas",
     "premium": "Premium",
     "roadmap": "Roadmap",
+    "blog": "Blog",
     "login": "Entrar"
   },
   "hero": {
@@ -276,5 +277,26 @@
       "message": "Seu feedback ajuda-nos a melhorar o Watch Next.",
       "submitAnother": "Enviar Outro Feedback"
     }
+  },
+  "blog": {
+    "seo": {
+      "title": "Blog | Watch Next",
+      "description": "Descubra artigos sobre streaming de filmes e séries, guias, dicas e notícias para usuários do Watch Next."
+    },
+    "title": "Blog",
+    "subtitle": "Guias, dicas e notícias sobre streaming de filmes e séries.",
+    "home": "Início",
+    "by": "Por",
+    "readingTime": "min de leitura",
+    "minRead": "min",
+    "featured": "Destaque",
+    "categories": "Categorias",
+    "tags": "Tags",
+    "searchPlaceholder": "Buscar artigos...",
+    "noPostsFound": "Nenhum post encontrado.",
+    "postNotFound": "Post Não Encontrado",
+    "postNotFoundDescription": "O artigo que você está procurando não existe.",
+    "backToBlog": "Voltar ao Blog",
+    "relatedArticles": "Artigos Relacionados"
   }
 }
