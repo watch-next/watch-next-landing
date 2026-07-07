@@ -37,8 +37,14 @@
         >
           {{ $t('premium.plans.startFree') }}
         </button>
-       
-        <p v-if="plan.footer" class="premium-page__plan-footer">{{ $t(plan.footer) }}</p>
+        <button
+          v-else
+          class="premium-page__plan-button btn btn-primary"
+          disabled
+        >
+          {{ $t('premium.plans.comingSoon') }}
+          <span class="premium-page__plan-button-badge">{{ $t('premium.plans.soon') }}</span>
+        </button>
       </div>
     </div>
   </div>

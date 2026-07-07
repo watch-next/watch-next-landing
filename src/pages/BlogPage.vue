@@ -96,14 +96,40 @@ const handleTagSelect = (tag: string | null) => {
 
 .blog-page {
   min-height: 100vh;
-  padding: $space-12 0 $space-24;
+  padding-block: $space-20 $space-16;
+  padding-inline: $space-6;
   background: $color-background;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 1200px;
+    height: 400px;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%,
+      rgba($color-primary, 0.12) 0%,
+      transparent 60%);
+    z-index: $z-base;
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    padding-block: $space-16 $space-12;
+  }
 }
 
 .blog-page__container {
+  max-width: $content-max-width;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: $space-8;
+  position: relative;
+  z-index: $z-base;
 }
 
 .blog-page__header {
@@ -119,6 +145,11 @@ const handleTagSelect = (tag: string | null) => {
   font-weight: $weight-bold;
   color: $color-text;
   margin: 0;
+  letter-spacing: $tracking-tight;
+
+  @media (max-width: 768px) {
+    font-size: $text-3xl;
+  }
 }
 
 .blog-page__subtitle {
@@ -126,21 +157,16 @@ const handleTagSelect = (tag: string | null) => {
   color: $color-text-secondary;
   margin: 0;
   max-width: 600px;
+  line-height: $leading-relaxed;
+
+  @media (max-width: 768px) {
+    font-size: $text-base;
+  }
 }
 
 .blog-page__filters {
   display: flex;
   flex-direction: column;
   gap: $space-4;
-}
-
-@media (max-width: $bp-md) {
-  .blog-page {
-    padding: $space-8 0;
-  }
-
-  .blog-page__title {
-    font-size: $text-3xl;
-  }
 }
 </style>

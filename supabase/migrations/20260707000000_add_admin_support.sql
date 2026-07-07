@@ -49,19 +49,39 @@ ORDER BY deleted_at DESC;
 -- For now, we'll use a simple approach: authenticated users with specific email domain
 
 -- Create a function to check if user is admin
+-- Reads from auth.users.raw_app_meta_data using auth.uid()
+DROP FUNCTION IF EXISTS is_admin();
 CREATE OR REPLACE FUNCTION is_admin()
-RETURNS boolean AS $$
-BEGIN
-  -- Check if user has admin role in metadata
-  -- This can be customized based on your auth setup
-  RETURN (
-    SELECT COALESCE(
-      (raw_app_meta_data->>'is_admin')::boolean,
-      false
-    )
-    FROM auth.users
-    WHERE id = auth.uid()
+RETURNS boolean
+LANGUAGE sql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT COALESCE(
+    (
+      SELECT (raw_app_meta_data->>'is_admin')::boolean
+      FROM auth.users
+      WHERE id = auth.uid()
+    ),
+    false
   );
+$$;
+
+-- Helper function to set admin role for a user
+-- Usage: SELECT set_admin_role('admin@example.com', true);
+DROP FUNCTION IF EXISTS set_admin_role(text, boolean);
+CREATE OR REPLACE FUNCTION set_admin_role(user_email text, is_admin boolean DEFAULT true)
+RETURNS text AS $$
+DECLARE
+  target_user_id uuid;
+BEGIN
+  SELECT id INTO target_user_id FROM auth.users WHERE email = user_email LIMIT 1;
+  IF target_user_id IS NULL THEN RETURN 'User not found: ' || user_email; END IF;
+  UPDATE auth.users SET
+    app_metadata = COALESCE(app_metadata, '{}'::jsonb) || jsonb_build_object('is_admin', is_admin),
+    raw_app_meta_data = COALESCE(raw_app_meta_data, '{}'::jsonb) || jsonb_build_object('is_admin', is_admin)
+  WHERE id = target_user_id;
+  RETURN 'Admin role ' || CASE WHEN is_admin THEN 'granted' ELSE 'revoked' END || ' for ' || user_email;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 

@@ -56,7 +56,7 @@
 
       <button
         type="submit"
-        class="btn btn-primary feedback-page__submit"
+        class="btn btn-primary"
         :disabled="isSubmitting"
       >
         {{ isSubmitting ? $t('feedback.form.submitting') : $t('feedback.form.submit') }}
@@ -275,14 +275,6 @@ function resetForm() {
     min-height: 140px;
     resize: vertical;
     line-height: 1.6;
-  }
-
-  &__submit {
-    width: 100%;
-    padding: $space-4 $space-6;
-    font-size: $text-base;
-    font-weight: $weight-semibold;
-    margin-top: $space-3;
   }
 
   &__success {

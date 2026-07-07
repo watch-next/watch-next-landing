@@ -42,7 +42,8 @@ export function useAdminAuth() {
         return false
       }
 
-      // Check if user has admin metadata
+      // Check if user has admin metadata in app_metadata
+      // Note: Authorization is ultimately enforced by RLS using auth.users.raw_app_meta_data
       const isAdmin = user.app_metadata?.is_admin === true ||
                       user.app_metadata?.role === 'admin' ||
                       false

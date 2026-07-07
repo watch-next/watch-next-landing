@@ -179,8 +179,7 @@ export async function createBlogPost(
     const { data, error } = await supabase
       .from('blog_posts')
       .insert({
-        ...input,
-        published_at: input.publishedAt || null,
+        ...mapToDatabase(input),
         reading_time: readingTime,
         created_by: userId || null,
       })
@@ -230,11 +229,7 @@ export async function updateBlogPost(
   }
 
   try {
-    const updateData: Record<string, any> = { ...input }
-
-    if (input.publishedAt !== undefined) {
-      updateData.published_at = input.publishedAt
-    }
+    const updateData: Record<string, any> = mapToDatabase(input)
 
     if (userId) {
       updateData.updated_by = userId
@@ -544,4 +539,30 @@ function mapToRecord(data: any): BlogPostRecord {
     updatedBy: data.updated_by,
     readingTime: data.reading_time || 0,
   }
+}
+
+/**
+ * Map camelCase input to snake_case for database operations
+ */
+function mapToDatabase(input: Partial<BlogPostInput>): Record<string, any> {
+  const result: Record<string, any> = {}
+
+  if (input.slug !== undefined) result.slug = input.slug
+  if (input.title !== undefined) result.title = input.title
+  if (input.description !== undefined) result.description = input.description
+  if (input.content !== undefined) result.content = input.content
+  if (input.cover !== undefined) result.cover = input.cover
+  if (input.author !== undefined) result.author = input.author
+  if (input.category !== undefined) result.category = input.category
+  if (input.tags !== undefined) result.tags = input.tags
+  if (input.featured !== undefined) result.featured = input.featured
+  if (input.status !== undefined) result.status = input.status
+  if (input.publishedAt !== undefined) result.published_at = input.publishedAt
+  if (input.seoTitle !== undefined) result.seo_title = input.seoTitle
+  if (input.seoDescription !== undefined) result.seo_description = input.seoDescription
+  if (input.ogImage !== undefined) result.og_image = input.ogImage
+  if (input.canonicalUrl !== undefined) result.canonical_url = input.canonicalUrl
+  if (input.excerpt !== undefined) result.excerpt = input.excerpt
+
+  return result
 }
