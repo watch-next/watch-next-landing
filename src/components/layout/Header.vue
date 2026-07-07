@@ -9,7 +9,8 @@
       <nav class="header__nav" :class="{ 'header__nav--open': menuOpen }" role="navigation" aria-label="Main navigation" id="main-nav">
         <ul class="header__nav-list">
           <li v-for="link in navLinks" :key="link.href" class="header__nav-item">
-            <a :href="link.href" class="header__nav-link link-hover" @click="handleNavClick(link)">{{ link.label }}</a>
+            <a v-if="!link.isRoute" :href="link.href" class="header__nav-link link-hover" @click="handleNavClick(link)">{{ link.label }}</a>
+            <router-link v-else :to="link.href" class="header__nav-link link-hover" @click="handleNavClick(link)">{{ link.label }}</router-link>
           </li>
         </ul>
         <button class="header__login-btn">{{ t('navigation.login') }}</button>
@@ -54,6 +55,7 @@ const navLinks = [
   { label: t('navigation.platforms'), href: '#platforms' },
   { label: t('navigation.premium'), href: '#premium' },
   { label: t('navigation.roadmap'), href: '#roadmap' },
+  { label: t('navigation.blog'), href: '/blog', isRoute: true },
 ]
 
 const languages = [
