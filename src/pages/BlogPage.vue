@@ -96,7 +96,7 @@ const handleTagSelect = (tag: string | null) => {
 
 .blog-page {
   min-height: 100vh;
-  padding: $space-12 0 $space-12;
+  padding: $space-12 0 $space-24;
   background: $color-background;
 }
 

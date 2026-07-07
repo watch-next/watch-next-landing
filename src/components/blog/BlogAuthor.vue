@@ -39,14 +39,14 @@ const avatar = computed(() => {
   &__avatar {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    border-radius: $radius-full;
     background: linear-gradient(135deg, $color-primary, $color-accent);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: $weight-bold;
     font-size: $text-sm;
-    color: white;
+    color: $color-text;
     flex-shrink: 0;
   }
 
@@ -59,7 +59,7 @@ const avatar = computed(() => {
   &__name {
     font-weight: $weight-semibold;
     color: $color-text;
-    font-size: $text-base;
+    font-size: $text-sm;
   }
 
   &__role {

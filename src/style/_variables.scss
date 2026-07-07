@@ -165,6 +165,10 @@ $transition-fast:    $duration-fast $ease-in-out;
 $transition-base:    $duration-base $ease-in-out;
 $transition-slow:    $duration-slow $ease-in-out;
 $transition-slower:  $duration-slower $ease-in-out;
+$transition-card:    transform $duration-base $ease-in-out,
+                    box-shadow $duration-base $ease-in-out;
+$transition-input:   border-color $duration-fast $ease-in-out,
+                    box-shadow $duration-fast $ease-in-out;
 
 // Z-Index
 $z-below:     -1;
@@ -215,3 +219,10 @@ $text-xl: 1.25rem;
 $text-2xl: 1.5rem;
 $text-3xl: 1.875rem;
 $text-4xl: 2.25rem;
+
+// Component radius aliases
+$radius-card: $radius-lg;
+$radius-card-lg: $radius-xl;
+$radius-button: $radius-md;
+$radius-button-lg: $radius-lg;
+$radius-badge: $radius-full;

@@ -48,7 +48,6 @@ const selectTag = (tag: string) => {
 </script>
 
 <style lang="scss" scoped>
- @use '@/style/variables' as *;
 @use '@/style/variables' as *;
 
 .blog-tags {
@@ -69,23 +68,24 @@ const selectTag = (tag: string) => {
 
   &__item {
     padding: $space-2 $space-3;
-    background: $color-surface;
+    background: $gradient-surface;
     border: 1px solid $color-border;
     border-radius: $radius-md;
     color: $color-text-secondary;
     font-size: $text-sm;
+    font-weight: $weight-medium;
     cursor: pointer;
-    transition: all $transition-fast;
+    transition: all $transition-base;
 
     &:hover {
-      border-color: $color-accent;
-      color: $color-accent;
+      border-color: $color-border-hover;
+      color: $color-text;
     }
 
     &.active {
-      background: $color-accent;
-      border-color: $color-accent;
-      color: white;
+      background: $color-primary-light;
+      border-color: $color-primary;
+      color: $color-primary;
     }
   }
 }

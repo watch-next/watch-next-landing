@@ -53,7 +53,6 @@ watch(() => searchQuery.value, () => {
 </script>
 
 <style lang="scss" scoped>
- @use '@/style/variables' as *;
 @use '@/style/variables' as *;
 
 .blog-search {

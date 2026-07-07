@@ -56,7 +56,6 @@ const selectCategory = (category: string) => {
 </script>
 
 <style lang="scss" scoped>
- @use '@/style/variables' as *;
 @use '@/style/variables' as *;
 
 .blog-categories {
@@ -77,39 +76,36 @@ const selectCategory = (category: string) => {
 
   &__item {
     padding: $space-2 $space-4;
-    background: $color-surface;
+    background: $gradient-surface;
     border: 1px solid $color-border;
     border-radius: $radius-full;
     color: $color-text-secondary;
     font-size: $text-sm;
+    font-weight: $weight-medium;
     cursor: pointer;
-    transition: all $transition-fast;
+    transition: all $transition-base;
     display: flex;
     align-items: center;
     gap: $space-2;
 
     &:hover {
-      border-color: $color-primary;
-      color: $color-primary;
+      border-color: $color-border-hover;
+      color: $color-text;
     }
 
     &.active {
-      background: $color-primary;
+      background: $color-primary-light;
       border-color: $color-primary;
-      color: white;
+      color: $color-primary;
     }
   }
 
   &__count {
     background: $color-surface-light;
-    padding: 2px $space-2;
+    padding: $space-1 $space-2;
     border-radius: $radius-full;
     font-size: $text-xs;
-    opacity: 0.8;
-
-    .active & {
-      background: rgba(255, 255, 255, 0.2);
-    }
+    color: $color-text-muted;
   }
 }
 </style>
