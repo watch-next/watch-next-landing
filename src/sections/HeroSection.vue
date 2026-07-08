@@ -9,6 +9,7 @@
         <div class="hero__actions">
           <a href="#features" class="hero__cta hero__cta--primary glow-pulse btn-hover-smooth" @click="trackEvent(trackHeroCta('features'))">{{ hero.ctaPrimary }}</a>
           <a href="#premium" class="hero__cta hero__cta--secondary btn-hover-smooth" @click="trackEvent(trackHeroCta('premium'))">{{ hero.ctaSecondary }}</a>
+          <router-link to="/movies" class="hero__cta hero__cta--secondary btn-hover-smooth">Explore Movies</router-link>
         </div>
         <div class="hero__signup">
           <div class="hero__badge">{{ hero.androidBadge }}</div>

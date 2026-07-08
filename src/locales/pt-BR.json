@@ -1,4 +1,8 @@
 {
+  "common": {
+    "home": "Início",
+    "loading": "Carregando..."
+  },
   "navigation": {
     "home": "Início",
     "features": "Recursos",
@@ -298,5 +302,41 @@
     "postNotFoundDescription": "O artigo que você está procurando não existe.",
     "backToBlog": "Voltar ao Blog",
     "relatedArticles": "Artigos Relacionados"
+  },
+  "content": {
+    "meta": {
+      "releaseYear": "Ano de Lançamento",
+      "firstAirYear": "Primeira Exibição",
+      "lastAirYear": "Última Exibição",
+      "duration": "Duração",
+      "seasons": "Temporadas",
+      "rating": "Classificação",
+      "genres": "Gêneros",
+      "director": "Diretor",
+      "directors": "Diretores",
+      "cast": "Elenco",
+      "profession": "Profissão",
+      "birthDate": "Data de Nascimento",
+      "birthPlace": "Local de Nascimento",
+      "filmography": "Filmografia",
+      "status": "Status",
+      "platforms": "Disponível Em"
+    },
+    "navigation": {
+      "backToHome": "Voltar ao Início",
+      "relatedContent": "Conteúdo Relacionado",
+      "alsoStarring": "Também Estrelado Por",
+      "moreByDirector": "Mais Por Este Diretor",
+      "similarTitles": "Títulos Semelhantes",
+      "viewActor": "Ver Ator/Atriz",
+      "viewDirector": "Ver Diretor",
+      "viewMovie": "Ver Filme",
+      "viewSeries": "Ver Série"
+    },
+    "labels": {
+      "minutes": "min",
+      "seasons": "temp.",
+      "episodes": "episódios"
+    }
   }
 }

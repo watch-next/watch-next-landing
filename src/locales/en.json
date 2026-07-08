@@ -1,4 +1,8 @@
 {
+  "common": {
+    "home": "Home",
+    "loading": "Loading..."
+  },
   "navigation": {
     "home": "Home",
     "features": "Features",
@@ -298,5 +302,41 @@
     "postNotFoundDescription": "The article you're looking for doesn't exist.",
     "backToBlog": "Back to Blog",
     "relatedArticles": "Related Articles"
+  },
+  "content": {
+    "meta": {
+      "releaseYear": "Release Year",
+      "firstAirYear": "First Air Year",
+      "lastAirYear": "Last Air Year",
+      "duration": "Duration",
+      "seasons": "Seasons",
+      "rating": "Rating",
+      "genres": "Genres",
+      "director": "Director",
+      "directors": "Directors",
+      "cast": "Cast",
+      "profession": "Profession",
+      "birthDate": "Birth Date",
+      "birthPlace": "Birth Place",
+      "filmography": "Filmography",
+      "status": "Status",
+      "platforms": "Available On"
+    },
+    "navigation": {
+      "backToHome": "Back to Home",
+      "relatedContent": "Related Content",
+      "alsoStarring": "Also Starring",
+      "moreByDirector": "More by This Director",
+      "similarTitles": "Similar Titles",
+      "viewActor": "View Actor",
+      "viewDirector": "View Director",
+      "viewMovie": "View Movie",
+      "viewSeries": "View Series"
+    },
+    "labels": {
+      "minutes": "min",
+      "seasons": "seasons",
+      "episodes": "episodes"
+    }
   }
 }

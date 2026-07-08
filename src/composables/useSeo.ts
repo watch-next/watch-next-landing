@@ -1,13 +1,16 @@
 import { useHead } from '@vueuse/head'
 import type { UseHeadOptions } from '@vueuse/head'
+import type { ComputedRef, Ref } from 'vue'
+
+type MaybeRef<T> = T | Ref<T> | ComputedRef<T>
 
 export function useSeo(options: {
-  title: string
-  description: string
-  image?: string
-  type?: string
-  url?: string
-  jsonLd?: Record<string, any>
+  title: MaybeRef<string>
+  description: MaybeRef<string>
+  image?: MaybeRef<string | undefined>
+  type?: MaybeRef<string>
+  url?: MaybeRef<string>
+  jsonLd?: MaybeRef<Record<string, any> | undefined>
 }) {
   const head: UseHeadOptions = {
     title: options.title,
@@ -25,21 +28,28 @@ export function useSeo(options: {
 
   if (options.image) {
     head.meta!.push(
-      { name: 'twitter:image', content: options.image! },
-      { name: 'og:image', content: options.image! },
+      { name: 'twitter:image', content: options.image },
+      { name: 'og:image', content: options.image },
       { name: 'og:image:alt', content: 'Watch Next' },
     )
   }
 
   if (options.url) {
-    head.meta!.push({ name: 'og:url', content: options.url! })
+    head.meta!.push({ name: 'og:url', content: options.url })
   }
 
   if (options.jsonLd) {
     head.script = [
       {
         type: 'application/ld+json',
-        children: JSON.stringify(options.jsonLd),
+        children: () => {
+          const jsonLdValue = typeof options.jsonLd === 'function'
+            ? options.jsonLd
+            : 'value' in options.jsonLd
+              ? options.jsonLd.value
+              : options.jsonLd
+          return JSON.stringify(jsonLdValue || {})
+        },
       },
     ]
   }
