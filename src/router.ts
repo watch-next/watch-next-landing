@@ -9,6 +9,9 @@ const CookiesPolicy = () => import('./pages/CookiesPolicy.vue')
 const FeedbackPage = () => import('./pages/FeedbackPage.vue')
 const BlogPage = () => import('./pages/BlogPage.vue')
 const BlogPostPage = () => import('./pages/BlogPostPage.vue')
+// Movies pages
+const MoviesPage = () => import('./pages/MoviesPage.vue')
+const MoviePage = () => import('./pages/MoviePage.vue')
 // Admin pages
 const AdminLoginPage = () => import('./pages/admin/AdminLoginPage.vue')
 const AdminBlogDashboard = () => import('./pages/admin/AdminBlogDashboard.vue')
@@ -34,6 +37,17 @@ const routes = [
     path: '/blog/:slug',
     name: 'BlogPost',
     component: BlogPostPage,
+    props: true,
+  },
+  {
+    path: '/movies',
+    name: 'Movies',
+    component: MoviesPage,
+  },
+  {
+    path: '/movies/:slug',
+    name: 'Movie',
+    component: MoviePage,
     props: true,
   },
   {
@@ -92,6 +106,12 @@ const router = createRouter({
     }
     return { top: 0, behavior: 'smooth' }
   },
+})
+
+// Error handler to log detailed router errors
+router.onError((error, to) => {
+  console.error('[Router Error]', error)
+  console.error('[Route]', to.fullPath)
 })
 
 // Admin route guard

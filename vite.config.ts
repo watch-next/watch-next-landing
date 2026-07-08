@@ -36,6 +36,7 @@ export default defineConfig(({ mode }) => {
         '@': fileURLToPath(new URL('./src', import.meta.url))
       }
     },
+    assetsInclude: ['**/*.md'],
     css: {
       preprocessorOptions: {
         scss: {
