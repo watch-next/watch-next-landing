@@ -84,12 +84,11 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { StaticContentProvider } from '@/lib/content'
+import { getMovies } from '@/lib/content/MovieRepository'
 import type { Movie } from '@/lib/content/types'
 import { useSeo } from '@/composables/useSeo'
 
 const { t } = useI18n()
-const movieProvider = new StaticContentProvider()
 
 const movies = ref<Movie[]>([])
 const loading = ref(true)
@@ -106,7 +105,7 @@ onMounted(async () => {
   try {
     loading.value = true
     error.value = false
-    movies.value = await movieProvider.getMovies()
+    movies.value = await getMovies()
   } catch (err) {
     console.error('Failed to load movies:', err)
     error.value = true
