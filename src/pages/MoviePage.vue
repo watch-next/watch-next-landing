@@ -53,9 +53,9 @@
         </div>
       </header>
 
-      <!-- Content -->
+      <!-- Content - Movie Overview -->
       <div class="movie-page__content">
-        <MarkdownRenderer :content="movie.content" />
+        <p class="movie-page__overview">{{ movie.description }}</p>
       </div>
     </div>
   </article>
@@ -69,16 +69,14 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { StaticContentProvider } from '@/lib/content'
+import { getMovieBySlug } from '@/lib/content/MovieRepository'
 import { generateMovieSchema } from '@/lib/seo'
 import { useSeo } from '@/composables/useSeo'
 import Breadcrumbs from '@/components/Breadcrumbs.vue'
-import MarkdownRenderer from '@/components/blog/MarkdownRenderer.vue'
 import type { Movie } from '@/lib/content/types'
 
 const { t } = useI18n()
 const route = useRoute()
-const movieProvider = new StaticContentProvider()
 
 const props = defineProps<{
   slug: string
@@ -105,7 +103,7 @@ function formatDuration(minutes: number): string {
 
 // Load movie data
 onMounted(async () => {
-  movie.value = await movieProvider.getMovie(props.slug)
+  movie.value = await getMovieBySlug(props.slug)
 })
 
 // Setup SEO - reactive to movie data

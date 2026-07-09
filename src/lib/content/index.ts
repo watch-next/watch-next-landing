@@ -1,22 +1,23 @@
-export type {
-  ContentItem,
-  Movie,
-  Series,
-  Person,
-  Genre,
-  Collection,
-  ContentType,
-} from './types'
+/**
+ * Content Layer Barrel Export
+ *
+ * Re-exports content-related modules and types.
+ */
 
-export {
-  isMovie,
-  isSeries,
-  isPerson,
-  isActor,
-  isDirector,
-  isGenre,
-  isCollection,
-} from './types'
+// Types
+export * from './types';
 
-export { StaticContentProvider } from './StaticContentProvider'
-export { slugify, unslugify, parseYear, isValidSlug, generateUniqueSlug } from './slugify'
+// Utilities
+export * from './slugify';
+
+// Generic abstractions (for future content types)
+export * from './ContentRepository';
+
+// Repository (TMDB-backed)
+export * from './MovieRepository';
+
+// Legacy static provider (Markdown-based) - DEPRECATED - remove after migration
+// Note: StaticContentProvider was removed in Phase 5
+
+// Provider interface
+export * from './ContentProvider';
