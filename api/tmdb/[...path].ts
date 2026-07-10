@@ -19,7 +19,7 @@ import {
   proxyToTmdb,
   extractPathFromQuery,
   filterQueryParams,
-} from '../../src/lib/tmdb/proxy/proxyHandler.js';
+} from '../src/lib/tmdb/proxy/proxyHandler.js';
 
 const TMDB_API_BASE =
   process.env.TMDB_API_BASE || 'https://api.themoviedb.org/3';
@@ -46,7 +46,7 @@ export default async function handler(
 
     console.log("[API] Calling proxy...");
 
-    const result = await proxyToTmdb(path, new URLSearchParams(filteredParams), {
+    const result = await proxyToTmdb(path, new URLSearchParams(filteredParams as Record<string, string>), {
       apiKey: API_KEY || '',
       apiBase: TMDB_API_BASE,
       defaultLanguage: process.env.VITE_TMDB_LANGUAGE || 'en-US',
