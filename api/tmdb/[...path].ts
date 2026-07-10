@@ -19,7 +19,7 @@ import {
   proxyToTmdb,
   extractPathFromQuery,
   filterQueryParams,
-} from '../../src/lib/tmdb/proxy/proxyHandler';
+} from '../../src/lib/tmdb/proxy/proxyHandler.js';
 
 const TMDB_API_BASE =
   process.env.TMDB_API_BASE || 'https://api.themoviedb.org/3';
@@ -45,7 +45,9 @@ export default async function handler(
   });
 
   for (const [key, value] of Object.entries(result.headers)) {
-    res.setHeader(key, value);
+    if (typeof value === 'string') {
+      res.setHeader(key, value);
+    }
   }
 
   if (result.isJson) {
