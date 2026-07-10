@@ -29,50 +29,62 @@ export default async function handler(
   req: VercelRequest,
   res: VercelResponse
 ): Promise<void> {
-  try {
-    console.log("[API] Handler started");
-    console.log("[API] Raw query:", JSON.stringify(req.query));
-    console.log("[API] req.query.path:", req.query.path);
-    console.log("[API] Is array?", Array.isArray(req.query.path));
+  // CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
+  // Handle OPTIONS preflight
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  try {
     if (req.method !== 'GET') {
       res.status(405).json({ error: 'Method not allowed' });
       return;
     }
 
     // Normalize path: Vercel catch-all provides string or string[]
+    const rawPath = req.query.path;
     let path: string;
-    if (Array.isArray(req.query.path)) {
-      path = req.query.path.filter(Boolean).join('/');
-    } else if (typeof req.query.path === 'string') {
-      path = req.query.path;
+
+    if (Array.isArray(rawPath)) {
+      // Filter empty strings and join with /
+      path = rawPath.filter((p): p is string => typeof p === 'string' && p !== '').join('/');
+    } else if (typeof rawPath === 'string') {
+      path = rawPath;
     } else {
-      res.status(400).json({ error: 'Missing TMDB path - expected /api/tmdb/movie/popular' });
+      res.status(400).json({
+        error: 'Missing TMDB path',
+        message: 'Expected /api/tmdb/movie/popular or similar endpoint',
+      });
       return;
     }
 
-    console.log("[API] Normalized path:", path);
+    // Clean path: remove leading/trailing slashes
+    const cleanPath = path.replace(/^\/+|\/+$/g, '');
 
-    if (!path) {
+    console.log('[TMDB] raw query:', JSON.stringify(req.query));
+    console.log('[TMDB] normalized path:', cleanPath);
+
+    if (!cleanPath) {
       res.status(400).json({ error: 'Missing TMDB path' });
       return;
     }
 
     const filteredParams = filterQueryParams(req.query);
 
-    console.log("[API] Calling proxy with path:", path);
+    console.log('[TMDB] calling:', `https://api.themoviedb.org/3/${cleanPath}`);
 
-    const result = await proxyToTmdb(path, new URLSearchParams(filteredParams as Record<string, string>), {
+    const result = await proxyToTmdb(cleanPath, new URLSearchParams(filteredParams as Record<string, string>), {
       apiKey: API_KEY || '',
       apiBase: TMDB_API_BASE,
       defaultLanguage: process.env.VITE_TMDB_LANGUAGE || 'en-US',
       defaultRegion: process.env.VITE_TMDB_REGION || 'US',
     });
 
-    console.log("[API] Proxy returned", {
-      status: result.statusCode,
-      isJson: result.isJson
-    });
+    console.log('[TMDB] response status:', result.statusCode);
 
     for (const [key, value] of Object.entries(result.headers)) {
       if (typeof value === 'string') {
@@ -86,10 +98,10 @@ export default async function handler(
       res.status(result.statusCode).send(result.body);
     }
   } catch (err) {
-    console.error("[API ERROR]", err);
+    console.error('[API ERROR]', err);
     res.status(500).json({
-      error: String(err),
-      stack: err instanceof Error ? err.stack : undefined
+      error: 'Internal server error',
+      message: err instanceof Error ? err.message : 'Unknown error',
     });
   }
 }

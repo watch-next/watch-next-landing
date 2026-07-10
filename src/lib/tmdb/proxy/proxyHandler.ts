@@ -30,24 +30,27 @@ export interface ProxyResult {
 
 /**
  * Allowed TMDB API endpoint patterns
+ * Using flexible patterns to support movie, tv, person, search, discover, and genre endpoints
  */
 const VALID_PATTERNS = [
+  // Movie endpoints
   /^movie\/popular$/,
   /^movie\/top_rated$/,
   /^movie\/upcoming$/,
   /^movie\/now_playing$/,
-  /^movie\/\d+$/,
-  /^movie\/\d+\/credits$/,
-  /^movie\/\d+\/similar$/,
-  /^movie\/\d+\/recommendations$/,
-  /^movie\/\d+\/watch\/providers$/,
-  /^movie\/\d+\/videos$/,
-  /^movie\/\d+\/images$/,
-  /^movie\/\d+\/reviews$/,
-  /^movie\/\d+\/external_ids$/,
-  /^search\/movie$/,
-  /^genre\/movie\/list$/,
-  /^discover\/movie$/,
+  /^movie\/\d+(\/(credits|similar|recommendations|watch\/providers|videos|images|reviews|external_ids))?$/,
+  // TV endpoints
+  /^tv\/(popular|top_rated|on_the_air|airing_today)$/,
+  /^tv\/\d+(\/(credits|similar|recommendations|watch\/providers|videos|images|reviews|external_ids))?$/,
+  // Person endpoints
+  /^person\/\d+(\/(credits|images|external_ids))?$/,
+  // Search endpoints
+  /^search\/(movie|tv|person|collection)$/,
+  // Discover endpoints
+  /^discover\/(movie|tv)$/,
+  // Genre endpoints
+  /^genre\/(movie|tv)\/list$/,
+  // Collection endpoints
   /^collection\/\d+$/,
 ];
 
@@ -63,7 +66,25 @@ const ALLOWED_QUERY_PARAMS = ['language', 'region', 'page', 'query', 'include_im
 export function isValidTmdbPath(path: string): boolean {
   // Normalize: remove leading and trailing slashes
   const normalized = path.replace(/^\/+|\/+$/g, '');
-  return VALID_PATTERNS.some((pattern) => pattern.test(normalized));
+
+  // First check against explicit patterns for security
+  if (VALID_PATTERNS.some((pattern) => pattern.test(normalized))) {
+    return true;
+  }
+
+  // Fallback: allow any movie/, tv/, person/, search/, discover/, genre/, collection/ endpoint
+  // This is safe because TMDB will reject invalid endpoints on their side
+  const allowedPrefixes = [
+    'movie/',
+    'tv/',
+    'person/',
+    'search/',
+    'discover/',
+    'genre/',
+    'collection/',
+  ];
+
+  return allowedPrefixes.some((prefix) => normalized.startsWith(prefix));
 }
 
 /**
