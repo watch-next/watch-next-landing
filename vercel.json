@@ -1,19 +1,15 @@
 {
-  "routes": [
+  "framework": "vite",
+  "rewrites": [
     {
-      "src": "/api/tmdb/(.*)",
-      "dest": "/api/tmdb/[...path].ts"
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
     },
     {
-      "src": "/((?!api/).*)",
-      "dest": "/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
-  "functions": {
-    "api/tmdb/[...path].ts": {
-      "runtime": "nodejs22.x"
-    }
-  },
   "headers": [
     {
       "source": "/assets/(.*)",
