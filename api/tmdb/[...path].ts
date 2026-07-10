@@ -19,7 +19,7 @@ import {
   proxyToTmdb,
   extractPathFromQuery,
   filterQueryParams,
-} from '@/lib/tmdb/proxy/proxyHandler';
+} from '../../src/lib/tmdb/proxy/proxyHandler';
 
 const TMDB_API_BASE =
   process.env.TMDB_API_BASE || 'https://api.themoviedb.org/3';
