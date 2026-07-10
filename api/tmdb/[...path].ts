@@ -29,30 +29,51 @@ export default async function handler(
   req: VercelRequest,
   res: VercelResponse
 ): Promise<void> {
-  if (req.method !== 'GET') {
-    res.status(405).json({ error: 'Method not allowed' });
-    return;
-  }
+  try {
+    console.log("[API] Handler started");
 
-  const path = extractPathFromQuery(req.query.path);
-  const filteredParams = filterQueryParams(req.query);
-
-  const result = await proxyToTmdb(path, new URLSearchParams(filteredParams), {
-    apiKey: API_KEY || '',
-    apiBase: TMDB_API_BASE,
-    defaultLanguage: process.env.VITE_TMDB_LANGUAGE || 'en-US',
-    defaultRegion: process.env.VITE_TMDB_REGION || 'US',
-  });
-
-  for (const [key, value] of Object.entries(result.headers)) {
-    if (typeof value === 'string') {
-      res.setHeader(key, value);
+    if (req.method !== 'GET') {
+      res.status(405).json({ error: 'Method not allowed' });
+      return;
     }
-  }
 
-  if (result.isJson) {
-    res.status(result.statusCode).json(result.body);
-  } else {
-    res.status(result.statusCode).send(result.body);
+    console.log("[API] Query:", req.query);
+
+    const path = extractPathFromQuery(req.query.path);
+    console.log("[API] Path:", path);
+
+    const filteredParams = filterQueryParams(req.query);
+
+    console.log("[API] Calling proxy...");
+
+    const result = await proxyToTmdb(path, new URLSearchParams(filteredParams), {
+      apiKey: API_KEY || '',
+      apiBase: TMDB_API_BASE,
+      defaultLanguage: process.env.VITE_TMDB_LANGUAGE || 'en-US',
+      defaultRegion: process.env.VITE_TMDB_REGION || 'US',
+    });
+
+    console.log("[API] Proxy returned", {
+      status: result.statusCode,
+      isJson: result.isJson
+    });
+
+    for (const [key, value] of Object.entries(result.headers)) {
+      if (typeof value === 'string') {
+        res.setHeader(key, value);
+      }
+    }
+
+    if (result.isJson) {
+      res.status(result.statusCode).json(result.body);
+    } else {
+      res.status(result.statusCode).send(result.body);
+    }
+  } catch (err) {
+    console.error("[API ERROR]", err);
+    res.status(500).json({
+      error: String(err),
+      stack: err instanceof Error ? err.stack : undefined
+    });
   }
 }
