@@ -43,6 +43,18 @@ export async function fetchPopularMovies(
 ): Promise<DataSourceResult<TmdbMovie[]>> {
   try {
     const response = await movieService.getPopularMovies(page);
+console.log('[DataSource] fetchPopularMovies results length', response.results?.length);
+console.log('[DataSource] first popular movie', response.results?.[0]);
+    console.log('[DataSource] Popular movies count:', response.results?.length);
+    console.log('[DataSource] First popular movie:', response.results?.[0]);
+    console.log('[DataSource] movie', {
+      id: response.results?.[0]?.id,
+      tmdbId: response.results?.[0]?.id,
+      title: response.results?.[0]?.title,
+      slug: undefined,
+      cover: response.results?.[0]?.poster_path,
+      backdrop: response.results?.[0]?.backdrop_path,
+    });
     return {
       data: response.results,
       error: null,
@@ -66,6 +78,8 @@ export async function fetchTopRatedMovies(
 ): Promise<DataSourceResult<TmdbMovie[]>> {
   try {
     const response = await movieService.getTopRatedMovies(page);
+    console.log('[DataSource] fetchTopRatedMovies results length', response.results?.length);
+    console.log('[DataSource] first top-rated movie', response.results?.[0]);
     return {
       data: response.results,
       error: null,

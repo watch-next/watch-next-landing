@@ -103,7 +103,10 @@ function formatDuration(minutes: number): string {
 
 // Load movie data
 onMounted(async () => {
+  console.log('[MoviePage] route.params:', route.params)
+  console.log('[MoviePage] props.slug:', props.slug)
   movie.value = await getMovieBySlug(props.slug)
+  console.log('[MoviePage] movie loaded:', movie.value?.slug, movie.value?.title)
 })
 
 // Setup SEO - reactive to movie data

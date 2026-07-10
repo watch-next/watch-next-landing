@@ -106,6 +106,18 @@ onMounted(async () => {
     loading.value = true
     error.value = false
     movies.value = await getMovies()
+    console.log('[MoviesPage] movies.value.length:', movies.value.length)
+    console.table(
+      movies.value.map(m => ({
+        slug: m.slug,
+        title: m.title,
+        cover: m.cover,
+        tmdbId: m.tmdbId,
+        releaseYear: m.releaseYear,
+        duration: m.duration,
+        rating: m.rating
+      }))
+    )
   } catch (err) {
     console.error('Failed to load movies:', err)
     error.value = true
@@ -116,6 +128,7 @@ onMounted(async () => {
 })
 
 // SEO
+// SEO setup (run during component setup, before async operations)
 useSeo({
   title: 'Movies | Watch Next',
   description: 'Discover our curated collection of films',

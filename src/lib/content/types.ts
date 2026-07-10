@@ -32,6 +32,7 @@ export interface ContentItem {
  * Used for individual movie pages.
  */
 export interface Movie extends ContentItem {
+  streamingProviders?: StreamingProvider[];
   category: 'Movie'
   /** Release year */
   releaseYear: number

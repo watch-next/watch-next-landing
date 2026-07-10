@@ -95,7 +95,7 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { useHead } from '@vueuse/head'
+import { useHead } from '@unhead/vue'
 import { SupabaseBlogProvider, findRelatedPosts, getCategoryColor } from '@/blog'
 import { useSeo } from '@/composables/useSeo'
 import BlogMeta from '@/components/blog/BlogMeta.vue'
@@ -123,9 +123,9 @@ const canonicalUrl = computed(() => {
 
 // Setup SEO
 useSeo({
-  title: computed(() => post.value ? `${post.value.title} | Watch Next Blog` : undefined),
-  description: computed(() => post.value?.description || undefined),
-  canonical: computed(() => canonicalUrl.value),
+  title: computed(() => post.value ? `${post.value.title} | Watch Next Blog` : ''),
+  description: computed(() => post.value?.description || ''),
+  url: computed(() => canonicalUrl.value),
   openGraph: computed(() => post.value ? {
     title: post.value.title,
     description: post.value.description,
