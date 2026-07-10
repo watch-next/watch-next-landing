@@ -31,20 +31,36 @@ export default async function handler(
 ): Promise<void> {
   try {
     console.log("[API] Handler started");
+    console.log("[API] Raw query:", JSON.stringify(req.query));
+    console.log("[API] req.query.path:", req.query.path);
+    console.log("[API] Is array?", Array.isArray(req.query.path));
 
     if (req.method !== 'GET') {
       res.status(405).json({ error: 'Method not allowed' });
       return;
     }
 
-    console.log("[API] Query:", req.query);
+    // Normalize path: Vercel catch-all provides string or string[]
+    let path: string;
+    if (Array.isArray(req.query.path)) {
+      path = req.query.path.filter(Boolean).join('/');
+    } else if (typeof req.query.path === 'string') {
+      path = req.query.path;
+    } else {
+      res.status(400).json({ error: 'Missing TMDB path - expected /api/tmdb/movie/popular' });
+      return;
+    }
 
-    const path = extractPathFromQuery(req.query.path);
-    console.log("[API] Path:", path);
+    console.log("[API] Normalized path:", path);
+
+    if (!path) {
+      res.status(400).json({ error: 'Missing TMDB path' });
+      return;
+    }
 
     const filteredParams = filterQueryParams(req.query);
 
-    console.log("[API] Calling proxy...");
+    console.log("[API] Calling proxy with path:", path);
 
     const result = await proxyToTmdb(path, new URLSearchParams(filteredParams as Record<string, string>), {
       apiKey: API_KEY || '',
