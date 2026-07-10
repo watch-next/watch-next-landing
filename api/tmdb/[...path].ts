@@ -28,7 +28,7 @@ const API_KEY = process.env.TMDB_API_KEY;
 export default async function handler(
   req: VercelRequest,
   res: VercelResponse
-): Promise<void> {
+) {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
@@ -36,7 +36,8 @@ export default async function handler(
 
   // Handle OPTIONS preflight
   if (req.method === 'OPTIONS') {
-    return res.status(200).end();
+    res.status(200).end();
+    return;
   }
 
   try {
@@ -103,5 +104,6 @@ export default async function handler(
       error: 'Internal server error',
       message: err instanceof Error ? err.message : 'Unknown error',
     });
+    return;
   }
 }
