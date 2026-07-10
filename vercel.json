@@ -1,19 +1,10 @@
 {
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/tmdb/(.*)",
-      "dest": "/api/tmdb/[...path].ts"
-    },
-    {
-      "src": "/((?!api/).*)",
-      "dest": "/index.html"
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
     }
   ],
-  "functions": {
-    "api/tmdb/[...path].ts": {
-      "runtime": "nodejs22.x"
-    }
-  },
   "headers": [
     {
       "source": "/assets/(.*)",
