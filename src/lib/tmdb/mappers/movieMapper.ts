@@ -18,38 +18,37 @@ import type { TmdbMovie, TmdbMovieCredits, TmdbCrewMember, TmdbCastMember } from
 
 /**
  * Extract director(s) from TMDB credits.
- * Returns comma-separated names for the Movie.director field.
+ * Returns array of director names for the Movie.directors field.
  */
-function extractDirectors(credits: TmdbMovieCredits): string {
+function extractDirectorsArray(credits: TmdbMovieCredits): string[] {
   // Guard against missing crew array
   const crew = credits.crew ?? [];
-  const directors = crew
+  return crew
     .filter((member): member is TmdbCrewMember & { name: string } =>
       member.department === "Directing" &&
       member.job === "Director" &&
       !!member.name
     )
     .map(m => m.name);
-
-  return directors.join(", ");
 }
 
 /**
  * Extract main cast from TMDB credits.
- * Returns comma-separated names (top 5 billed).
+ * Returns array of names (top 5 billed) for Movie.cast field.
  */
-function extractCast(credits: TmdbMovieCredits): string {
+function extractCastArray(credits: TmdbMovieCredits): string[] {
   return credits.cast
     .sort((a, b) => a.order - b.order)
     .slice(0, 5)
     .filter((member): member is TmdbCastMember & { name: string } => !!member.name)
-    .map(m => m.name)
-    .join(", ");
+    .map(m => m.name);
 }
 
 /**
  * Extract genre names from TMDB movie.
  */
+import { ensureGenres, getGenreName } from "../repositories/GenreRepository.js";
+
 function extractGenres(movie: TmdbMovie): string[] {
   // TMDB list endpoints provide `genres` as an array of objects with a `name` field.
   // Detail endpoints provide `genre_ids` as an array of numeric IDs.
@@ -86,44 +85,67 @@ function buildSlug(movie: TmdbMovie): string {
  * @param credits Optional credits (cast/crew) - pass if available
  * @returns Domain Movie object
  */
-export function mapTmdbMovieToMovie(
+export async function mapTmdbMovieToMovie(
   movie: TmdbMovie,
   credits?: TmdbMovieCredits
-): Movie {
+): Promise<Movie> {
+  console.log('[Mapper] input', {
+    id: movie.id,
+    tmdbId: movie.id,
+    title: movie.title,
+    slug: undefined,
+    cover: movie.poster_path,
+    backdrop: movie.backdrop_path
+  });
   const slug = buildSlug(movie);
   const genres = extractGenres(movie);
 
-  return {
-    // Core fields
-    id: slug, // Use slug as internal ID
-    slug,
+  console.log('[Mapper] output', {
+    id: slug,
+    tmdbId: movie.id,
     title: movie.title,
-    originalTitle: movie.original_title,
-    description: movie.overview,
-    content: undefined, // TMDB has no Markdown content
+    slug,
     cover: buildImageUrl(movie.poster_path, "w500"),
-    backdrop: buildImageUrl(movie.backdrop_path, "w1280"),
+    backdrop: buildImageUrl(movie.backdrop_path, "w1280")
+  });
+  return {
+    // Core ContentItem fields
+    slug,
+    category: 'Movie' as const,
+    title: movie.title,
+    description: movie.overview || '',
+    cover: buildImageUrl(movie.poster_path, "w500"),
+    content: '',  // TMDB has no Markdown content
     tags: genres,
-    rating: movie.vote_average,
-    releaseDate: movie.release_date,
-    externalId: String(movie.id), // TMDB ID as external reference
+    date: movie.release_date ? new Date(movie.release_date).toISOString() : new Date().toISOString(),
 
-    // Extended fields from TMDB
-    runtime: movie.runtime ?? undefined,
-    tagline: movie.tagline ?? undefined,
+    // Movie-specific required fields
+    releaseYear: movie.release_date ? new Date(movie.release_date).getFullYear() : 0,
+    duration: movie.runtime ?? 0,
+    rating: movie.vote_average,
+
+    // IDs
+    tmdbId: movie.id,
+    externalId: String(movie.id),
+
+    // Extended fields
+    originalTitle: movie.original_title,
+    originalLanguage: movie.original_language,
+    tagline: movie.tagline,
+    homepage: movie.homepage,
+    status: movie.status,
     budget: movie.budget ?? 0,
     revenue: movie.revenue ?? 0,
-    status: movie.status,
-    homepage: movie.homepage || undefined,
-    originalLanguage: movie.original_language,
     popularity: movie.popularity,
     voteCount: movie.vote_count,
     adult: movie.adult,
     video: movie.video,
+    releaseDate: movie.release_date,
+    backdrop: buildImageUrl(movie.backdrop_path, "w1280"),
 
-    // Credits (if available)
-    director: credits ? extractDirectors(credits) : undefined,
-    cast: credits ? extractCast(credits) : undefined,
+    // Credits as arrays
+    directors: credits ? extractDirectorsArray(credits) : [],
+    cast: credits ? extractCastArray(credits) : [],
 
     // Collections
     belongsToCollection: movie.belongs_to_collection
@@ -149,9 +171,6 @@ export function mapTmdbMovieToMovie(
       englishName: l.english_name,
       name: l.name,
     })),
-
-    // Type guard discriminator
-    __type: "movie",
   };
 }
 
@@ -159,6 +178,6 @@ export function mapTmdbMovieToMovie(
  * Map a batch of TMDB movies to domain models.
  * Does not fetch credits (requires separate API call per movie).
  */
-export function mapTmdbMoviesToMovies(movies: TmdbMovie[]): Movie[] {
-  return movies.map(movie => mapTmdbMovieToMovie(movie));
+export async function mapTmdbMoviesToMovies(movies: TmdbMovie[]): Promise<Movie[]> {
+  return await Promise.all(movies.map(movie => mapTmdbMovieToMovie(movie)));
 }

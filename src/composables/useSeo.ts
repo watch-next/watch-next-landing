@@ -1,5 +1,5 @@
-import { useHead } from '@vueuse/head'
-import type { UseHeadOptions } from '@vueuse/head'
+import { useHead } from '@unhead/vue'
+import type { UseHeadOptions } from '@unhead/vue'
 import type { ComputedRef, Ref } from 'vue'
 
 type MaybeRef<T> = T | Ref<T> | ComputedRef<T>
@@ -11,6 +11,8 @@ export function useSeo(options: {
   type?: MaybeRef<string>
   url?: MaybeRef<string>
   jsonLd?: MaybeRef<Record<string, any> | undefined>
+  openGraph?: MaybeRef<any>
+  twitter?: MaybeRef<any>
 }) {
   const head: UseHeadOptions = {
     title: options.title,

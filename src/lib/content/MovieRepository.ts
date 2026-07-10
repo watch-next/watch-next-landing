@@ -16,6 +16,7 @@
 
 import * as dataSource from "../tmdb/datasources/movieDataSource.js";
 import { mapTmdbMovieToMovie, mapTmdbMoviesToMovies } from "../tmdb/mappers/movieMapper.js";
+import { getProviders } from "../tmdb/repositories/WatchProviderRepository.js";
 import { mapTmdbCastMembersToPeople, mapTmdbCrewMembersToPeople, type Person } from "../tmdb/mappers/personMapper.js";
 import { mapTmdbGenresToGenres, type Genre } from "../tmdb/mappers/genreMapper.js";
 import type { Movie } from "./types";
@@ -45,7 +46,7 @@ export async function getMovies(): Promise<Movie[]> {
 
   // Process popular movies
   if (popularResult.data) {
-    const mapped = mapTmdbMoviesToMovies(popularResult.data.slice(0, 10));
+    const mapped = await mapTmdbMoviesToMovies(popularResult.data.slice(0, 10));
     for (const movie of mapped) {
       movieCache.set(movie.slug, movie);
       if (movie.externalId) {
@@ -57,10 +58,10 @@ export async function getMovies(): Promise<Movie[]> {
 
   // Process top-rated movies (deduplicate by TMDB ID)
   if (topRatedResult.data) {
-    const existingIds = new Set(popularResult.data.map(m => m.id));
+    const existingIds = new Set(popularResult.data?.map(m => m.id) ?? []);
     const uniqueTopRated = topRatedResult.data.filter(m => !existingIds.has(m.id));
 
-    const mapped = mapTmdbMoviesToMovies(uniqueTopRated.slice(0, 10));
+    const mapped = await mapTmdbMoviesToMovies(uniqueTopRated.slice(0, 10));
     for (const movie of mapped) {
       movieCache.set(movie.slug, movie);
       if (movie.externalId) {
@@ -72,6 +73,7 @@ export async function getMovies(): Promise<Movie[]> {
 
   return movies;
 }
+
 
 /**
  * Get a single movie by its slug.
@@ -121,7 +123,8 @@ export async function getMovieByTmdbId(tmdbId: number): Promise<Movie | null> {
     return null;
   }
 
-  const movie = mapTmdbMovieToMovie(movieResult.data, creditsResult.data || undefined);
+  // mapTmdbMovieToMovie is now async
+  const movie = await mapTmdbMovieToMovie(movieResult.data, creditsResult.data || undefined);
 
   // Cache the result
   movieCache.set(movie.slug, movie);
