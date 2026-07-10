@@ -46,10 +46,11 @@ function extractCastArray(credits: TmdbMovieCredits): string[] {
 
 /**
  * Extract genre names from TMDB movie.
+ * Uses the cached genre map from GenreRepository to resolve IDs to names.
  */
 import { ensureGenres, getGenreName } from "../repositories/GenreRepository.js";
 
-function extractGenres(movie: TmdbMovie): string[] {
+async function extractGenres(movie: TmdbMovie): Promise<string[]> {
   // TMDB list endpoints provide `genres` as an array of objects with a `name` field.
   // Detail endpoints provide `genre_ids` as an array of numeric IDs.
   // We support both formats safely.
@@ -57,8 +58,11 @@ function extractGenres(movie: TmdbMovie): string[] {
     return movie.genres.map(g => g.name);
   }
   if (Array.isArray((movie as any).genre_ids)) {
-    // Fallback to IDs – map to strings (could be resolved to names via a repository elsewhere).
-    return (movie as any).genre_ids.map((id: number) => String(id));
+    // Ensure genre cache is loaded, then resolve IDs to names
+    await ensureGenres();
+    return (movie as any).genre_ids
+      .map((id: number) => getGenreName(id))
+      .filter((name): name is string => name !== undefined);
   }
   return [];
 }
@@ -98,7 +102,7 @@ export async function mapTmdbMovieToMovie(
     backdrop: movie.backdrop_path
   });
   const slug = buildSlug(movie);
-  const genres = extractGenres(movie);
+  const genres = await extractGenres(movie);
 
   console.log('[Mapper] output', {
     id: slug,
