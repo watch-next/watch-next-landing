@@ -53,7 +53,7 @@
           "value": "www.watchnext.app"
         }
       ],
-      "destination": "https://watchnext.app/:path*",
+      "destination": "https://watch-next-landing.vercel.app/:path*",
       "permanent": true
     }
   ]
