@@ -139,69 +139,43 @@ function filterQueryParams(params: Record<string, unknown>): Record<string, stri
 /**
  * Extract TMDB path from Vercel catch-all request
  *
- * Supports all Vercel behaviors:
- * 1. req.query.path as string[]
- * 2. req.query.path as string
- * 3. req.url fallback (parse path from URL)
+ * Uses req.query.path from Vercel catch-all routing.
+ * Supports both string and string[] formats.
  */
 function extractTmdbPath(req: VercelRequest): string {
-  // Strategy 1: Try req.query.path (Vercel catch-all standard)
   const rawPath = req.query.path;
 
+  console.log('[TMDB DEBUG]', {
+    req_query_path: rawPath,
+    req_url: req.url,
+    req_query: req.query,
+  });
+
+  // Handle string[] format (multiple path segments)
   if (Array.isArray(rawPath)) {
     const filtered = rawPath.filter((p): p is string => typeof p === 'string' && p !== '');
     if (filtered.length > 0) {
-      const joined = filtered.join('/');
-      const decoded = decodeURIComponent(joined);
-      const normalized = decoded.replace(/^\/+|\/+$/g, '');
+      const path = filtered.join('/');
       console.log('[TMDB DEBUG]', {
         source: 'query.array',
-        url: req.url,
-        extractedPath: normalized,
+        extractedPath: path,
       });
-      return normalized;
+      return path;
     }
   }
 
+  // Handle string format
   if (typeof rawPath === 'string' && rawPath !== '') {
-    const decoded = decodeURIComponent(rawPath);
-    const normalized = decoded.replace(/^\/+|\/+$/g, '');
     console.log('[TMDB DEBUG]', {
       source: 'query.string',
-      url: req.url,
-      extractedPath: normalized,
+      extractedPath: rawPath,
     });
-    return normalized;
-  }
-
-  // Strategy 2: Parse from req.url as fallback
-  // Example: req.url = "/api/tmdb/movie/popular?page=1"
-  if (req.url) {
-    const urlWithoutQuery = req.url.split('?')[0];
-    const prefix = '/api/tmdb/';
-
-    if (urlWithoutQuery.startsWith(prefix)) {
-      const extracted = urlWithoutQuery.slice(prefix.length);
-      const decoded = decodeURIComponent(extracted);
-      const normalized = decoded.replace(/^\/+|\/+$/g, '');
-
-      console.log('[TMDB DEBUG]', {
-        source: 'url.fallback',
-        url: req.url,
-        extractedPath: normalized,
-      });
-
-      if (normalized !== '') {
-        return normalized;
-      }
-    }
+    return rawPath;
   }
 
   // No path found
   console.log('[TMDB DEBUG]', {
-    source: 'url.fallback',
-    url: req.url,
-    query: req.query,
+    source: 'query.empty',
     extractedPath: '',
   });
 
