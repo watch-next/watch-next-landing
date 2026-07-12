@@ -137,20 +137,75 @@ function filterQueryParams(params: Record<string, unknown>): Record<string, stri
 }
 
 /**
- * Extract path from Vercel catch-all query parameter
+ * Extract TMDB path from Vercel catch-all request
+ *
+ * Supports all Vercel behaviors:
+ * 1. req.query.path as string[]
+ * 2. req.query.path as string
+ * 3. req.url fallback (parse path from URL)
  */
-function extractPathFromQuery(rawPath: unknown): string | null {
+function extractTmdbPath(req: VercelRequest): string {
+  // Strategy 1: Try req.query.path (Vercel catch-all standard)
+  const rawPath = req.query.path;
+
   if (Array.isArray(rawPath)) {
     const filtered = rawPath.filter((p): p is string => typeof p === 'string' && p !== '');
-    if (filtered.length === 0) return null;
-    return filtered.join('/');
+    if (filtered.length > 0) {
+      const joined = filtered.join('/');
+      const decoded = decodeURIComponent(joined);
+      const normalized = decoded.replace(/^\/+|\/+$/g, '');
+      console.log('[TMDB DEBUG]', {
+        source: 'query.array',
+        url: req.url,
+        extractedPath: normalized,
+      });
+      return normalized;
+    }
   }
 
-  if (typeof rawPath === 'string') {
-    return rawPath;
+  if (typeof rawPath === 'string' && rawPath !== '') {
+    const decoded = decodeURIComponent(rawPath);
+    const normalized = decoded.replace(/^\/+|\/+$/g, '');
+    console.log('[TMDB DEBUG]', {
+      source: 'query.string',
+      url: req.url,
+      extractedPath: normalized,
+    });
+    return normalized;
   }
 
-  return null;
+  // Strategy 2: Parse from req.url as fallback
+  // Example: req.url = "/api/tmdb/movie/popular?page=1"
+  if (req.url) {
+    const urlWithoutQuery = req.url.split('?')[0];
+    const prefix = '/api/tmdb/';
+
+    if (urlWithoutQuery.startsWith(prefix)) {
+      const extracted = urlWithoutQuery.slice(prefix.length);
+      const decoded = decodeURIComponent(extracted);
+      const normalized = decoded.replace(/^\/+|\/+$/g, '');
+
+      console.log('[TMDB DEBUG]', {
+        source: 'url.fallback',
+        url: req.url,
+        extractedPath: normalized,
+      });
+
+      if (normalized !== '') {
+        return normalized;
+      }
+    }
+  }
+
+  // No path found
+  console.log('[TMDB DEBUG]', {
+    source: 'url.fallback',
+    url: req.url,
+    query: req.query,
+    extractedPath: '',
+  });
+
+  return '';
 }
 
 /**
@@ -310,14 +365,12 @@ export default async function handler(
       return;
     }
 
-    // Extract path from Vercel catch-all query
-    const path = extractPathFromQuery(req.query.path);
+    // Extract TMDB path using robust multi-strategy extractor
+    const path = extractTmdbPath(req);
 
-    const cleanPath = path ? path.replace(/^\/+|\/+$/g, '') : '';
+    console.log('[TMDB]', { path, action: 'request_received' });
 
-    console.log('[TMDB]', { path: cleanPath, action: 'request_received' });
-
-    if (!cleanPath) {
+    if (!path) {
       res.status(400).json({
         error: 'Missing TMDB path',
         message: 'Expected /api/tmdb/movie/popular or similar endpoint',
@@ -327,14 +380,14 @@ export default async function handler(
 
     const filteredParams = filterQueryParams(req.query);
 
-    const result = await proxyToTmdb(cleanPath, new URLSearchParams(filteredParams), {
+    const result = await proxyToTmdb(path, new URLSearchParams(filteredParams), {
       apiKey: API_KEY || '',
       apiBase: TMDB_API_BASE,
       defaultLanguage: process.env.VITE_TMDB_LANGUAGE || 'en-US',
       defaultRegion: process.env.VITE_TMDB_REGION || 'US',
     });
 
-    console.log('[TMDB]', { path: cleanPath, status: result.statusCode });
+    console.log('[TMDB]', { path, status: result.statusCode });
 
     // Set response headers
     for (const [key, value] of Object.entries(result.headers)) {
