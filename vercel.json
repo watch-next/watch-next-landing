@@ -56,5 +56,10 @@
       "destination": "https://watch-next-landing.vercel.app/:path*",
       "permanent": true
     }
-  ]
+  ],
+  "functions": {
+      "api/tmdb/[...path].ts": {
+        "includeFiles": "server/**/*.ts"
+      }
+    }
 }
