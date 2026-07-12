@@ -20,5 +20,5 @@
     "vite.config.ts",
     "api/**/*.ts",
     "src/lib/tmdb/proxy/**/*.ts"
-  ]
+, "server/tmdb/proxyHandler.ts"  ]
 }
