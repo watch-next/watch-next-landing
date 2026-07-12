@@ -1,7 +1,8 @@
 /**
  * TMDB API Proxy - Vercel Serverless Function
  *
- * Self-contained proxy to TMDB API. No frontend dependencies.
+ * Self-contained proxy to TMDB API. Zero external dependencies.
+ * Only Node.js built-ins and Vercel types.
  *
  * Usage:
  *   GET /api/tmdb/movie/popular?page=1
@@ -38,10 +39,10 @@ interface ProxyResult {
 }
 
 // ============================================================================
-// Allowed patterns and query params
+// Constants
 // ============================================================================
 
-const VALID_PATTERNS = [
+const VALID_PATTERNS: RegExp[] = [
   // Movie endpoints
   /^movie\/popular$/,
   /^movie\/top_rated$/,
@@ -66,7 +67,7 @@ const VALID_PATTERNS = [
 const ALLOWED_QUERY_PARAMS = ['language', 'region', 'page', 'query', 'include_image_logos'];
 
 // ============================================================================
-// Helper functions
+// Helper Functions
 // ============================================================================
 
 /**
@@ -102,6 +103,7 @@ function buildTmdbUrl(
 ): string {
   const params = new URLSearchParams(searchParams);
 
+  // TMDB v3 authentication using api_key query parameter only
   params.set('api_key', options.apiKey);
 
   if (!params.has('language')) {
@@ -115,8 +117,6 @@ function buildTmdbUrl(
   const base = options.apiBase.endsWith('/') ? options.apiBase : `${options.apiBase}/`;
   const url = new URL(normalizedPath, base);
   url.search = params.toString();
-
-  console.log('[TMDB] Final URL:', url.toString());
 
   return url.toString();
 }
@@ -137,7 +137,24 @@ function filterQueryParams(params: Record<string, unknown>): Record<string, stri
 }
 
 /**
- * Proxy a request to TMDB API using only api_key query parameter (v3 auth)
+ * Extract path from Vercel catch-all query parameter
+ */
+function extractPathFromQuery(rawPath: unknown): string | null {
+  if (Array.isArray(rawPath)) {
+    const filtered = rawPath.filter((p): p is string => typeof p === 'string' && p !== '');
+    if (filtered.length === 0) return null;
+    return filtered.join('/');
+  }
+
+  if (typeof rawPath === 'string') {
+    return rawPath;
+  }
+
+  return null;
+}
+
+/**
+ * Proxy a request to TMDB API using v3 API key authentication
  */
 async function proxyToTmdb(
   path: string,
@@ -169,6 +186,8 @@ async function proxyToTmdb(
   }
 
   const tmdbUrl = buildTmdbUrl(path, searchParams, options);
+
+  console.log('[TMDB]', { path, action: 'proxy_request' });
 
   try {
     const lib = tmdbUrl.startsWith('https') ? https : http;
@@ -207,12 +226,12 @@ async function proxyToTmdb(
             headers['Content-Type'] = contentType;
           }
 
+          // Log errors for debugging (without exposing API key)
           if (res.statusCode && res.statusCode !== 200) {
-            console.error('[TMDB Error]', {
-              url: tmdbUrl,
+            console.error('[TMDB]', {
+              path,
               status: res.statusCode,
               statusText: res.statusMessage,
-              body: responseBody,
             });
           }
 
@@ -226,6 +245,7 @@ async function proxyToTmdb(
       });
 
       request.on('error', (err) => {
+        console.error('[TMDB]', { path, error: 'request_failed', message: err.message });
         resolve({
           statusCode: 502,
           headers: { 'Content-Type': 'application/json' },
@@ -239,6 +259,7 @@ async function proxyToTmdb(
 
       request.on('timeout', () => {
         request.destroy();
+        console.error('[TMDB]', { path, error: 'timeout' });
         resolve({
           statusCode: 504,
           headers: { 'Content-Type': 'application/json' },
@@ -248,6 +269,7 @@ async function proxyToTmdb(
       });
     });
   } catch (error) {
+    console.error('[TMDB]', { path, error: 'proxy_error', message: error instanceof Error ? error.message : 'Unknown' });
     return {
       statusCode: 500,
       headers: { 'Content-Type': 'application/json' },
@@ -288,15 +310,14 @@ export default async function handler(
       return;
     }
 
-    // Normalize path: Vercel catch-all provides string or string[]
-    const rawPath = req.query.path;
-    let path: string;
+    // Extract path from Vercel catch-all query
+    const path = extractPathFromQuery(req.query.path);
 
-    if (Array.isArray(rawPath)) {
-      path = rawPath.filter((p): p is string => typeof p === 'string' && p !== '').join('/');
-    } else if (typeof rawPath === 'string') {
-      path = rawPath;
-    } else {
+    const cleanPath = path ? path.replace(/^\/+|\/+$/g, '') : '';
+
+    console.log('[TMDB]', { path: cleanPath, action: 'request_received' });
+
+    if (!cleanPath) {
       res.status(400).json({
         error: 'Missing TMDB path',
         message: 'Expected /api/tmdb/movie/popular or similar endpoint',
@@ -304,40 +325,32 @@ export default async function handler(
       return;
     }
 
-    const cleanPath = path.replace(/^\/+|\/+$/g, '');
-
-    console.log('[TMDB] raw query:', JSON.stringify(req.query));
-    console.log('[TMDB] normalized path:', cleanPath);
-
-    if (!cleanPath) {
-      res.status(400).json({ error: 'Missing TMDB path' });
-      return;
-    }
-
     const filteredParams = filterQueryParams(req.query);
 
-    const result = await proxyToTmdb(cleanPath, new URLSearchParams(filteredParams as Record<string, string>), {
+    const result = await proxyToTmdb(cleanPath, new URLSearchParams(filteredParams), {
       apiKey: API_KEY || '',
       apiBase: TMDB_API_BASE,
       defaultLanguage: process.env.VITE_TMDB_LANGUAGE || 'en-US',
       defaultRegion: process.env.VITE_TMDB_REGION || 'US',
     });
 
-    console.log('[TMDB] response status:', result.statusCode);
+    console.log('[TMDB]', { path: cleanPath, status: result.statusCode });
 
+    // Set response headers
     for (const [key, value] of Object.entries(result.headers)) {
       if (typeof value === 'string') {
         res.setHeader(key, value);
       }
     }
 
+    // Send response preserving TMDB status codes
     if (result.isJson) {
       res.status(result.statusCode).json(result.body);
     } else {
       res.status(result.statusCode).send(result.body);
     }
   } catch (err) {
-    console.error('[API ERROR]', err);
+    console.error('[API]', { error: 'handler_error', message: err instanceof Error ? err.message : 'Unknown' });
     res.status(500).json({
       error: 'Internal server error',
       message: err instanceof Error ? err.message : 'Unknown error',
