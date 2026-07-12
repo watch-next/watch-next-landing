@@ -16,5 +16,9 @@
     "noUncheckedSideEffectImports": true,
     "types": ["node"]
   },
-  "include": ["vite.config.ts"]
+  "include": [
+    "vite.config.ts",
+    "api/**/*.ts",
+    "src/lib/tmdb/proxy/**/*.ts"
+  ]
 }
