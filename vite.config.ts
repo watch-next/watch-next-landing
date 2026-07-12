@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 import { VitePluginRSS } from './src/plugins/vite-plugin-rss'
 import { VitePluginBlogSitemap } from './src/plugins/vite-plugin-blog-sitemap'
-import { proxyToTmdb } from './src/lib/tmdb/proxy/proxyHandler'
+import { proxyToTmdb } from './server/tmdb/proxyHandler'
 import * as http from 'node:http'
 
 export default defineConfig(({ mode }) => {
