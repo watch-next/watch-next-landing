@@ -22,7 +22,7 @@ import type {
  * Backend API response types (matching our FastAPI schemas)
  */
 interface BackendMovie {
-  id: string;
+  id: string; // Backend UUID
   tmdb_id: number;
   title: string;
   original_title?: string;
@@ -39,6 +39,11 @@ interface BackendMovie {
   genres?: Array<{ id: number; name: string }>;
   genres_list?: string;
   provider_names?: string;
+  status?: string;
+  tagline?: string;
+  homepage?: string;
+  budget?: number;
+  revenue?: number;
 }
 
 /** Backend genre type for GenreRepository */
@@ -91,14 +96,15 @@ interface BackendProvider {
  */
 function mapMovieToTMDBFormat(movie: BackendMovie): MovieDetail {
   return {
-    id: movie.tmdb_id,
+    id: movie.id, // Backend UUID
+    tmdb_id: movie.tmdb_id,
     title: movie.title,
     original_title: movie.original_title || movie.title,
     overview: movie.overview || '',
     poster_path: movie.poster_path || null,
     backdrop_path: movie.backdrop_path || null,
     release_date: movie.release_date || '',
-    runtime: movie.runtime_minutes || 0,
+    runtime_minutes: movie.runtime_minutes || 0,
     vote_average: movie.vote_average || 0,
     vote_count: movie.vote_count || 0,
     popularity: movie.popularity || 0,
@@ -106,6 +112,11 @@ function mapMovieToTMDBFormat(movie: BackendMovie): MovieDetail {
     video: movie.video || false,
     genre_ids: movie.genres?.map((g) => g.id) || [],
     genres: movie.genres || [],
+    status: movie.status || '',
+    tagline: movie.tagline || null,
+    homepage: movie.homepage || null,
+    budget: movie.budget || null,
+    revenue: movie.revenue || null,
   } as MovieDetail;
 }
 
@@ -190,33 +201,36 @@ export async function fetchNowPlayingMovies(
 }
 
 /**
- * Get movie details by TMDB ID.
+ * Get movie details by backend UUID.
  */
-export async function fetchMovieDetails(tmdbId: number): Promise<MovieDetail> {
-  const response = await httpClient.get<BackendMovie>(`/movies/${tmdbId}`);
-  return mapMovieToTMDBFormat(response.data);
+export async function fetchMovieDetails(movieId: string): Promise<MovieDetail> {
+  const response = await httpClient.get<{ success: boolean; data: BackendMovie }>(`/movies/${movieId}`);
+  return mapMovieToTMDBFormat(response.data.data);
 }
 
 /**
- * Get movie credits by TMDB ID.
+ * Get movie credits by backend UUID.
  */
 export async function fetchMovieCredits(
-  tmdbId: number
+  movieId: string
 ): Promise<MovieCreditsResponse> {
   const response = await httpClient.get<{
-    cast: BackendCredit[];
-    crew: BackendCredit[];
-  }>(`/movies/${tmdbId}/credits`);
+    success: boolean;
+    data: {
+      cast: BackendCredit[];
+      crew: BackendCredit[];
+    };
+  }>(`/movies/${movieId}/credits`);
 
   return {
-    cast: response.data.cast.map((c) => ({
+    cast: response.data.data.cast.map((c) => ({
       id: c.tmdb_id,
       name: c.name,
       character: c.character || '',
       order: c.order || 0,
       profile_path: c.profile_path || null,
     })),
-    crew: response.data.crew.map((c) => ({
+    crew: response.data.data.crew.map((c) => ({
       id: c.tmdb_id,
       name: c.name,
       job: c.job || '',

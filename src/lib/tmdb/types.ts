@@ -53,7 +53,8 @@ export interface TmdbMovie {
   budget: number;
   genres: TmdbGenre[];
   homepage: string;
-  id: number;
+  id: number | string;  // TMDB ID (number) or backend UUID (string)
+  tmdb_id?: number;     // Original TMDB ID when response comes from backend API
   imdb_id: string | null;
   original_language: string;
   original_title: string;

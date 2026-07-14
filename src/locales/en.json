@@ -1,7 +1,8 @@
 {
   "common": {
     "home": "Home",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "error": "An unexpected error occurred."
   },
   "navigation": {
     "home": "Home",
@@ -337,6 +338,28 @@
       "minutes": "min",
       "seasons": "seasons",
       "episodes": "episodes"
+    }
+  },
+  "movie": {
+    "watch_now": "Watch Now",
+    "no_poster": "No poster available",
+    "no_synopsis": "No synopsis available.",
+    "original_title": "Original title",
+    "popularity": "Popularity",
+    "votes": "votes",
+    "synopsis": "Synopsis",
+    "financial": "Financial Information",
+    "budget": "Budget",
+    "revenue": "Revenue",
+    "official_site": "Official Site",
+    "not_found": "Movie not found.",
+    "no_providers": "No streaming providers available for your region.",
+    "providers": {
+      "streaming": "Streaming",
+      "free": "Free",
+      "ads": "Ads",
+      "rent": "Rent",
+      "buy": "Buy"
     }
   }
 }

@@ -1,7 +1,8 @@
 {
   "common": {
     "home": "Início",
-    "loading": "Carregando..."
+    "loading": "Carregando...",
+    "error": "Ocorreu um erro inesperado."
   },
   "navigation": {
     "home": "Início",
@@ -337,6 +338,28 @@
       "minutes": "min",
       "seasons": "temp.",
       "episodes": "episódios"
+    }
+  },
+  "movie": {
+    "watch_now": "Assistir Agora",
+    "no_poster": "Nenhum pôster disponível",
+    "no_synopsis": "Nenhuma sinopse disponível.",
+    "original_title": "Título original",
+    "popularity": "Popularidade",
+    "votes": "votos",
+    "synopsis": "Sinopse",
+    "financial": "Informações Financeiras",
+    "budget": "Orçamento",
+    "revenue": "Receita",
+    "official_site": "Site Oficial",
+    "not_found": "Filme não encontrado.",
+    "no_providers": "Nenhum provedor de streaming disponível para sua região.",
+    "providers": {
+      "streaming": "Streaming",
+      "free": "Grátis",
+      "ads": "Com Anúncios",
+      "rent": "Alugar",
+      "buy": "Comprar"
     }
   }
 }

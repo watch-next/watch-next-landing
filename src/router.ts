@@ -48,7 +48,7 @@ const routes = [
     path: '/movies/:slug',
     name: 'Movie',
     component: MoviePage,
-    props: true,
+    props: false,
   },
   {
     path: '/privacy-policy',
