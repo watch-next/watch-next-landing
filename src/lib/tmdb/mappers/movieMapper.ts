@@ -69,18 +69,25 @@ async function extractGenres(movie: TmdbMovie): Promise<string[]> {
 
 /**
  * Build a unique slug from TMDB movie.
- * Format: ${tmdbId}-${slugified-title}
- * Example: 550-fight-club-1999
+ * Format: ${backend_uuid}-${slugified-title}
+ * Example: 9f5dde6b-70ea-4adb-949d-f7033922e4c8-obsession-2026
+ *
+ * For backend API responses, movie.id contains the backend UUID.
+ * For pure TMDB API responses, movie.id contains the TMDB ID (number).
+ * We support both formats.
  */
 function buildSlug(movie: TmdbMovie): string {
   const year = movie.release_date ? new Date(movie.release_date).getFullYear() : null;
   const titleSlug = slugify(movie.title);
 
+  // movie.id might be UUID (string) or TMDB ID (number) depending on source
+  const id = String(movie.id);
+
   if (year) {
-    return `${movie.id}-${titleSlug}-${year}`;
+    return `${id}-${titleSlug}-${year}`;
   }
 
-  return `${movie.id}-${titleSlug}`;
+  return `${id}-${titleSlug}`;
 }
 
 /**
@@ -93,25 +100,9 @@ export async function mapTmdbMovieToMovie(
   movie: TmdbMovie,
   credits?: TmdbMovieCredits
 ): Promise<Movie> {
-  console.log('[Mapper] input', {
-    id: movie.id,
-    tmdbId: movie.id,
-    title: movie.title,
-    slug: undefined,
-    cover: movie.poster_path,
-    backdrop: movie.backdrop_path
-  });
   const slug = buildSlug(movie);
   const genres = await extractGenres(movie);
 
-  console.log('[Mapper] output', {
-    id: slug,
-    tmdbId: movie.id,
-    title: movie.title,
-    slug,
-    cover: buildImageUrl(movie.poster_path, "w500"),
-    backdrop: buildImageUrl(movie.backdrop_path, "w1280")
-  });
   return {
     // Core ContentItem fields
     slug,
@@ -129,7 +120,7 @@ export async function mapTmdbMovieToMovie(
     rating: movie.vote_average,
 
     // IDs
-    tmdbId: movie.id,
+    tmdbId: movie.tmdb_id,
     externalId: String(movie.id),
 
     // Extended fields

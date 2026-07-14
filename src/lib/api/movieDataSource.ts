@@ -39,6 +39,11 @@ interface BackendMovie {
   genres?: Array<{ id: number; name: string }>;
   genres_list?: string;
   provider_names?: string;
+  status?: string;
+  tagline?: string;
+  homepage?: string;
+  budget?: number;
+  revenue?: number;
 }
 
 /** Backend genre type for GenreRepository */
@@ -216,7 +221,7 @@ export async function fetchMovieCredits(
       order: c.order || 0,
       profile_path: c.profile_path || null,
     })),
-    crew: response.data.crew.map((c) => ({
+    crew: response.data.data.crew.map((c) => ({
       id: c.tmdb_id,
       name: c.name,
       job: c.job || '',

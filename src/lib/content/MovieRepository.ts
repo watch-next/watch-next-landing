@@ -5,7 +5,7 @@
  * Now uses the backend API exclusively (no direct TMDB calls).
  *
  * Responsibilities:
- * - Expose application methods (getMovies, getMovieBySlug, etc.)
+ * - Expose application methods (getMovies, getMovieByTmdbId, etc.)
  * - Normalize domain models
  * - Hide backend implementation details
  * - Slug ↔ TMDB ID resolution
@@ -17,6 +17,7 @@ import { mapTmdbMoviesToMovies } from "../tmdb/mappers/movieMapper";
 import { mapTmdbCastMembersToPeople, mapTmdbCrewMembersToPeople, type Person } from "../tmdb/mappers/personMapper";
 import { mapTmdbGenresToGenres, type Genre } from "../tmdb/mappers/genreMapper";
 import type { Movie } from "./types";
+import type { MovieDetail as BackendMovieDetail } from "@/services/movie.service";
 
 // In-memory cache: slug → Movie
 const movieCache = new Map<string, Movie>();
@@ -76,70 +77,49 @@ export async function getMovies(): Promise<Movie[]> {
 }
 
 /**
- * Get a single movie by its slug.
- * Fetches credits if not in cache.
- */
-export async function getMovieBySlug(slug: string): Promise<Movie | null> {
-  // Check cache first
-  const cached = movieCache.get(slug);
-  if (cached) {
-    return cached;
-  }
-
-  // Extract TMDB ID from slug (format: ${id}-${title})
-  const tmdbId = extractTmdbIdFromSlug(slug);
-  if (!tmdbId) {
-    console.error('[MovieRepository] Invalid slug format:', slug);
-    return null;
-  }
-
-  return getMovieByTmdbId(tmdbId);
-}
-
-/**
- * Get a movie by TMDB ID.
+ * Get a movie by backend UUID.
  * Fetches full details including credits.
  */
-export async function getMovieByTmdbId(tmdbId: number): Promise<Movie | null> {
-  // Check if we have it in cache by slug
-  const cachedSlug = tmdbIdToSlugCache.get(tmdbId);
-  if (cachedSlug) {
-    const cached = movieCache.get(cachedSlug);
-    if (cached) return cached;
+export async function getMovieByUuid(uuid: string): Promise<Movie | null> {
+  // Check cache first
+  for (const [slug, cached] of movieCache.entries()) {
+    if (slug.startsWith(uuid)) {
+      return cached;
+    }
   }
 
   try {
-    // Fetch movie details from backend
-    const movieDetail = await api.fetchMovieDetails(tmdbId);
+    // Fetch movie details from backend using UUID
+    const movieDetail: BackendMovieDetail = await api.fetchMovieDetails(uuid);
 
     // Map to domain model
     const movie: Movie = {
       id: crypto.randomUUID(),
-      slug: `${movieDetail.id}-${movieDetail.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
+      slug: `${uuid}-${movieDetail.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
       title: movieDetail.title,
       originalTitle: movieDetail.original_title,
-      overview: movieDetail.overview,
+      overview: movieDetail.overview || '',
       poster: movieDetail.poster_path ? `https://image.tmdb.org/t/p/w500${movieDetail.poster_path}` : null,
       backdrop: movieDetail.backdrop_path ? `https://image.tmdb.org/t/p/w1280${movieDetail.backdrop_path}` : null,
       releaseDate: movieDetail.release_date,
       year: movieDetail.release_date ? new Date(movieDetail.release_date).getFullYear().toString() : undefined,
-      runtimeMin: movieDetail.runtime || undefined,
-      rating: movieDetail.vote_average,
-      ratingCount: movieDetail.vote_count,
+      runtimeMin: movieDetail.runtime_minutes || undefined,
+      rating: movieDetail.vote_average || undefined,
+      ratingCount: movieDetail.vote_count || undefined,
       genres: mapTmdbGenresToGenres(movieDetail.genres || []),
-      externalId: movieDetail.id.toString(),
+      externalId: String(movieDetail.tmdb_id),
       externalType: 'tmdb' as const,
-      isAdult: movieDetail.adult,
+      isAdult: false,
     };
 
     try {
-      // Fetch credits from backend
-      const credits = await api.fetchMovieCredits(tmdbId);
+      // Fetch credits from backend using UUID
+      const credits = await api.fetchMovieCredits(uuid);
       movie.cast = mapTmdbCastMembersToPeople(credits.cast || []);
       movie.directors = mapTmdbCrewMembersToPeople(credits.crew?.filter(c => c.job === 'Director') || []);
       movie.writers = mapTmdbCrewMembersToPeople(credits.crew?.filter(c => c.job === 'Screenplay' || c.job === 'Writer') || []);
     } catch (e) {
-      console.warn(`[MovieRepository] Failed to fetch credits for ${tmdbId}:`, e);
+      console.warn(`[MovieRepository] Failed to fetch credits for ${uuid}:`, e);
       movie.cast = [];
       movie.directors = [];
       movie.writers = [];
@@ -147,11 +127,10 @@ export async function getMovieByTmdbId(tmdbId: number): Promise<Movie | null> {
 
     // Cache the movie
     movieCache.set(movie.slug, movie);
-    tmdbIdToSlugCache.set(tmdbId, movie.slug);
 
     return movie;
   } catch (error) {
-    console.error(`[MovieRepository] Failed to fetch movie ${tmdbId}:`, error);
+    console.error(`[MovieRepository] Failed to fetch movie ${uuid}:`, error);
     return null;
   }
 }
