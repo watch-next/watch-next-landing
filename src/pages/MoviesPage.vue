@@ -64,7 +64,7 @@
                 {{ formatDuration(movie.duration) }}
               </span>
             </p>
-            <p class="movie-card__description">{{ movie.description }}</p>
+    <!--        <p class="movie-card__description">{{ movie.description }}</p>
             <div v-if="movie.tags && movie.tags.length" class="movie-card__tags">
               <span
                 v-for="tag in movie.tags.slice(0, 3)"
@@ -73,7 +73,7 @@
               >
                 {{ tag }}
               </span>
-            </div>
+            </div>-->
           </div>
         </router-link>
       </div>
@@ -112,7 +112,7 @@ onMounted(async () => {
         slug: m.slug,
         title: m.title,
         cover: m.cover,
-        tmdbId: m.tmdbId,
+        tmdbId: (m as any).tmdbId ?? 'N/A',
         releaseYear: m.releaseYear,
         duration: m.duration,
         rating: m.rating

@@ -1,32 +1,55 @@
 /**
- * GenreRepository – in‑memory cache for TMDB genre names.
+ * GenreRepository – loads genres from backend API.
  *
- * The first call loads the genre list from the TMDB endpoint
- *   GET /genre/movie/list
+ * Fetches genre list from backend on first call:
+ *   GET /api/v1/movies (returns genres in response)
  * and stores a Map<number, string> (id → name).
- * Subsequent calls read from the map – no additional network traffic.
+ * Subsequent calls read from the map.
  */
 
-import { tmdbGet } from "../client.js";
-import type { TmdbGenre } from "../types.js";
+import { httpClient } from "@/lib/http/client";
+import type { BackendGenre } from "@/lib/api/movieDataSource";
 
 /** Cache map: genre id => name */
 const genreMap = new Map<number, string>();
 let loaded = false;
+let loading: Promise<void> | null = null;
 
-/** Load the genre list from TMDB (once). */
+/** Load the genre list from backend (once). */
 async function loadGenres(): Promise<void> {
   if (loaded) return;
-  try {
-    const data = await tmdbGet<{ genres: TmdbGenre[] }>('genre/movie/list');
-    for (const g of data.genres) {
-      genreMap.set(g.id, g.name);
+  if (loading) return loading;
+
+  loading = (async () => {
+    try {
+      // Fetch movies and extract unique genres from the response
+      // Backend now returns genres in the movie list response
+      const response = await httpClient.get<{ data: Array<{ genres?: BackendGenre[] }> }>('/movies', {
+        params: { page: 1, page_size: 100 },
+      });
+
+      const genreSet = new Set<number>();
+      for (const movie of response.data.data || []) {
+        if (movie.genres) {
+          for (const genre of movie.genres) {
+            if (!genreMap.has(genre.id)) {
+              genreMap.set(genre.id, genre.name);
+            }
+            genreSet.add(genre.id);
+          }
+        }
+      }
+
+      loaded = true;
+    } catch (e) {
+      console.error('[GenreRepository] Failed to load genres from backend', e);
+      // Keep map empty – callers will receive undefined names.
+    } finally {
+      loading = null;
     }
-    loaded = true;
-  } catch (e) {
-    console.error('[GenreRepository] Failed to load genres', e);
-    // Keep map empty – callers will receive undefined names.
-  }
+  })();
+
+  return loading;
 }
 
 /** Ensure the cache is populated – resolves when loading is done. */
@@ -42,4 +65,11 @@ export function getGenreName(id: number): string | undefined {
 /** Return the whole map (read‑only). */
 export function getAllGenres(): ReadonlyMap<number, string> {
   return genreMap;
+}
+
+/** Clear the cache (useful for testing or manual refresh). */
+export function clearGenreCache(): void {
+  genreMap.clear();
+  loaded = false;
+  loading = null;
 }
