@@ -2,25 +2,21 @@
  * Movie Repository
  *
  * The single entry point for movie data access in the application.
- * Exposes domain methods that Views consume.
+ * Now uses the backend API exclusively (no direct TMDB calls).
  *
  * Responsibilities:
  * - Expose application methods (getMovies, getMovieBySlug, etc.)
  * - Normalize domain models
- * - Hide TMDB implementation details
+ * - Hide backend implementation details
  * - Slug ↔ TMDB ID resolution
  * - In-memory caching
- *
- * Does NOT expose TMDB types or service methods directly.
  */
 
-import * as dataSource from "../tmdb/datasources/movieDataSource.js";
-import { mapTmdbMovieToMovie, mapTmdbMoviesToMovies } from "../tmdb/mappers/movieMapper.js";
-import { getProviders } from "../tmdb/repositories/WatchProviderRepository.js";
-import { mapTmdbCastMembersToPeople, mapTmdbCrewMembersToPeople, type Person } from "../tmdb/mappers/personMapper.js";
-import { mapTmdbGenresToGenres, type Genre } from "../tmdb/mappers/genreMapper.js";
+import * as api from "@/lib/api/movieDataSource";
+import { mapTmdbMoviesToMovies } from "../tmdb/mappers/movieMapper";
+import { mapTmdbCastMembersToPeople, mapTmdbCrewMembersToPeople, type Person } from "../tmdb/mappers/personMapper";
+import { mapTmdbGenresToGenres, type Genre } from "../tmdb/mappers/genreMapper";
 import type { Movie } from "./types";
-import type { TmdbWatchProvider, TmdbVideo, TmdbImage, TmdbReview } from "../tmdb/types.js";
 
 // In-memory cache: slug → Movie
 const movieCache = new Map<string, Movie>();
@@ -38,42 +34,46 @@ export async function getMovies(): Promise<Movie[]> {
     return Array.from(movieCache.values());
   }
 
-  // Fetch from data source
-  const popularResult = await dataSource.fetchPopularMovies(1);
-  const topRatedResult = await dataSource.fetchTopRatedMovies(1);
+  try {
+    // Fetch from backend API
+    const popularResponse = await api.fetchPopularMovies(1, 10);
+    const topRatedResponse = await api.fetchTopRatedMovies(1, 10);
 
-  const movies: Movie[] = [];
+    const movies: Movie[] = [];
 
-  // Process popular movies
-  if (popularResult.data) {
-    const mapped = await mapTmdbMoviesToMovies(popularResult.data.slice(0, 10));
-    for (const movie of mapped) {
-      movieCache.set(movie.slug, movie);
-      if (movie.externalId) {
-        tmdbIdToSlugCache.set(parseInt(movie.externalId, 10), movie.slug);
+    // Process popular movies
+    if (popularResponse.results) {
+      const mapped = await mapTmdbMoviesToMovies(popularResponse.results);
+      for (const movie of mapped) {
+        movieCache.set(movie.slug, movie);
+        if (movie.externalId) {
+          tmdbIdToSlugCache.set(parseInt(movie.externalId, 10), movie.slug);
+        }
+        movies.push(movie);
       }
-      movies.push(movie);
     }
-  }
 
-  // Process top-rated movies (deduplicate by TMDB ID)
-  if (topRatedResult.data) {
-    const existingIds = new Set(popularResult.data?.map(m => m.id) ?? []);
-    const uniqueTopRated = topRatedResult.data.filter(m => !existingIds.has(m.id));
+    // Process top-rated movies (deduplicate by TMDB ID)
+    if (topRatedResponse.results) {
+      const existingIds = new Set(popularResponse.results?.map(m => m.id) ?? []);
+      const uniqueTopRated = topRatedResponse.results.filter(m => !existingIds.has(m.id));
 
-    const mapped = await mapTmdbMoviesToMovies(uniqueTopRated.slice(0, 10));
-    for (const movie of mapped) {
-      movieCache.set(movie.slug, movie);
-      if (movie.externalId) {
-        tmdbIdToSlugCache.set(parseInt(movie.externalId, 10), movie.slug);
+      const mapped = await mapTmdbMoviesToMovies(uniqueTopRated);
+      for (const movie of mapped) {
+        movieCache.set(movie.slug, movie);
+        if (movie.externalId) {
+          tmdbIdToSlugCache.set(parseInt(movie.externalId, 10), movie.slug);
+        }
+        movies.push(movie);
       }
-      movies.push(movie);
     }
-  }
 
-  return movies;
+    return movies;
+  } catch (error) {
+    console.error('[MovieRepository] Failed to fetch movies from backend:', error);
+    return [];
+  }
 }
-
 
 /**
  * Get a single movie by its slug.
@@ -98,286 +98,147 @@ export async function getMovieBySlug(slug: string): Promise<Movie | null> {
 
 /**
  * Get a movie by TMDB ID.
- * Fetches movie details and credits.
+ * Fetches full details including credits.
  */
 export async function getMovieByTmdbId(tmdbId: number): Promise<Movie | null> {
-  // Check cache by TMDB ID
+  // Check if we have it in cache by slug
   const cachedSlug = tmdbIdToSlugCache.get(tmdbId);
   if (cachedSlug) {
     const cached = movieCache.get(cachedSlug);
-    if (cached) {
-      return cached;
-    }
+    if (cached) return cached;
   }
 
-  // Fetch movie and credits in parallel
-  const [movieResult, creditsResult] = await Promise.all([
-    dataSource.fetchMovieById(tmdbId),
-    dataSource.fetchMovieCredits(tmdbId),
-  ]);
+  try {
+    // Fetch movie details from backend
+    const movieDetail = await api.fetchMovieDetails(tmdbId);
 
-  if (!movieResult.data || movieResult.error) {
-    if (movieResult.error) {
-      console.error('[MovieRepository] Error fetching movie:', movieResult.error);
+    // Map to domain model
+    const movie: Movie = {
+      id: crypto.randomUUID(),
+      slug: `${movieDetail.id}-${movieDetail.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
+      title: movieDetail.title,
+      originalTitle: movieDetail.original_title,
+      overview: movieDetail.overview,
+      poster: movieDetail.poster_path ? `https://image.tmdb.org/t/p/w500${movieDetail.poster_path}` : null,
+      backdrop: movieDetail.backdrop_path ? `https://image.tmdb.org/t/p/w1280${movieDetail.backdrop_path}` : null,
+      releaseDate: movieDetail.release_date,
+      year: movieDetail.release_date ? new Date(movieDetail.release_date).getFullYear().toString() : undefined,
+      runtimeMin: movieDetail.runtime || undefined,
+      rating: movieDetail.vote_average,
+      ratingCount: movieDetail.vote_count,
+      genres: mapTmdbGenresToGenres(movieDetail.genres || []),
+      externalId: movieDetail.id.toString(),
+      externalType: 'tmdb' as const,
+      isAdult: movieDetail.adult,
+    };
+
+    try {
+      // Fetch credits from backend
+      const credits = await api.fetchMovieCredits(tmdbId);
+      movie.cast = mapTmdbCastMembersToPeople(credits.cast || []);
+      movie.directors = mapTmdbCrewMembersToPeople(credits.crew?.filter(c => c.job === 'Director') || []);
+      movie.writers = mapTmdbCrewMembersToPeople(credits.crew?.filter(c => c.job === 'Screenplay' || c.job === 'Writer') || []);
+    } catch (e) {
+      console.warn(`[MovieRepository] Failed to fetch credits for ${tmdbId}:`, e);
+      movie.cast = [];
+      movie.directors = [];
+      movie.writers = [];
     }
+
+    // Cache the movie
+    movieCache.set(movie.slug, movie);
+    tmdbIdToSlugCache.set(tmdbId, movie.slug);
+
+    return movie;
+  } catch (error) {
+    console.error(`[MovieRepository] Failed to fetch movie ${tmdbId}:`, error);
     return null;
   }
-
-  // mapTmdbMovieToMovie is now async
-  const movie = await mapTmdbMovieToMovie(movieResult.data, creditsResult.data || undefined);
-
-  // Cache the result
-  movieCache.set(movie.slug, movie);
-  tmdbIdToSlugCache.set(tmdbId, movie.slug);
-
-  return movie;
 }
 
 /**
- * Search movies by query.
- * Returns matching movies without caching (search results vary).
- */
-export async function searchMovies(query: string): Promise<Movie[]> {
-  const result = await dataSource.searchMovies(query);
-
-  if (!result.data) {
-    return [];
-  }
-
-  return mapTmdbMoviesToMovies(result.data);
-}
-
-/**
- * Get similar movies to a given movie.
+ * Get similar movies.
  */
 export async function getSimilarMovies(tmdbId: number): Promise<Movie[]> {
-  const result = await dataSource.fetchSimilarMovies(tmdbId);
+  try {
+    const response = await api.fetchSimilarMovies(tmdbId, 1);
+    if (!response.results) return [];
 
-  if (!result.data) {
+    const movies: Movie[] = [];
+    for (const tmdbMovie of response.results.slice(0, 12)) {
+      const movie: Movie = {
+        id: crypto.randomUUID(),
+        slug: `${tmdbMovie.id}-${tmdbMovie.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
+        title: tmdbMovie.title,
+        originalTitle: tmdbMovie.original_title,
+        overview: tmdbMovie.overview,
+        poster: tmdbMovie.poster_path ? `https://image.tmdb.org/t/p/w500${tmdbMovie.poster_path}` : null,
+        backdrop: null,
+        releaseDate: tmdbMovie.release_date,
+        year: tmdbMovie.release_date ? new Date(tmdbMovie.release_date).getFullYear().toString() : undefined,
+        runtimeMin: undefined,
+        rating: tmdbMovie.vote_average,
+        ratingCount: tmdbMovie.vote_count,
+        genres: [],
+        externalId: tmdbMovie.id.toString(),
+        externalType: 'tmdb' as const,
+        isAdult: tmdbMovie.adult,
+      };
+      movies.push(movie);
+    }
+    return movies;
+  } catch (error) {
+    console.error('[MovieRepository] Failed to fetch similar movies:', error);
     return [];
   }
-
-  return mapTmdbMoviesToMovies(result.data);
 }
 
 /**
- * Get movie recommendations based on a given movie.
+ * Get trailers/videos for a movie.
  */
-export async function getMovieRecommendations(tmdbId: number): Promise<Movie[]> {
-  const result = await dataSource.fetchMovieRecommendations(tmdbId);
-
-  if (!result.data) {
-    return [];
-  }
-
-  return mapTmdbMoviesToMovies(result.data);
-}
-
-/**
- * Get movie cast (actors) by TMDB ID.
- */
-export async function getMovieCast(tmdbId: number): Promise<Person[]> {
-  const result = await dataSource.fetchMovieCredits(tmdbId);
-
-  if (!result.data || !result.data.cast) {
-    return [];
-  }
-
-  return mapTmdbCastMembersToPeople(result.data.cast);
-}
-
-/**
- * Get movie crew (key crew members) by TMDB ID.
- */
-export async function getMovieCrew(tmdbId: number): Promise<Person[]> {
-  const result = await dataSource.fetchMovieCredits(tmdbId);
-
-  if (!result.data || !result.data.crew) {
-    return [];
-  }
-
-  return mapTmdbCrewMembersToPeople(result.data.crew);
-}
-
-/**
- * Get watch providers for a movie by TMDB ID.
- * Returns providers for US region by default.
- */
-export async function getMovieWatchProviders(tmdbId: number): Promise<{
-  flatrate?: { id: number; name: string; logoUrl: string }[];
-  rent?: { id: number; name: string; logoUrl: string }[];
-  buy?: { id: number; name: string; logoUrl: string }[];
-} | null> {
-  const result = await dataSource.fetchMovieWatchProviders(tmdbId);
-
-  if (!result.data || !result.data.results) {
-    return null;
-  }
-
-  // Get US providers (or return null if not available)
-  const usProviders = result.data.results.US;
-  if (!usProviders) {
-    return null;
-  }
-
-  const { buildImageUrl } = await import('../tmdb/config.js');
-
-  return {
-    flatrate: usProviders.flatrate?.map(p => ({
-      id: p.id,
-      name: p.name,
-      logoUrl: buildImageUrl(p.logo_path, 'w92'),
-    })),
-    rent: usProviders.rent?.map(p => ({
-      id: p.id,
-      name: p.name,
-      logoUrl: buildImageUrl(p.logo_path, 'w92'),
-    })),
-    buy: usProviders.buy?.map(p => ({
-      id: p.id,
-      name: p.name,
-      logoUrl: buildImageUrl(p.logo_path, 'w92'),
-    })),
-  };
-}
-
-/**
- * Get movie videos (trailers, teasers) by TMDB ID.
- */
-export async function getMovieVideos(tmdbId: number): Promise<{
+export async function getMovieTrailers(tmdbId: number): Promise<Array<{
   id: string;
   key: string;
   name: string;
   site: string;
   type: string;
-  official: boolean;
-}[]> {
-  const result = await dataSource.fetchMovieVideos(tmdbId);
-
-  if (!result.data || !result.data.results) {
+}>> {
+  try {
+    const response = await api.fetchMovieVideos(tmdbId);
+    return (response.results || []).map(v => ({
+      id: v.id?.toString() || String(v.key),
+      key: v.key,
+      name: v.name,
+      site: v.site,
+      type: v.type,
+    }));
+  } catch (error) {
+    console.error('[MovieRepository] Failed to fetch trailers:', error);
     return [];
   }
-
-  return result.data.results.map(v => ({
-    id: v.id,
-    key: v.key,
-    name: v.name,
-    site: v.site,
-    type: v.type,
-    official: v.official,
-  }));
 }
 
 /**
- * Get movie images (posters, backdrops) by TMDB ID.
+ * Get watch providers for a movie.
+ * Delegates to WatchProviderRepository.
  */
-export async function getMovieImages(tmdbId: number): Promise<{
-  posters: { filePath: string; aspectRatio: number; width: number; height: number }[];
-  backdrops: { filePath: string; aspectRatio: number; width: number; height: number }[];
-}> {
-  const result = await dataSource.fetchMovieImages(tmdbId);
-
-  if (!result.data) {
-    return { posters: [], backdrops: [] };
-  }
-
-  const { buildImageUrl } = await import('../tmdb/config.js');
-
-  return {
-    posters: result.data.posters.map(p => ({
-      filePath: buildImageUrl(p.file_path, 'w500'),
-      aspectRatio: p.aspect_ratio,
-      width: p.width,
-      height: p.height,
-    })),
-    backdrops: result.data.backdrops.map(b => ({
-      filePath: buildImageUrl(b.file_path, 'w1280'),
-      aspectRatio: b.aspect_ratio,
-      width: b.width,
-      height: b.height,
-    })),
-  };
+export async function getWatchProviders(tmdbId: number, region: string = 'US') {
+  const { getProviders } = await import('../tmdb/repositories/WatchProviderRepository');
+  return getProviders(tmdbId, region);
 }
 
 /**
- * Get movie reviews by TMDB ID.
- */
-export async function getMovieReviews(tmdbId: number): Promise<{
-  id: string;
-  author: string;
-  content: string;
-  url: string;
-  createdAt: string;
-}[]> {
-  const result = await dataSource.fetchMovieReviews(tmdbId);
-
-  if (!result.data || !result.data.results) {
-    return [];
-  }
-
-  return result.data.results.map(r => ({
-    id: r.id,
-    author: r.author,
-    content: r.content,
-    url: r.url,
-    createdAt: r.created_at,
-  }));
-}
-
-/**
- * Get all movie genres.
- */
-export async function getGenres(): Promise<Genre[]> {
-  const result = await dataSource.fetchMovieGenres();
-
-  if (!result.data || !result.data.genres) {
-    return [];
-  }
-
-  return mapTmdbGenresToGenres(result.data.genres);
-}
-
-/**
- * Get movies by genre ID.
- */
-export async function getMoviesByGenre(genreId: number, page: number = 1): Promise<Movie[]> {
-  const result = await dataSource.fetchMoviesByGenre(genreId, page);
-
-  if (!result.data) {
-    return [];
-  }
-
-  return mapTmdbMoviesToMovies(result.data);
-}
-
-/**
- * Extract TMDB ID from a slug.
- * Slug format: ${tmdbId}-${slugified-title}[-year]
- * Example: 550-fight-club-1999 → 550
+ * Helper: Extract TMDB ID from slug.
  */
 function extractTmdbIdFromSlug(slug: string): number | null {
   const match = slug.match(/^(\d+)-/);
-  if (!match) {
-    return null;
-  }
-  return parseInt(match[1], 10);
+  return match ? parseInt(match[1], 10) : null;
 }
 
 /**
- * Clear the movie cache.
- * Useful for testing or manual refresh.
+ * Clear all caches (useful for testing or manual refresh).
  */
-export function clearCache(): void {
+export function clearMovieCache(): void {
   movieCache.clear();
   tmdbIdToSlugCache.clear();
-}
-
-/**
- * Get cache statistics.
- */
-export function getCacheStats(): { movieCount: number; idCount: number } {
-  return {
-    movieCount: movieCache.size,
-    idCount: tmdbIdToSlugCache.size,
-  };
 }

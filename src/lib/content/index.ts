@@ -13,11 +13,9 @@ export * from './slugify';
 // Generic abstractions (for future content types)
 export * from './ContentRepository';
 
-// Repository (TMDB-backed)
+// Repositories (Backend-backed)
 export * from './MovieRepository';
-
-// Legacy static provider (Markdown-based) - DEPRECATED - remove after migration
-// Note: StaticContentProvider was removed in Phase 5
+export * from './SeriesRepository';
 
 // Provider interface
 export * from './ContentProvider';

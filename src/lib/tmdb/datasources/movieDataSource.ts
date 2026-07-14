@@ -22,6 +22,7 @@ import type {
   TmdbImage,
   TmdbReview,
   TmdbGenre,
+  TmdbSearchMovie,
 } from "../types.js";
 
 /**
@@ -178,7 +179,7 @@ export async function fetchSimilarMovies(
 export async function searchMovies(
   query: string,
   page: number = 1
-): Promise<DataSourceResult<TmdbMovie[]>> {
+): Promise<DataSourceResult<TmdbSearchMovie[]>> {
   try {
     const response = await movieService.searchMovie(query, page);
     return {

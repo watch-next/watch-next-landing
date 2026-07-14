@@ -54,9 +54,7 @@
       </header>
 
       <!-- Content - Movie Overview -->
-      <div class="movie-page__content">
-        <p class="movie-page__overview">{{ movie.description }}</p>
-      </div>
+      
     </div>
   </article>
 
