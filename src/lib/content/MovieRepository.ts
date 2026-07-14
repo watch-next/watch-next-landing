@@ -86,7 +86,6 @@ export async function getMovieByUuid(uuid: string): Promise<Movie | null> {
     if (slug.startsWith(uuid)) {
       return cached;
     }
-  }
 
   try {
     // Fetch movie details from backend using UUID
