@@ -22,7 +22,7 @@ import type {
  * Backend API response types (matching our FastAPI schemas)
  */
 interface BackendMovie {
-  id: string; // Backend UUID
+  id: string;
   tmdb_id: number;
   title: string;
   original_title?: string;
@@ -96,15 +96,14 @@ interface BackendProvider {
  */
 function mapMovieToTMDBFormat(movie: BackendMovie): MovieDetail {
   return {
-    id: movie.id, // Backend UUID
-    tmdb_id: movie.tmdb_id,
+    id: movie.tmdb_id,
     title: movie.title,
     original_title: movie.original_title || movie.title,
     overview: movie.overview || '',
     poster_path: movie.poster_path || null,
     backdrop_path: movie.backdrop_path || null,
     release_date: movie.release_date || '',
-    runtime_minutes: movie.runtime_minutes || 0,
+    runtime: movie.runtime_minutes || 0,
     vote_average: movie.vote_average || 0,
     vote_count: movie.vote_count || 0,
     popularity: movie.popularity || 0,
@@ -112,11 +111,6 @@ function mapMovieToTMDBFormat(movie: BackendMovie): MovieDetail {
     video: movie.video || false,
     genre_ids: movie.genres?.map((g) => g.id) || [],
     genres: movie.genres || [],
-    status: movie.status || '',
-    tagline: movie.tagline || null,
-    homepage: movie.homepage || null,
-    budget: movie.budget || null,
-    revenue: movie.revenue || null,
   } as MovieDetail;
 }
 
@@ -201,29 +195,26 @@ export async function fetchNowPlayingMovies(
 }
 
 /**
- * Get movie details by backend UUID.
+ * Get movie details by TMDB ID.
  */
-export async function fetchMovieDetails(movieId: string): Promise<MovieDetail> {
-  const response = await httpClient.get<{ success: boolean; data: BackendMovie }>(`/movies/${movieId}`);
-  return mapMovieToTMDBFormat(response.data.data);
+export async function fetchMovieDetails(tmdbId: number): Promise<MovieDetail> {
+  const response = await httpClient.get<BackendMovie>(`/movies/${tmdbId}`);
+  return mapMovieToTMDBFormat(response.data);
 }
 
 /**
- * Get movie credits by backend UUID.
+ * Get movie credits by TMDB ID.
  */
 export async function fetchMovieCredits(
-  movieId: string
+  tmdbId: number
 ): Promise<MovieCreditsResponse> {
   const response = await httpClient.get<{
-    success: boolean;
-    data: {
-      cast: BackendCredit[];
-      crew: BackendCredit[];
-    };
-  }>(`/movies/${movieId}/credits`);
+    cast: BackendCredit[];
+    crew: BackendCredit[];
+  }>(`/movies/${tmdbId}/credits`);
 
   return {
-    cast: response.data.data.cast.map((c) => ({
+    cast: response.data.cast.map((c) => ({
       id: c.tmdb_id,
       name: c.name,
       character: c.character || '',
