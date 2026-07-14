@@ -75,8 +75,8 @@
             <p v-else class="synopsis__empty">{{ t('movie.no_synopsis') }}</p>
           </section>
 
-           Financial Info 
-          <!--<section class="movie-page__financial" v-if="movie.budget || movie.revenue">
+           <!--Financial Info 
+          <section class="movie-page__financial" v-if="movie.budget || movie.revenue">
             <h2 class="financial__title">{{ t('movie.financial') }}</h2>
             <div class="financial__grid">
               <div v-if="movie.budget" class="financial__item">
