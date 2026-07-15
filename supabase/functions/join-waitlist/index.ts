@@ -31,7 +31,7 @@ const APP_URL = requireEnv("APP_URL");
 
 const FROM_EMAIL =
   Deno.env.get("FROM_EMAIL") ??
-  "Watch Next <noreply@watchnext.app>";
+  "Watch Next <onboarding@resend.dev>";
 
 const emailRegex =
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -142,10 +142,10 @@ Deno.serve(async (req) => {
      * Links
      */
     const confirmUrl =
-      `${APP_URL}/functions/v1/confirm-email?token=${user.confirmation_token}`;
+      `${requireEnv("SUPABASE_URL")}/functions/v1/confirm-email?token=${user.confirmation_token}`;
 
     const unsubscribeUrl =
-      `${APP_URL}/functions/v1/unsubscribe?token=${user.unsubscribe_token}`;
+      `${requireEnv("SUPABASE_URL")}/functions/v1/unsubscribe?token=${user.unsubscribe_token}`;
 
     /**
      * Nome da plataforma
