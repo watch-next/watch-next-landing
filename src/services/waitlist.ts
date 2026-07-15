@@ -1,4 +1,3 @@
-import { supabase, isSupabaseConfigured } from '../lib/supabase'
 import { trackEvent, trackWaitlistSubscribe } from './analytics'
 
 export interface WaitlistEntry {
@@ -93,34 +92,61 @@ export async function joinWaitlist(
     const browserLocale = typeof navigator !== 'undefined' ? navigator.language : 'en'
     const locale = normalizeLocale(browserLocale)
 
-    // Single INSERT - let PostgreSQL UNIQUE constraint handle duplicates
-    const { error } = await supabase.from('waitlist_entries').insert({
-      email: trimmedEmail,
-      platform,
-      source,
-      locale,
-    })
+    // Call Supabase Edge Function
+    const response = await fetch(
+      `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/join-waitlist`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify({
+          email: trimmedEmail,
+          platform,
+          source,
+          locale,
+        }),
+      }
+    )
 
+    let responseData: { success?: boolean; duplicate?: boolean; error?: string; message?: string }
 
-    if (error) {
-      // Check for unique constraint violation (duplicate entry)
-      if (error.code === '23505') {
+    try {
+      responseData = await response.json()
+    } catch {
+      // If response is not JSON, use status-based defaults
+      responseData = {}
+    }
 
+    // Handle non-200 responses
+    if (!response.ok) {
+      // 409 Conflict = duplicate registration
+      if (response.status === 409) {
         const platformLabel = platform === 'ios' ? 'iOS' : platform === 'newsletter' ? 'Newsletter' : platform === 'windows' ? 'Windows' : 'Android'
         return {
           success: false,
           duplicate: true,
-          error: `You're already on the ${platformLabel} waitlist`,
+          error: responseData.error || `You're already on the ${platformLabel} waitlist`,
         }
       }
 
-      // Log unexpected errors in development
+      // 400 Bad Request = validation error
+      if (response.status === 400) {
+        return {
+          success: false,
+          error: responseData.error || 'Invalid request',
+        }
+      }
 
-      throw error
+      // Other errors (500, 503, etc.)
+      return {
+        success: false,
+        error: responseData.error || 'Unexpected error. Please try again later.',
+      }
     }
 
-
-    // Track successful waitlist signup (no PII - platform, source, locale only)
+    // Success response
     trackEvent(trackWaitlistSubscribe('success', platform, source, locale))
 
     return { success: true }
