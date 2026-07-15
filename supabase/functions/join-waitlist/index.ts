@@ -37,6 +37,12 @@ const emailRegex =
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 Deno.serve(async (req) => {
+   if (req.method === "OPTIONS") {
+    return new Response("ok", {
+      headers: corsHeaders,
+    });
+  }
+
   if (req.method !== "POST") {
     return Response.json(
       {
@@ -45,6 +51,7 @@ Deno.serve(async (req) => {
       },
       {
         status: 405,
+        headers: corsHeaders,
       }
     );
   }
@@ -65,6 +72,7 @@ Deno.serve(async (req) => {
         },
         {
           status: 400,
+          headers: corsHeaders,
         }
       );
     }
@@ -81,6 +89,7 @@ Deno.serve(async (req) => {
         },
         {
           status: 400,
+          headers: corsHeaders,
         }
       );
     }
@@ -105,6 +114,7 @@ Deno.serve(async (req) => {
         },
         {
           status: 409,
+          headers: corsHeaders,
         }
       );
     }
@@ -209,6 +219,8 @@ Deno.serve(async (req) => {
         "Successfully added to the waitlist.",
       id: user.id,
       resend_id: resendData?.id ?? null,
+    }, {
+      headers: corsHeaders,
     });
 
   } catch (error) {
@@ -224,6 +236,7 @@ Deno.serve(async (req) => {
       },
       {
         status: 500,
+        headers: corsHeaders,
       }
     );
   }
