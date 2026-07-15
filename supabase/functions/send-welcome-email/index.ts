@@ -92,7 +92,7 @@ Deno.serve(async (req) => {
     await resend.emails.send({
 
       from:
-        "Watch Next <noreply@watchnext.app>",
+        "Watch Next <onboarding@resend.dev>",
 
       to: user.email,
 
