@@ -361,5 +361,16 @@
       "rent": "Rent",
       "buy": "Buy"
     }
+  },
+  "waitlist": {
+    "error": {
+      "emailRequired": "Email is required",
+      "invalidEmail": "Please enter a valid email address",
+      "alreadySubscribed": "This email is already registered",
+      "generic": "Failed to join waitlist. Please try again later."
+    },
+    "success": {
+      "joined": "Thanks for joining the waitlist!"
+    }
   }
 }

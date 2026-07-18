@@ -339,5 +339,16 @@
       "rent": "Alquilar",
       "buy": "Comprar"
     }
+  },
+  "waitlist": {
+    "error": {
+      "emailRequired": "El correo electrónico es obligatorio",
+      "invalidEmail": "Por favor, introduce una dirección de correo electrónico válida",
+      "alreadySubscribed": "Este correo electrónico ya está registrado",
+      "generic": "Error al unirse a la lista de espera. Inténtalo más tarde."
+    },
+    "success": {
+      "joined": "¡Gracias por unirte a la lista de espera!"
+    }
   }
 }
