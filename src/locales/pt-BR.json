@@ -361,5 +361,16 @@
       "rent": "Alugar",
       "buy": "Comprar"
     }
+  },
+  "waitlist": {
+    "error": {
+      "emailRequired": "E-mail é obrigatório",
+      "invalidEmail": "Por favor, insira um endereço de e-mail válido",
+      "alreadySubscribed": "Este e-mail já está registrado",
+      "generic": "Falha ao entrar na lista de espera. Tente novamente mais tarde."
+    },
+    "success": {
+      "joined": "Obrigado por entrar na lista de espera!"
+    }
   }
 }
