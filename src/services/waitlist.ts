@@ -1,7 +1,7 @@
 import { trackEvent, trackWaitlistSubscribe } from './analytics/index'
 import { supabase, isSupabaseConfigured } from '../lib/supabase'
 
-const fastApiUrl = import.meta.env.VITE_API_URL
+const fastApiUrl = import.meta.env.VITE_API_URL 
 
 export interface WaitlistEntry {
   email: string
@@ -55,7 +55,7 @@ export async function joinWaitlist(
   }
 
   try {
-    const response = await fetch(`${fastApiUrl}/api/v1/waitlist`, {
+    const response = await fetch(`${fastApiUrl}/waitlist`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
