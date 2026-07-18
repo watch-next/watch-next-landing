@@ -1,7 +1,7 @@
 import { trackEvent, trackWaitlistSubscribe } from './analytics/index'
 import { supabase, isSupabaseConfigured } from '../lib/supabase'
 
-const fastApiUrl = import.meta.env.VITE_FASTAPI_URL || 'http://127.0.0.1:8000'
+const fastApiUrl = import.meta.env.VITE_API_URL
 
 export interface WaitlistEntry {
   email: string
