@@ -59,9 +59,25 @@
         </figcaption>
       </figure>
 
+      <!-- AdSense Banner após a imagem de capa -->
+      <AdSenseAd
+        format="auto"
+        layout="in-article"
+        responsive
+        class="blog-post__ad"
+      />
+
       <div class="blog-post__content">
         <MarkdownRenderer :content="post.content" />
       </div>
+
+      <!-- AdSense Banner após o conteúdo -->
+      <AdSenseAd
+        format="auto"
+        layout="in-feed"
+        responsive
+        class="blog-post__ad"
+      />
 
       <footer class="blog-post__footer">
         <div v-if="relatedPosts.length" class="blog-post__related">
@@ -101,6 +117,7 @@ import { useSeo } from '@/composables/useSeo'
 import BlogMeta from '@/components/blog/BlogMeta.vue'
 import BlogCard from '@/components/blog/BlogCard.vue'
 import MarkdownRenderer from '@/components/blog/MarkdownRenderer.vue'
+import AdSenseAd from '@/components/ads/AdSenseAd.vue'
 
 const { t } = useI18n()
 const route = useRoute()

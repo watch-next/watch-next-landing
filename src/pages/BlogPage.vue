@@ -6,6 +6,14 @@
         <p class="blog-page__subtitle">{{ t('blog.subtitle') }}</p>
       </header>
 
+      <!-- AdSense Banner -->
+      <AdSenseAd
+        format="auto"
+        layout="fixed"
+        responsive
+        class="blog-page__ad"
+      />
+
       <BlogSearch @search="handleSearch" />
 
       <div class="blog-page__filters">
@@ -37,6 +45,7 @@ import BlogSearch from '@/components/blog/BlogSearch.vue'
 import BlogList from '@/components/blog/BlogList.vue'
 import BlogCategories from '@/components/blog/BlogCategories.vue'
 import BlogTags from '@/components/blog/BlogTags.vue'
+import AdSenseAd from '@/components/ads/AdSenseAd.vue'
 
 const { t } = useI18n()
 

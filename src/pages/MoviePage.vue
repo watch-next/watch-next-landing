@@ -115,6 +115,14 @@
           <span v-else>📺 {{ t('movie.watch_now') }}</span>
         </button>
       </div>
+
+      <!-- AdSense Banner -->
+      <AdSenseAd
+        format="auto"
+        layout="in-feed"
+        responsive
+        class="movie-page__ad"
+      />
     </div>
   </article>
 
@@ -188,6 +196,7 @@ import { useSeo } from '@/composables/useSeo'
 import { useWatchProviders } from '@/composables/useWatchProviders'
 import Breadcrumbs from '@/components/Breadcrumbs.vue'
 import Chip from '@/components/Chip.vue'
+import AdSenseAd from '@/components/ads/AdSenseAd.vue'
 import { getMovieByUuid, getTmdbImageUrl, type MovieDetail } from '@/services/movie.service'
 
 const { t } = useI18n()
