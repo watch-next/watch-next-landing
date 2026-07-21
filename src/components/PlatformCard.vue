@@ -63,7 +63,7 @@ onMounted(async () => {
 
 
 const iconSrc = computed(() => {
-  return `/assets/icons/${props.id.toLowerCase()}.png`
+  return `/assets/icons/${props.id.toLowerCase()}.webp`
 })
 
 const buttonLabel = computed(() => {

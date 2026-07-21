@@ -1,5 +1,7 @@
+import { trackEvent, trackWaitlistSubscribe } from './analytics/index'
 import { supabase, isSupabaseConfigured } from '../lib/supabase'
-import { trackEvent, trackWaitlistSubscribe } from './analytics'
+
+const fastApiUrl = import.meta.env.VITE_API_URL
 
 export interface WaitlistEntry {
   email: string
@@ -15,132 +17,75 @@ export interface WaitlistResult {
   error?: string
 }
 
-/**
- * Normalizes browser locale to supported values: pt-BR, en, es
- */
-function normalizeLocale(locale: string): 'pt-BR' | 'en' | 'es' {
-  const normalized = locale.toLowerCase().trim()
+// ============================================================================
+// Locale helpers
+// ============================================================================
 
-  // Portuguese variants
-  if (normalized.startsWith('pt')) {
-    return 'pt-BR'
-  }
-
-  // Spanish variants
-  if (normalized.startsWith('es')) {
-    return 'es'
-  }
-
-  // Default to English for all other locales
+function normalizeLocale(locale: string): string {
+  const lc = locale.toLowerCase().trim()
+  if (lc.startsWith('pt')) return 'pt-BR'
+  if (lc.startsWith('es')) return 'es'
   return 'en'
 }
 
-/**
- * Adds an email to the waitlist for a specific platform.
- * Handles duplicate prevention via database constraint.
- *
- * ENV REQUIREMENTS:
- * - Production (Vercel): VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY MUST be configured
- * - Development (localhost): Can run in mock mode if not configured
- */
+function getBrowserLocale(): string {
+  if (typeof navigator === 'undefined') return 'en'
+  return normalizeLocale(navigator.language)
+}
+
+// ============================================================================
+// joinWaitlist – calls the API route instead of direct DB insert
+// ============================================================================
+
 export async function joinWaitlist(
   email: string,
   platform: 'android' | 'ios' | 'newsletter' | 'windows' | 'web',
   source: 'hero' | 'newsletter' | 'footer'
 ): Promise<WaitlistResult> {
-  // Environment and configuration check
-  const isProduction = import.meta.env.PROD
-  const hasSupabaseUrl = !!import.meta.env.VITE_SUPABASE_URL
-  const hasSupabaseAnonKey = !!import.meta.env.VITE_SUPABASE_ANON_KEY
-  const isConfigured = hasSupabaseUrl && hasSupabaseAnonKey
-
   const trimmedEmail = email.trim().toLowerCase()
 
-  // Basic validation
+  // Basic pre-validation (mirrors server-side)
   if (!trimmedEmail) {
-
     return { success: false, error: 'Email is required' }
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   if (!emailRegex.test(trimmedEmail)) {
-
-    return { success: false, error: 'Please enter a valid email address' }
+    return { success: false, error: 'Invalid email format' }
   }
-
-
-  // PRODUCTION: Supabase MUST be configured
-  if (isProduction && !isConfigured) {
-
-    return {
-      success: false,
-      error: 'Waitlist service not configured (missing environment variables)'
-    }
-  }
-
-  // DEVELOPMENT: Can simulate if not configured
-  if (!isConfigured) {
-
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 500))
-    return { success: true }
-  }
-
-
 
   try {
-    // Normalize locale to supported values
-    const browserLocale = typeof navigator !== 'undefined' ? navigator.language : 'en'
-    const locale = normalizeLocale(browserLocale)
-
-    // Single INSERT - let PostgreSQL UNIQUE constraint handle duplicates
-    const { error } = await supabase.from('waitlist_entries').insert({
-      email: trimmedEmail,
-      platform,
-      source,
-      locale,
+    const response = await fetch(`${fastApiUrl}/waitlist`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: trimmedEmail,
+        platform,
+        source,
+        locale: getBrowserLocale(),
+      }),
     })
 
+    const result = await response.json().catch(() => null);
 
-    if (error) {
-      // Check for unique constraint violation (duplicate entry)
-      if (error.code === '23505') {
 
-        const platformLabel = platform === 'ios' ? 'iOS' : platform === 'newsletter' ? 'Newsletter' : platform === 'windows' ? 'Windows' : 'Android'
-        return {
-          success: false,
-          duplicate: true,
-          error: `You're already on the ${platformLabel} waitlist`,
-        }
-      }
+    if (!response.ok) {
+      result?.detail ||
+        result?.message ||
+        `HTTP ${response.status}`
 
-      // Log unexpected errors in development
+      throw new Error(`HTTP error ${response.status}`);
 
-      throw error
     }
 
 
-    // Track successful waitlist signup (no PII - platform, source, locale only)
-    trackEvent(trackWaitlistSubscribe('success', platform, source, locale))
+
+    // Track successful subscription
+    trackEvent(trackWaitlistSubscribe('success', platform, source))
 
     return { success: true }
   } catch (err) {
-    // Log unexpected errors in development
-
-    return {
-      success: false,
-      error: err instanceof Error ? err.message : 'Failed to join waitlist. Please try again later.',
-    }
+    console.error('[waitlist] Network error:', err)
+    return { success: false, error: 'Network error. Please try again.' }
   }
-}
-
-/**
- * Legacy wrapper for backwards compatibility
- */
-export async function joinWaitlistLegacy(
-  email: string,
-  platform: 'android' | 'ios' | 'newsletter' | 'windows' | 'web',
-  source: 'hero' | 'newsletter' | 'footer'
-): Promise<WaitlistResult> {
-  return joinWaitlist(email, platform, source)
 }

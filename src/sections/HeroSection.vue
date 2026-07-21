@@ -32,8 +32,8 @@
       </div>
       <div ref="visualReveal" class="hero__visual reveal-right">
         <picture>
-          <source type="image/svg+xml" srcset="@/images/hero/hero.svg" />
-          <img class="hero__image float-animation" src="@/images/hero/hero.svg" alt="WatchNext dashboard preview"
+          <source type="image/svg+xml" srcset="@/images/hero/hero.webp" />
+          <img class="hero__image float-animation" src="@/images/hero/hero.webp" alt="WatchNext dashboard preview"
             loading="eager" decoding="async" importance="high" width="560" height="350" />
         </picture>
       </div>
@@ -170,8 +170,8 @@ onMounted(() => {
       content: '';
       position: absolute;
       inset: 0;
-      background: url('@/images/hero/hero_background.png') center center / cover no-repeat;
-      opacity: 0.18; // ajuste entre 0.1 e 0.4
+      background: url('@/images/hero/hero_background.webp') center center / cover no-repeat;
+      opacity: 0.40; // ajuste entre 0.1 e 0.4
       z-index: -1;
     }
   }
