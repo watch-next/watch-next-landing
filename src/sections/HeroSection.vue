@@ -170,8 +170,8 @@ onMounted(() => {
       content: '';
       position: absolute;
       inset: 0;
-      background: url('@/images/hero/hero_background.png') center center / cover no-repeat;
-      opacity: 0.18; // ajuste entre 0.1 e 0.4
+      background: url('@/images/hero/hero_background.webp') center center / cover no-repeat;
+      opacity: 0.40; // ajuste entre 0.1 e 0.4
       z-index: -1;
     }
   }
