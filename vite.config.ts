@@ -3,6 +3,8 @@ import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 import { VitePluginRSS } from './src/plugins/vite-plugin-rss'
 import { VitePluginBlogSitemap } from './src/plugins/vite-plugin-blog-sitemap'
+import { VitePluginSitemap } from './src/plugins/vite-plugin-sitemap'
+import { VitePluginMovieSitemap } from './src/plugins/vite-plugin-movie-sitemap'
 import * as http from 'node:http'
 import * as https from 'node:https'
 
@@ -184,6 +186,7 @@ async function proxyToTmdb(
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode || 'development', process.cwd(), '')
   const gaId = env.VITE_GOOGLE_ANALYTICS_ID
+  const adsensePublisherId = env.VITE_GOOGLE_ADSENSE_PUBLISHER_ID
   const tmdbApiKey = env.TMDB_API_KEY
   const tmdbApiBase = env.TMDB_API_BASE || 'https://api.themoviedb.org/3'
   const tmdbLanguage = env.VITE_TMDB_LANGUAGE || 'en-US'
@@ -264,8 +267,23 @@ export default defineConfig(({ mode }) => {
     }
   }
 
+  const googleAdSensePlugin = {
+    name: 'google-adsense',
+    transformIndexHtml(html: string) {
+      if (!adsensePublisherId) {
+        return html.replace('%VITE_GOOGLE_ADSENSE%', '')
+      }
+
+      const adsenseScript = `<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-${adsensePublisherId.replace('ca-pub-', '')}"
+     crossorigin="anonymous"></script>`
+
+      return html.replace('%VITE_GOOGLE_ADSENSE%', adsenseScript)
+    }
+  }
+
   return {
-    plugins: [vue(), googleAnalyticsPlugin, VitePluginRSS(), VitePluginBlogSitemap(), tmdbProxyPlugin],
+    plugins: [vue(), googleAnalyticsPlugin, VitePluginRSS(), VitePluginBlogSitemap(), VitePluginSitemap(), VitePluginMovieSitemap(), tmdbProxyPlugin],
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url))

@@ -22,6 +22,14 @@
         </p>
       </header>
 
+      <!-- AdSense Banner -->
+      <AdSenseAd
+        format="auto"
+        layout="fixed"
+        responsive
+        class="movies-page__ad"
+      />
+
       <!-- Loading State -->
       <div v-if="loading" class="movies-page__empty">
         <p>{{ t('common.loading') }}</p>
@@ -87,6 +95,7 @@ import { useI18n } from 'vue-i18n'
 import { getMovies } from '@/lib/content/MovieRepository'
 import type { Movie } from '@/lib/content/types'
 import { useSeo } from '@/composables/useSeo'
+import AdSenseAd from '@/components/ads/AdSenseAd.vue'
 
 const { t } = useI18n()
 
