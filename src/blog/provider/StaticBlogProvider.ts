@@ -44,7 +44,7 @@ export class StaticBlogProvider implements BlogProvider {
         title: frontmatter.title || 'Untitled',
         slug,
         description: frontmatter.description || '',
-        author: frontmatter.author || 'Watch Next Team',
+        author: frontmatter.author || 'SeeUs Team',
         date: frontmatter.date || new Date().toISOString().split('T')[0],
         cover: frontmatter.cover || '',
         category: frontmatter.category || 'General',

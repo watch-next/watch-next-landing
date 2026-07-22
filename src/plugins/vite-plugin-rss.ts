@@ -85,8 +85,8 @@ async function fetchBlogPosts(supabaseUrl: string, supabaseAnonKey: string): Pro
 }
 
 function generateRSS(posts: BlogPost[], baseUrl: string): string {
-  const siteTitle = 'Watch Next Blog'
-  const siteDescription = 'News, guides, and insights about streaming and Watch Next'
+  const siteTitle = 'SeeUs Blog'
+  const siteDescription = 'News, guides, and insights about streaming and SeeUs'
   const blogUrl = `${baseUrl}/blog`
 
   const items = posts.map(post => {
@@ -122,9 +122,9 @@ function generateEmptyRSS(baseUrl: string): string {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Watch Next Blog</title>
+    <title>SeeUs Blog</title>
     <link>${blogUrl}</link>
-    <description>News, guides, and insights about streaming and Watch Next</description>
+    <description>News, guides, and insights about streaming and SeeUs</description>
     <atom:link href="${blogUrl}/rss.xml" rel="self" type="application/rss+xml" />
     <language>en-us</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>

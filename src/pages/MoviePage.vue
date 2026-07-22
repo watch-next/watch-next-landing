@@ -318,7 +318,7 @@ watchEffect(() => {
 })
 
 // Setup SEO
-const seoTitle = computed(() => movie.value ? `${movie.value.title} | Watch Next` : 'Movies | Watch Next')
+const seoTitle = computed(() => movie.value ? `${movie.value.title} | SeeUs` : 'Movies | SeeUs')
 const seoDescription = computed(() => movie.value?.overview || 'Discover our curated collection of films')
 const seoImage = computed(() => getTmdbImageUrl(movie.value?.poster_path))
 const ogType = computed(() => 'video.movie')

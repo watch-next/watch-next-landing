@@ -25,7 +25,7 @@
   },
   "features": {
     "title": "Todo Lo Que Necesitas",
-    "subtitle": "Desde el descubrimiento hasta el seguimiento, WatchNext te cubre en todas tus plataformas favoritas.",
+    "subtitle": "Desde el descubrimiento hasta el seguimiento, SeeUs te cubre en todas tus plataformas favoritas.",
     "items": {
       "discovery": {
         "title": "Descubrimiento Inteligente",
@@ -55,7 +55,7 @@
   },
   "platforms": {
     "title": "Disponible en Todas Partes",
-    "subtitle": "WatchNext llega a todos tus dispositivos. Comienza en uno, continúa en otro."
+    "subtitle": "SeeUs llega a todos tus dispositivos. Comienza en uno, continúa en otro."
   },
   "premium": {
     "title": "Hazte Premium",
@@ -86,7 +86,7 @@
         "title": "Premium",
         "price": "$9.90",
         "period": "/mes",
-        "description": "Disfruta de todas las funciones de Watch Next sin limitaciones.",
+        "description": "Disfruta de todas las funciones de SeeUs sin limitaciones.",
         "features": {
           "unlimitedSync": "Sincronización ilimitada entre dispositivos",
           "personalStats": "Estadísticas personales",
@@ -117,7 +117,7 @@
   },
   "roadmap": {
     "title": "Lo Que Viene Próximamente",
-    "subtitle": "Esto es lo que estamos construyendo. Sigue el proceso mientras llevamos WatchNext a todas las plataformas.",
+    "subtitle": "Esto es lo que estamos construyendo. Sigue el proceso mientras llevamos SeeUs a todas las plataformas.",
     "quarters": {
       "q1_2026": {
         "title": "Lanzamiento de la Plataforma Principal",
@@ -153,16 +153,16 @@
   "faq": {
     "section": {
       "title": "Preguntas Frecuentes",
-      "subtitle": "Todo lo que necesitas saber sobre Watch Next."
+      "subtitle": "Todo lo que necesitas saber sobre SeeUs."
     },
     "items": [
       {
-        "question": "¿Es gratis Watch Next?",
-        "answer": "Sí. Watch Next ofrece una versión gratuita con funciones esenciales. Una versión Premium está disponible para usuarios que desean funciones adicionales."
+        "question": "¿Es gratis SeeUs?",
+        "answer": "Sí. SeeUs ofrece una versión gratuita con funciones esenciales. Una versión Premium está disponible para usuarios que desean funciones adicionales."
       },
       {
         "question": "¿Necesito crear una cuenta?",
-        "answer": "No. Puedes empezar a usar Watch Next inmediatamente. Crear una cuenta te permite sincronizar tus datos entre dispositivos."
+        "answer": "No. Puedes empezar a usar SeeUs inmediatamente. Crear una cuenta te permite sincronizar tus datos entre dispositivos."
       },
       {
         "question": "¿Cómo sincronizo mis datos?",
@@ -170,7 +170,7 @@
       },
       {
         "question": "¿Hay una aplicación para Android?",
-        "answer": "Sí. Watch Next está disponible para dispositivos Android."
+        "answer": "Sí. SeeUs está disponible para dispositivos Android."
       },
       {
         "question": "¿Hay una versión para Windows?",
@@ -178,11 +178,11 @@
       },
       {
         "question": "¿Cómo funciona Premium?",
-        "answer": "Premium desbloquea funciones adicionales y ayuda a apoyar el desarrollo continuo de Watch Next."
+        "answer": "Premium desbloquea funciones adicionales y ayuda a apoyar el desarrollo continuo de SeeUs."
       },
       {
-        "question": "¿Watch Next rastrea dónde veo mi contenido?",
-        "answer": "No. Watch Next ayuda a organizar lo que ves, pero no monitorea dónde transmites tu contenido."
+        "question": "¿SeeUs rastrea dónde veo mi contenido?",
+        "answer": "No. SeeUs ayuda a organizar lo que ves, pero no monitorea dónde transmites tu contenido."
       },
       {
         "question": "¿Puedo importar mis watchlists existentes?",
@@ -230,11 +230,11 @@
   },
   "feedback": {
     "seo": {
-      "title": "Feedback | Watch Next",
-      "description": "Envía sugerencias, reporta errores o solicita nuevas funciones para Watch Next."
+      "title": "Feedback | SeeUs",
+      "description": "Envía sugerencias, reporta errores o solicita nuevas funciones para SeeUs."
     },
     "title": "Feedback",
-    "subtitle": "Ayúdanos a mejorar Watch Next. Elige una de las opciones a continuación y envíanos tu opinión.",
+    "subtitle": "Ayúdanos a mejorar SeeUs. Elige una de las opciones a continuación y envíanos tu opinión.",
     "categories": {
       "suggestion": "Sugerencias",
       "bug": "Reportar un Error",
@@ -257,14 +257,14 @@
     },
     "success": {
       "title": "¡Gracias!",
-      "message": "Tu feedback nos ayuda a mejorar Watch Next.",
+      "message": "Tu feedback nos ayuda a mejorar SeeUs.",
       "submitAnother": "Enviar Otro Feedback"
     }
   },
   "blog": {
     "seo": {
-      "title": "Blog | Watch Next",
-      "description": "Descubre artículos sobre streaming de películas y series, guías, consejos y noticias para usuarios de Watch Next."
+      "title": "Blog | SeeUs",
+      "description": "Descubre artículos sobre streaming de películas y series, guías, consejos y noticias para usuarios de SeeUs."
     },
     "title": "Blog",
     "subtitle": "Guías, consejos y noticias sobre streaming de películas y series.",

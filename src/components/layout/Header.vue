@@ -2,8 +2,8 @@
   <header class="header" :data-scrolled="scrolled" role="banner">
     <div class="container header__inner">
       <div class="header__logo">
-        <span class="header__logo-text">Watch</span>
-        <span class="header__logo-text-sub">Next</span>
+        <span class="header__logo-text">See</span>
+        <span class="header__logo-text-sub">Us</span>
       </div>
 
       <nav class="header__nav" :class="{ 'header__nav--open': menuOpen }" role="navigation" aria-label="Main navigation" id="main-nav">
@@ -152,7 +152,6 @@ onUnmounted(() => {
   &__logo {
     display: flex;
     align-items: center;
-    gap: $space-1;
   }
 
   &__logo-text {

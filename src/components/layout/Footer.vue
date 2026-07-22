@@ -3,7 +3,7 @@
     <div class="container">
       <div class="footer__grid">
         <div class="footer__brand">
-          <span class="footer__logo">Watch<span class="footer__logo-sub">Next</span></span>
+          <span class="footer__logo">See<span class="footer__logo-sub">Us</span></span>
 
           <p class="footer__description">{{ footerSection.brandDescription }}</p>
           <ul class="footer__social">
@@ -27,7 +27,7 @@
 
       <div class="footer__bottom">
         <p class="footer__copyright">
-          &copy; {{ year }} WatchNext. All rights reserved.
+          &copy; {{ year }} SeeUs. All rights reserved.
         </p>
       </div>
     </div>

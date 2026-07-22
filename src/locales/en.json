@@ -27,7 +27,7 @@
   },
   "features": {
     "title": "Everything You Need in a Movie Tracker",
-    "subtitle": "From streaming discovery to series tracking, WatchNext is your complete guide across all platforms.",
+    "subtitle": "From streaming discovery to series tracking, SeeUs is your complete guide across all platforms.",
     "items": {
       "discovery": {
         "title": "Smart Discovery",
@@ -57,11 +57,11 @@
   },
   "platforms": {
     "title": "Available Everywhere",
-    "subtitle": "WatchNext comes to all your devices. Start on one, continue on another.",
+    "subtitle": "SeeUs comes to all your devices. Start on one, continue on another.",
     "cards": {
       "web": {
         "name": "Web",
-        "description": "Access WatchNext from any browser. No download required."
+        "description": "Access SeeUs from any browser. No download required."
       },
       "windows": {
         "name": "Windows",
@@ -108,7 +108,7 @@
         "title": "Premium",
         "price": "$9.90",
         "period": "/month",
-        "description": "Enjoy all Watch Next features without limitations.",
+        "description": "Enjoy all SeeUs features without limitations.",
         "features": {
           "unlimitedSync": "Unlimited sync across devices",
           "personalStats": "Personal statistics",
@@ -139,29 +139,35 @@
   },
   "roadmap": {
     "title": "What's Coming Next",
-    "subtitle": "Here's what we're building. Follow along as we bring WatchNext to every platform.",
+    "subtitle": "Here's what we're building. Follow along as we bring SeeUs to every platform.",
     "quarters": {
       "q1_2026": {
+        "quarter": "Q1 2026",
         "title": "Core Platform Launch",
         "description": "Initial release with web app, basic tracking, and cross-platform watchlist sync."
       },
       "q2_2026": {
+        "quarter": "Q2 2026",
         "title": "Social Features",
         "description": "Friend lists, shared watchlists, activity feeds, and comment threads."
       },
       "q3_2026": {
+        "quarter": "Q3 2026",
         "title": "Mobile Apps",
         "description": "Native Android app with offline mode, widgets, and push notifications."
       },
       "q4_2026": {
+        "quarter": "Q4 2026",
         "title": "Recommendation Engine",
         "description": "AI-powered suggestions based on watch history, genre preferences, and social trends."
       },
       "q1_2027": {
+        "quarter": "Q1 2027",
         "title": "Windows Desktop App",
         "description": "Native Windows client with system tray, PIP mode, and keyboard shortcuts."
       },
       "q2_2027": {
+        "quarter": "Q2 2027",
         "title": "API & Integrations",
         "description": "Public API for third-party developers and integrations with Plex, Jellyfin, and Kodi."
       }
@@ -175,16 +181,16 @@
   "faq": {
     "section": {
       "title": "Frequently Asked Questions",
-      "subtitle": "Everything you need to know about Watch Next."
+      "subtitle": "Everything you need to know about SeeUs."
     },
     "items": [
       {
-        "question": "Is Watch Next free?",
-        "answer": "Yes. Watch Next offers a free version with essential features. A Premium version is available for users who want additional capabilities."
+        "question": "Is SeeUs free?",
+        "answer": "Yes. SeeUs offers a free version with essential features. A Premium version is available for users who want additional capabilities."
       },
       {
         "question": "Do I need to create an account?",
-        "answer": "No. You can start using Watch Next immediately. Creating an account allows you to synchronize your data across devices."
+        "answer": "No. You can start using SeeUs immediately. Creating an account allows you to synchronize your data across devices."
       },
       {
         "question": "How do I sync my data?",
@@ -192,7 +198,7 @@
       },
       {
         "question": "Is there an Android app?",
-        "answer": "Yes. Watch Next is available for Android devices."
+        "answer": "Yes. SeeUs is available for Android devices."
       },
       {
         "question": "Is there a Windows version?",
@@ -200,11 +206,11 @@
       },
       {
         "question": "How does Premium work?",
-        "answer": "Premium unlocks additional features and helps support the continued development of Watch Next."
+        "answer": "Premium unlocks additional features and helps support the continued development of SeeUs."
       },
       {
-        "question": "Does Watch Next track where I watch my content?",
-        "answer": "No. Watch Next helps organize what you watch but does not monitor where you stream your content."
+        "question": "Does SeeUs track where I watch my content?",
+        "answer": "No. SeeUs helps organize what you watch but does not monitor where you stream your content."
       },
       {
         "question": "Can I import my existing watchlists?",
@@ -252,11 +258,11 @@
   },
   "feedback": {
     "seo": {
-      "title": "Feedback | Watch Next",
-      "description": "Send suggestions, report bugs, or request new features for Watch Next."
+      "title": "Feedback | SeeUs",
+      "description": "Send suggestions, report bugs, or request new features for SeeUs."
     },
     "title": "Feedback",
-    "subtitle": "Help us improve Watch Next. Choose one of the options below and send us your feedback.",
+    "subtitle": "Help us improve SeeUs. Choose one of the options below and send us your feedback.",
     "categories": {
       "suggestion": "Suggestions",
       "bug": "Report a Bug",
@@ -279,14 +285,14 @@
     },
     "success": {
       "title": "Thank you!",
-      "message": "Your feedback helps us improve Watch Next.",
+      "message": "Your feedback helps us improve SeeUs.",
       "submitAnother": "Submit Another Feedback"
     }
   },
   "blog": {
     "seo": {
-      "title": "Blog | Watch Next",
-      "description": "Discover articles about streaming movies and series, guides, tips, and news for Watch Next users."
+      "title": "Blog | SeeUs",
+      "description": "Discover articles about streaming movies and series, guides, tips, and news for SeeUs users."
     },
     "title": "Blog",
     "subtitle": "Guides, tips, and news about streaming movies and series.",

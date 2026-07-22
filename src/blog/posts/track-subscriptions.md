@@ -2,7 +2,7 @@
 title: "How to Track Your Streaming Subscriptions"
 slug: "track-streaming-subscriptions"
 description: "Learn practical strategies to keep track of your streaming subscriptions, avoid unwanted charges, and get better value from your entertainment budget."
-author: "Watch Next Team"
+author: "SeeUs Team"
 date: "2026-07-03"
 category: "Guides"
 tags:
@@ -45,7 +45,7 @@ For each subscription, ask yourself:
 
 ## Step 3: Use a Tracking Tool
 
-Consider using Watch Next to centralize your subscription management. Benefits include:
+Consider using SeeUs to centralize your subscription management. Benefits include:
 
 - **Single dashboard** - See all your subscriptions in one place
 - **Usage insights** - Understand which services you actually use

@@ -33,7 +33,7 @@
       <div ref="visualReveal" class="hero__visual reveal-right">
         <picture>
           <source type="image/svg+xml" srcset="@/images/hero/hero.webp" />
-          <img class="hero__image float-animation" src="@/images/hero/hero.webp" alt="WatchNext dashboard preview"
+          <img class="hero__image float-animation" src="@/images/hero/hero.webp" alt="SeeUs dashboard preview"
             loading="eager" decoding="async" importance="high" width="560" height="350" />
         </picture>
       </div>

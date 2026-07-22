@@ -124,7 +124,7 @@
                   id="author"
                   v-model="form.author"
                   type="text"
-                  placeholder="Watch Next Team"
+                  placeholder="SeeUs Team"
                   @input="markAsChanged"
                 />
               </div>
@@ -441,7 +441,7 @@ const form = ref<BlogPostInput>({
   description: '',
   content: '',
   cover: '',
-  author: 'Watch Next Team',
+  author: 'SeeUs Team',
   category: 'Announcements',
   tags: [],
   featured: false,
