@@ -7,6 +7,6 @@
   </defs>
   <rect width="1200" height="675" fill="url(#welcomeGrad)"/>
   <text x="600" y="300" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="white" text-anchor="middle">Welcome</text>
-  <text x="600" y="380" font-family="Arial, sans-serif" font-size="48" fill="white" text-anchor="middle">Watch Next Blog</text>
+  <text x="600" y="380" font-family="Arial, sans-serif" font-size="48" fill="white" text-anchor="middle">SeeUs Blog</text>
   <text x="600" y="450" font-family="Arial, sans-serif" font-size="32" fill="rgba(255,255,255,0.8)" text-anchor="middle">Your guide to streaming</text>
 </svg>

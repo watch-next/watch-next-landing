@@ -117,7 +117,7 @@ onMounted(async () => {
 // SEO
 // SEO setup (run during component setup, before async operations)
 useSeo({
-  title: 'Movies | Watch Next',
+  title: 'Movies | SeeUs',
   description: 'Discover our curated collection of films',
   type: 'website',
 })
