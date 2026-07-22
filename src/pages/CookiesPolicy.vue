@@ -23,7 +23,7 @@
 
         <section class="legal-section">
           <h2>2. Como Utilizamos Cookies</h2>
-          <p>O WatchNext utiliza cookies para as seguintes finalidades:</p>
+          <p>O SeeUs utiliza cookies para as seguintes finalidades:</p>
 
           <h3>2.1 Cookies Estritamente Necessários</h3>
           <p>Esses cookies são essenciais para o funcionamento básico da plataforma e não podem ser desativados. Eles são normalmente definidos apenas em resposta a ações feitas por você, como definir preferências de privacidade, fazer login ou preencher formulários.</p>
@@ -69,7 +69,7 @@
 
           <h3>3.2 Quanto à Origem</h3>
           <ul>
-            <li><strong>Cookies próprios:</strong> definidos diretamente pelo WatchNext.</li>
+            <li><strong>Cookies próprios:</strong> definidos diretamente pelo SeeUs.</li>
             <li><strong>Cookies de terceiros:</strong> definidos por serviços externos que utilizamos (analytics, widgets de redes sociais).</li>
           </ul>
 
@@ -190,7 +190,7 @@
 
         <section class="legal-section">
           <h2>7. Base Legal para Processamento</h2>
-          <p>O uso de cookies no WatchNext é baseado nas seguintes bases legais:</p>
+          <p>O uso de cookies no SeeUs é baseado nas seguintes bases legais:</p>
           <ul>
             <li><strong>Legítimo interesse:</strong> para cookies estritamente necessários e de analytics.</li>
             <li><strong>Consentimento:</strong> para cookies de marketing e publicidade (quando aplicável).</li>
@@ -203,7 +203,7 @@
           <p>Se tiver dúvidas sobre nosso uso de cookies ou quiser exercer seus direitos relacionados a cookies, entre em contato conosco:</p>
           <ul>
             <li><strong>E-mail:</strong> <a href="mailto:privacy@watchnext.app">privacy@watchnext.app</a></li>
-            <li><strong>Endereço:</strong> WatchNext Privacy Team</li>
+            <li><strong>Endereço:</strong> SeeUs Privacy Team</li>
           </ul>
         </section>
 
@@ -235,7 +235,7 @@ const { t } = useI18n()
 // SEO
 useSeo({
   title: t('footer.legal.cookies'),
-  description: 'Política de Cookies do WatchNext. Saiba como utilizamos cookies e tecnologias similares para melhorar sua experiência.',
+  description: 'Política de Cookies do SeeUs. Saiba como utilizamos cookies e tecnologias similares para melhorar sua experiência.',
   canonical: 'https://watchnext.app/cookies-policy',
   ogImage: 'https://watchnext.app/assets/images/hero.svg',
   twitterCard: 'summary_large_image',

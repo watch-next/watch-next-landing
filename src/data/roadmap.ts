@@ -7,7 +7,7 @@ export interface RoadmapItem {
 
 export const roadmapSection = {
   title: 'What\'s Coming Next',
-  subtitle: 'Here\'s what we\'re building. Follow along as we bring WatchNext to every platform.',
+  subtitle: 'Here\'s what we\'re building. Follow along as we bring SeeUs to every platform.',
 }
 
 export const roadmap: RoadmapItem[] = [

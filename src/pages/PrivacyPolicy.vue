@@ -17,8 +17,8 @@
 
         <section class="legal-section">
           <h2>1. Introdução</h2>
-          <p>O WatchNext ("nós", "nosso" ou "plataforma") respeita sua privacidade e está comprometido em proteger seus dados pessoais. Esta Política de Privacidade descreve como coletamos, usamos, armazenamos e protegemos suas informações quando você utiliza nossos serviços.</p>
-          <p>Ao acessar ou usar o WatchNext, você concorda com as práticas descritas nesta política. Se não concordar com algum termo, por favor, não utilize nossos serviços.</p>
+          <p>O SeeUs ("nós", "nosso" ou "plataforma") respeita sua privacidade e está comprometido em proteger seus dados pessoais. Esta Política de Privacidade descreve como coletamos, usamos, armazenamos e protegemos suas informações quando você utiliza nossos serviços.</p>
+          <p>Ao acessar ou usar o SeeUs, você concorda com as práticas descritas nesta política. Se não concordar com algum termo, por favor, não utilize nossos serviços.</p>
         </section>
 
         <section class="legal-section">
@@ -121,7 +121,7 @@
 
         <section class="legal-section">
           <h2>9. Transferências Internacionais</h2>
-          <p>O WatchNext opera globalmente e seus dados podem ser transferidos para países fora do seu país de residência. Garantimos que tais transferências observem padrões adequados de proteção de dados e cumpram a legislação aplicável.</p>
+          <p>O SeeUs opera globalmente e seus dados podem ser transferidos para países fora do seu país de residência. Garantimos que tais transferências observem padrões adequados de proteção de dados e cumpram a legislação aplicável.</p>
         </section>
 
         <section class="legal-section">
@@ -140,7 +140,7 @@
           <p>Se tiver dúvidas, preocupações ou solicitações relacionadas a esta Política de Privacidade, entre em contato conosco:</p>
           <ul>
             <li><strong>E-mail:</strong> <a href="mailto:privacy@watchnext.app">privacy@watchnext.app</a></li>
-            <li><strong>Endereço:</strong> WatchNext Privacy Team</li>
+            <li><strong>Endereço:</strong> SeeUs Privacy Team</li>
           </ul>
         </section>
 
@@ -165,7 +165,7 @@ const { t } = useI18n()
 // SEO
 useSeo({
   title: t('footer.legal.privacy'),
-  description: 'Política de Privacidade do WatchNext. Saiba como coletamos, usamos e protegemos seus dados pessoais.',
+  description: 'Política de Privacidade do SeeUs. Saiba como coletamos, usamos e protegemos seus dados pessoais.',
   canonical: 'https://watchnext.app/privacy-policy',
   ogImage: 'https://watchnext.app/assets/images/hero.svg',
   twitterCard: 'summary_large_image',

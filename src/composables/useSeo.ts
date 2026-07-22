@@ -32,7 +32,7 @@ export function useSeo(options: {
     head.meta!.push(
       { name: 'twitter:image', content: options.image },
       { name: 'og:image', content: options.image },
-      { name: 'og:image:alt', content: 'Watch Next' },
+      { name: 'og:image:alt', content: 'SeeUs' },
     )
   }
 

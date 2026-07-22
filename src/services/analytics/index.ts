@@ -1,5 +1,5 @@
 /**
- * Analytics Service for Watch Next
+ * Analytics Service for SeeUs
  *
  * Centralized event tracking supporting multiple providers:
  * - Google Analytics

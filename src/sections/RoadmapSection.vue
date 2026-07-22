@@ -35,25 +35,25 @@ const roadmapSection = {
 
 const roadmap = [
   {
-    quarter: t('roadmap.quarters.q1_2026.title'),
+    quarter: t('roadmap.quarters.q1_2026.quarter'),
     title: t('roadmap.quarters.q1_2026.title'),
     description: t('roadmap.quarters.q1_2026.description'),
     status: 'in-progress' as const,
   },
   {
-    quarter: t('roadmap.quarters.q2_2026.title'),
+    quarter: t('roadmap.quarters.q2_2026.quarter'),
     title: t('roadmap.quarters.q2_2026.title'),
     description: t('roadmap.quarters.q2_2026.description'),
     status: 'planned' as const,
   },
   {
-    quarter: t('roadmap.quarters.q3_2026.title'),
+    quarter: t('roadmap.quarters.q3_2026.quarter'),
     title: t('roadmap.quarters.q3_2026.title'),
     description: t('roadmap.quarters.q3_2026.description'),
     status: 'planned' as const,
   },
   {
-    quarter: t('roadmap.quarters.q4_2026.title'),
+    quarter: t('roadmap.quarters.q4_2026.quarter'),
     title: t('roadmap.quarters.q4_2026.title'),
     description: t('roadmap.quarters.q4_2026.description'),
     status: 'planned' as const,

@@ -3,7 +3,7 @@
     <div class="admin-login-page__container">
       <div class="admin-login-page__card">
         <header class="admin-login-page__header">
-          <h1>Watch Next CMS</h1>
+          <h1>SeeUs CMS</h1>
           <p>Sign in to manage your blog</p>
         </header>
 

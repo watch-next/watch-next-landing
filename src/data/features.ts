@@ -6,7 +6,7 @@ export interface Feature {
 
 export const featuresSection = {
   title: 'Everything You Need',
-  subtitle: 'From discovery to tracking, WatchNext has you covered across all your favorite platforms.',
+  subtitle: 'From discovery to tracking, SeeUs has you covered across all your favorite platforms.',
 }
 
 export const features: Feature[] = [

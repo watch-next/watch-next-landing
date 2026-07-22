@@ -1,5 +1,5 @@
 /**
- * Analytics event types for Watch Next
+ * Analytics event types for SeeUs
  */
 
 export const AnalyticsEvents = {

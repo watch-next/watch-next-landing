@@ -17,20 +17,20 @@
 
         <section class="legal-section">
           <h2>1. Aceitação dos Termos</h2>
-          <p>Bem-vindo ao WatchNext. Ao acessar ou utilizar nossa plataforma, você concorda em ficar vinculado a estes Termos de Serviço ("Termos") e a todas as leis e regulamentos aplicáveis. Se você não concordar com algum destes termos, não utilize nossos serviços.</p>
-          <p>Reservamo-nos o direito de modificar estes Termos a qualquer momento. As alterações entrarão em vigor imediatamente após sua publicação na plataforma. O uso continuado do WatchNext após alterações constitui aceitação dos novos termos.</p>
+          <p>Bem-vindo ao SeeUs. Ao acessar ou utilizar nossa plataforma, você concorda em ficar vinculado a estes Termos de Serviço ("Termos") e a todas as leis e regulamentos aplicáveis. Se você não concordar com algum destes termos, não utilize nossos serviços.</p>
+          <p>Reservamo-nos o direito de modificar estes Termos a qualquer momento. As alterações entrarão em vigor imediatamente após sua publicação na plataforma. O uso continuado do SeeUs após alterações constitui aceitação dos novos termos.</p>
         </section>
 
         <section class="legal-section">
           <h2>2. Descrição do Serviço</h2>
-          <p>O WatchNext é uma plataforma de acompanhamento e descoberta de conteúdo de streaming que permite aos usuários:</p>
+          <p>O SeeUs é uma plataforma de acompanhamento e descoberta de conteúdo de streaming que permite aos usuários:</p>
           <ul>
             <li><strong>Descobrir:</strong> encontrar filmes e séries através de recomendações personalizadas.</li>
             <li><strong>Acompanhar:</strong> manter listas de conteúdo assistido e a assistir em múltiplos serviços de streaming.</li>
             <li><strong>Compartilhar:</strong> criar e compartilhar listas com outros usuários.</li>
             <li><strong>Organizar:</strong> utilizar calendário de lançamentos e alertas para novas temporadas.</li>
           </ul>
-          <p>O WatchNext não hospeda, transmite ou distribui conteúdo de vídeo. Somos um serviço complementar que ajuda usuários a organizar e descobrir conteúdo disponível em plataformas de streaming de terceiros.</p>
+          <p>O SeeUs não hospeda, transmite ou distribui conteúdo de vídeo. Somos um serviço complementar que ajuda usuários a organizar e descobrir conteúdo disponível em plataformas de streaming de terceiros.</p>
         </section>
 
         <section class="legal-section">
@@ -56,7 +56,7 @@
 
         <section class="legal-section">
           <h2>4. Conduta do Usuário</h2>
-          <p>Ao utilizar o WatchNext, você concorda em NÃO:</p>
+          <p>Ao utilizar o SeeUs, você concorda em NÃO:</p>
           <ul>
             <li>Utilizar a plataforma para atividades ilegais ou não autorizadas.</li>
             <li>Violar direitos de propriedade intelectual de terceiros.</li>
@@ -75,7 +75,7 @@
           <h2>5. Propriedade Intelectual</h2>
 
           <h3>5.1 Nossa Propriedade</h3>
-          <p>O WatchNext e seus originais, incluindo código, design, logotipos, marcas registradas e conteúdo, são de nossa propriedade ou de nossos licenciadores e estão protegidos por leis de propriedade intelectual aplicáveis.</p>
+          <p>O SeeUs e seus originais, incluindo código, design, logotipos, marcas registradas e conteúdo, são de nossa propriedade ou de nossos licenciadores e estão protegidos por leis de propriedade intelectual aplicáveis.</p>
 
           <h3>5.2 Conteúdo de Terceiros</h3>
           <p>Informações sobre filmes e séries são obtidas de fontes de terceiros (como TMDb, IMDb). Essas informações são utilizadas sob licenças apropriadas e permanecem propriedade de seus respectivos detentores.</p>
@@ -88,7 +88,7 @@
           <h2>6. Assinaturas e Pagamentos</h2>
 
           <h3>6.1 Planos Disponíveis</h3>
-          <p>O WatchNext oferece planos gratuitos e premium. Recursos premium incluem experiência sem anúncios, análises avançadas, suporte prioritário e acesso antecipado a novos recursos.</p>
+          <p>O SeeUs oferece planos gratuitos e premium. Recursos premium incluem experiência sem anúncios, análises avançadas, suporte prioritário e acesso antecipado a novos recursos.</p>
 
           <h3>6.2 Faturamento</h3>
           <ul>
@@ -109,7 +109,7 @@
 
         <section class="legal-section">
           <h2>7. Privacidade</h2>
-          <p>Sua privacidade é importante para nós. O tratamento de dados pessoais é regido por nossa Política de Privacidade, que pode ser acessada separadamente. Ao usar o WatchNext, você concorda com a coleta e uso de informações conforme descrito na Política de Privacidade.</p>
+          <p>Sua privacidade é importante para nós. O tratamento de dados pessoais é regido por nossa Política de Privacidade, que pode ser acessada separadamente. Ao usar o SeeUs, você concorda com a coleta e uso de informações conforme descrito na Política de Privacidade.</p>
         </section>
 
         <section class="legal-section">
@@ -121,7 +121,7 @@
           <h2>9. Isenções e Limitações de Responsabilidade</h2>
 
           <h3>9.1 Serviços "Como Estão"</h3>
-          <p>O WatchNext é fornecido "como está" e "conforme disponível", sem garantias de qualquer tipo, expressas ou implícitas, incluindo garantias de comercialização, adequação a um propósito específico e não violação.</p>
+          <p>O SeeUs é fornecido "como está" e "conforme disponível", sem garantias de qualquer tipo, expressas ou implícitas, incluindo garantias de comercialização, adequação a um propósito específico e não violação.</p>
 
           <h3>9.2 Limitação de Responsabilidade</h3>
           <p>Em nenhuma circunstância seremos responsáveis por danos indiretos, incidentais, especiais ou consequenciais, incluindo perda de lucros, dados ou uso, mesmo que tenhamos sido avisados da possibilidade de tais danos.</p>
@@ -132,12 +132,12 @@
 
         <section class="legal-section">
           <h2>10. Indenização</h2>
-          <p>Você concorda em indenizar, defender e isentar o WatchNext e seus diretores, funcionários e parceiros de quaisquer reclamações, perdas, responsabilidades, despesas ou custos (incluindo honorários advocatícios) decorrentes de seu uso da plataforma, violação destes Termos ou violação de direitos de terceiros.</p>
+          <p>Você concorda em indenizar, defender e isentar o SeeUs e seus diretores, funcionários e parceiros de quaisquer reclamações, perdas, responsabilidades, despesas ou custos (incluindo honorários advocatícios) decorrentes de seu uso da plataforma, violação destes Termos ou violação de direitos de terceiros.</p>
         </section>
 
         <section class="legal-section">
           <h2>11. Rescisão</h2>
-          <p>Podemos suspender ou encerrar seu acesso ao WatchNext imediatamente, sem aviso prévio, por conduta que acreditamos violar estes Termos, ser prejudicial a outros usuários ou terceiros, ou seja ilegal. Após a rescisão, seu direito de usar a plataforma cessará imediatamente.</p>
+          <p>Podemos suspender ou encerrar seu acesso ao SeeUs imediatamente, sem aviso prévio, por conduta que acreditamos violar estes Termos, ser prejudicial a outros usuários ou terceiros, ou seja ilegal. Após a rescisão, seu direito de usar a plataforma cessará imediatamente.</p>
         </section>
 
         <section class="legal-section">
@@ -148,7 +148,7 @@
         <section class="legal-section">
           <h2>13. Disposições Diversas</h2>
           <ul>
-            <li><strong>Integralidade:</strong> Estes Termos constituem o acordo completo entre você e o WatchNext.</li>
+            <li><strong>Integralidade:</strong> Estes Termos constituem o acordo completo entre você e o SeeUs.</li>
             <li><strong>Renúncia:</strong> A falha em aplicar qualquer direito ou disposição destes Termos não constitui renúncia.</li>
             <li><strong>Divisibilidade:</strong> Se alguma disposição for considerada inválida, as demais permanecem em pleno vigor.</li>
             <li><strong>Cessão:</strong> Você não pode ceder seus direitos sob estes Termos sem nosso consentimento prévio.</li>
@@ -161,7 +161,7 @@
           <p>Para perguntas sobre estes Termos de Serviço, entre em contato conosco:</p>
           <ul>
             <li><strong>E-mail:</strong> <a href="mailto:legal@watchnext.app">legal@watchnext.app</a></li>
-            <li><strong>Endereço:</strong> WatchNext Legal Team</li>
+            <li><strong>Endereço:</strong> SeeUs Legal Team</li>
           </ul>
         </section>
       </article>
@@ -181,7 +181,7 @@ const { t } = useI18n()
 // SEO
 useSeo({
   title: t('footer.legal.terms'),
-  description: 'Termos de Serviço do WatchNext. Regras e condições para uso da plataforma de descoberta e acompanhamento de conteúdo.',
+  description: 'Termos de Serviço do SeeUs. Regras e condições para uso da plataforma de descoberta e acompanhamento de conteúdo.',
   canonical: 'https://watchnext.app/terms-of-service',
   ogImage: 'https://watchnext.app/assets/images/hero.svg',
   twitterCard: 'summary_large_image',

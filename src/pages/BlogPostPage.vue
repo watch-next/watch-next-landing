@@ -140,7 +140,7 @@ const canonicalUrl = computed(() => {
 
 // Setup SEO
 useSeo({
-  title: computed(() => post.value ? `${post.value.title} | Watch Next Blog` : ''),
+  title: computed(() => post.value ? `${post.value.title} | SeeUs Blog` : ''),
   description: computed(() => post.value?.description || ''),
   url: computed(() => canonicalUrl.value),
   openGraph: computed(() => post.value ? {
@@ -177,7 +177,7 @@ const structuredData = computed(() => {
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Watch Next',
+      name: 'SeeUs',
       logo: {
         '@type': 'ImageObject',
         url: `${baseUrl}/logo.png`,

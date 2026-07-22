@@ -16,7 +16,7 @@
     <aside class="admin-layout__sidebar">
       <div class="admin-layout__logo">
         <router-link to="/admin/blog">
-          <h2>Watch Next CMS</h2>
+          <h2>SeeUs CMS</h2>
         </router-link>
       </div>
 
