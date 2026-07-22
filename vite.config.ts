@@ -3,6 +3,8 @@ import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 import { VitePluginRSS } from './src/plugins/vite-plugin-rss'
 import { VitePluginBlogSitemap } from './src/plugins/vite-plugin-blog-sitemap'
+import { VitePluginSitemap } from './src/plugins/vite-plugin-sitemap'
+import { VitePluginMovieSitemap } from './src/plugins/vite-plugin-movie-sitemap'
 import * as http from 'node:http'
 import * as https from 'node:https'
 
@@ -281,7 +283,7 @@ export default defineConfig(({ mode }) => {
   }
 
   return {
-    plugins: [vue(), googleAnalyticsPlugin, googleAdSensePlugin, VitePluginRSS(), VitePluginBlogSitemap(), tmdbProxyPlugin],
+    plugins: [vue(), googleAnalyticsPlugin, VitePluginRSS(), VitePluginBlogSitemap(), VitePluginSitemap(), VitePluginMovieSitemap(), tmdbProxyPlugin],
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url))
